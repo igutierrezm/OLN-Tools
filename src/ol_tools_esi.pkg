@@ -1,0 +1,35 @@
+v 3
+d esi. Herramientas específicmente diseñadas para ESI
+d {bf: Iván Gutiérrez M, Observatorio Laboral Nacional.}
+d
+d Distribution-Date: 20160105
+d
+d Support: email ivangutierrez@observatorionacional.cl
+
+* esi/
+f esi/gen_esi_asalariado.ado
+f esi/gen_esi_cise_v1.ado
+f esi/gen_esi_cise_v3.ado
+f esi/gen_esi_counter.ado
+f esi/gen_esi_educ.ado
+f esi/gen_esi_estrato.ado
+f esi/gen_esi_hr_hab.ado
+f esi/gen_esi_joven.ado
+f esi/gen_esi_jparcial_inv.ado
+f esi/gen_esi_jparcial.ado
+f esi/gen_esi_mantuvo_empleo.ado
+f esi/gen_esi_mujer.ado
+f esi/gen_esi_ocupado.ado
+f esi/gen_esi_oficio1.ado
+f esi/gen_esi_psu.ado
+f esi/gen_esi_pweight.ado
+f esi/gen_esi_rama1_v1.ado
+f esi/gen_esi_region_re_v1.ado
+f esi/gen_esi_region_re_v2.ado
+f esi/gen_esi_tamaño_empresa.ado
+f esi/gen_esi_tipo_contrato.ado
+f esi/gen_esi_tramo_edad_v1.ado
+f esi/gen_esi_tramo_edad_v2.ado
+f esi/gen_esi_yprincipal.ado
+f esi/gen_esi_ytrabajo.ado
+f esi/select_esi.ado

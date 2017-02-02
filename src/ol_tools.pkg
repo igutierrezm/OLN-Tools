@@ -1,0 +1,15 @@
+v 3
+d _general. Herramientas para la confección de tablas de los OO.LL.
+d {bf: Iván Gutiérrez M, Observatorio Laboral Nacional.}
+d
+d Distribution-Date: 20160105
+d
+d Support: email ivangutierrez@observatorionacional.cl
+
+* _general/
+f _general/decode2.ado
+f _general/encode2.ado
+f _general/expect_equal.ado
+f _general/ol_table.class
+f _general/bsrweights.ado
+f _general/reshape2.ado

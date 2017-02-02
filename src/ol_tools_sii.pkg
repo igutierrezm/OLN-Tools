@@ -1,0 +1,16 @@
+v 3
+d sii. Herramientas específicmente diseñadas para datos del SII.
+d {bf: Iván Gutiérrez M, Observatorio Laboral Nacional.}
+d
+d Distribution-Date: 20160105
+d
+d Support: email ivangutierrez@observatorionacional.cl
+
+* sii/
+f sii/gen_sii_counter.ado
+f sii/gen_sii_estrato.ado
+f sii/gen_sii_psu.ado
+f sii/gen_sii_pweight.ado
+f sii/gen_sii_rama1_v1.ado
+f sii/gen_sii_tamaño_empresa.ado
+f sii/select_sii.ado

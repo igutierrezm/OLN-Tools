@@ -1,0 +1,43 @@
+v 3
+d casen. Herramientas específicamente diseñada para CASEN
+d {bf: Iván Gutiérrez M, Observatorio Laboral Nacional.}
+d
+d Distribution-Date: 20160105
+d
+d Support: email ivangutierrez@observatorionacional.cl
+
+
+* casen/
+f casen/gen_casen_alfabetizado.ado
+f casen/gen_casen_asalariado.ado
+f casen/gen_casen_asiste_escuela.ado
+f casen/gen_casen_boleta.ado
+f casen/gen_casen_capacitado.ado
+f casen/gen_casen_cise_v1.ado
+f casen/gen_casen_cotiza_pension.ado
+f casen/gen_casen_cotiza_salud.ado
+f casen/gen_casen_counter.ado
+f casen/gen_casen_edad.ado
+f casen/gen_casen_educ.ado
+f casen/gen_casen_esc.ado
+f casen/gen_casen_estrato.ado
+f casen/gen_casen_hr_hab.ado
+f casen/gen_casen_indigena.ado
+f casen/gen_casen_inmigrante.ado
+f casen/gen_casen_joven.ado
+f casen/gen_casen_media_completa.ado
+f casen/gen_casen_mujer.ado
+f casen/gen_casen_ocupado.ado
+f casen/gen_casen_oficio1.ado
+f casen/gen_casen_oficio4.ado
+f casen/gen_casen_psu.ado
+f casen/gen_casen_pweight.ado
+f casen/gen_casen_rama1_v1.ado
+f casen/gen_casen_region_re_v1.ado
+f casen/gen_casen_tramo_edad_v1.ado
+f casen/gen_casen_tramo_edad_v2.ado
+f casen/gen_casen_yprincipal_hr.ado
+f casen/gen_casen_yprincipal.ado
+f casen/gen_casen_ytrabajo.ado
+f casen/lval_casen_oficio4.ado
+f casen/select_casen.ado

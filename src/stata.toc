@@ -1,0 +1,9 @@
+v 3
+d Herramientas para la elaboración de las tablas de los OO.LL.
+d Iván Gutiérrez, Observatorio Laboral Nacional (OLN)
+
+p ol_tools       Herramientas generales.
+p ol_tools_casen Herramientas específicas para CASEN.
+p ol_tools_ene   Herramientas específicas para ENE.
+p ol_tools_esi   Herramientas específicas para ESI.
+p ol_tools_pib   Herramientas específicas para las series del PIB.

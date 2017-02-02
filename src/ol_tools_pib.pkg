@@ -1,0 +1,14 @@
+v 3
+d pib. Herramientas específicmente diseñadas para series del PIB.
+d {bf: Iván Gutiérrez M, Observatorio Laboral Nacional.}
+d
+d Distribution-Date: 20160105
+d
+d Support: email ivangutierrez@observatorionacional.cl
+
+* pib/
+f pib/gen_pib_año.ado
+f pib/gen_pib_mes.ado
+f pib/gen_pib_rama1_v1.ado
+f pib/gen_pib_rama1_v2.ado
+f pib/gen_pib_region_re_v1.ado

@@ -1,0 +1,48 @@
+v 3
+d ene. Herramientas específicamente diseñadas para ENE
+d {bf: Iván Gutiérrez M, Observatorio Laboral Nacional.}
+d
+d Distribution-Date: 20160105
+d
+d Support: email ivangutierrez@observatorionacional.cl
+
+* ene/
+f ene/gen_ene_activ.ado
+f ene/gen_ene_asalariado.ado
+f ene/gen_ene_b7.ado
+f ene/gen_ene_cesante.ado
+f ene/gen_ene_cise_v1.ado
+f ene/gen_ene_cise_v2.ado
+f ene/gen_ene_cise_v3.ado
+f ene/gen_ene_conmutante_v1.ado
+f ene/gen_ene_conmutante_v2.ado
+f ene/gen_ene_counter.ado
+f ene/gen_ene_desocupado.ado
+f ene/gen_ene_edad.ado
+f ene/gen_ene_educ.ado
+f ene/gen_ene_esc.ado
+f ene/gen_ene_estrato.ado
+f ene/gen_ene_exceso_hr_chl.ado
+f ene/gen_ene_exceso_hr_int.ado
+f ene/gen_ene_hr_hab.ado
+f ene/gen_ene_jparcial_inv.ado
+f ene/gen_ene_jparcial.ado
+f ene/gen_ene_mujer.ado
+f ene/gen_ene_ocupado.ado
+f ene/gen_ene_oficio1.ado
+f ene/gen_ene_pea.ado
+f ene/gen_ene_pet.ado
+f ene/gen_ene_psu.ado
+f ene/gen_ene_pweight.ado
+f ene/gen_ene_rama1_v1.ado
+f ene/gen_ene_rama1_v2.ado
+f ene/gen_ene_region_re_v1.ado
+f ene/gen_ene_region_re_v2.ado
+f ene/gen_ene_region_tr_v1.ado
+f ene/gen_ene_region_tr_v2.ado
+f ene/gen_ene_tamaño_empresa.ado
+f ene/gen_ene_tipo_contrato.ado
+f ene/gen_ene_tramo_edad_v1.ado
+f ene/gen_ene_tramo_edad_v2.ado
+f ene/lval_ene_mes.ado
+f ene/select_ene.ado
