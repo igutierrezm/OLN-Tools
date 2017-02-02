@@ -32,6 +32,6 @@ El siguiente código genera la variable *años de escolaridad* (``_esc``) usando
 
 El siguiente código genera la variable *nivel de educación* (``_educ``) usando la ESI 2015: 
 ```stata
-  gen_casen_esc, año(2016) mes(01)
+  gen_esi_educ, año(2015)
 ```
 
