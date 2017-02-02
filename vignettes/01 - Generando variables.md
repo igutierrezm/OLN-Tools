@@ -15,7 +15,8 @@ en donde
 
 Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
-  Importante
+> We're living the future so
+> the present is our past.
 
 ### Ejemplo 1.1
 
