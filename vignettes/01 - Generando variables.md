@@ -1,18 +1,29 @@
 1. Generando variables
 ----------------------
 
-``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. Dados(as):
+``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. En esta viñeta, explicaremos las 3 principales funciones que el paquete ofrece para trabajar con dicha biblioteca:
+
+## 1.1. Diccionarios de variables
+
+Para visualizar las variables que ``OLN-Tools`` ofrece para la BBDD ``<db>``, tipee en Stata
+```stata
+  dictionary_<bbdd>, varlist(<output>) año(<año>) mes(<mes>)
+  gen_<bbdd><output>, año(<año>) mes(<mes>)
+```
+
+Sea ``<db>`` una de las BBDD estudiadas por el OLN (``casen``, ``ene``, ``esi``, ``pib``, ``sii``). Entonces, puede visualizar todas las variables cubiertas por 
+
 * ``<output>``, el nombre de la variable que deseamos generar.
 * ``<bbdd>``, el identificador de la BBDD de referencia (``casen``, ``ene``, ``esi``, ``pib``, ``sii``).
 * ``<año>``, el año asociado a ``<bbdd>``.
 * ``<mes>``, el mes asociado a ``<bbdd>``.
 
 ``OLN-Tools`` ofrece tres programas:
-
 ```stata
   select_<bbdd>, varlist(<output>) año(<año>) mes(<mes>)
   gen_<bbdd><output>, año(<año>) mes(<mes>)
 ```
+
 
 en donde
 
