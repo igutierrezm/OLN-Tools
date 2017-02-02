@@ -15,8 +15,9 @@ en donde
 
 Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
-> We're living the future so
-> the present is our past.
+> Importante
+> Si desea replicar los ejemplos de esta viñeta en Stata, debe fijar dos macros globales:
+>   $data - el directorio raíz de las BBDD (vea el README para más información).
 
 ### Ejemplo 1.1
 
