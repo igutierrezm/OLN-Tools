@@ -1,0 +1,544 @@
+* Una clase para especificar todas las tablas del OLN/OLR
+version 14.1
+class ol_table {
+  * Comandos
+  string cmds
+  string masks
+  * Dominios
+  string years
+  string months
+  string subpop
+  string by
+  string along
+  * Estructura
+  string rowvar
+  string colvar
+  * Agregaciones
+  string aggregate
+  * I-O
+  string src
+  string varlist0
+  * Campos auxiliares
+  string over
+  string fmts
+  string varlist1
+  double N_over
+  double N_cmds
+  double N_along
+}
+
+* Rellena todos los campos auxiliares de la tabla
+capture program drop complete
+program define .complete
+  version 14.1
+  syntax
+
+  * Ajuste de los campos .cmds, .masks y .aggregate:
+  foreach symbol in "(" ")" {
+    .cmds      = subinstr(`"`.cmds'"',      "`symbol'", `"""', .)
+    .masks     = subinstr(`"`.masks'"',     "`symbol'", `"""', .)
+    .aggregate = subinstr(`"`.aggregate'"', "`symbol'", `"""', .)
+  }
+
+  * Anexión de las variables necesarias para la inferencia estadística
+  .varlist1 = `"`.varlist0' _counter _psu _estrato _pweight"'
+
+  * Unión de along y by
+  .over = "`.along' `.by'"
+
+  * Anexión de las dimensiones de la tabla
+  foreach field in months years cmds along by over {
+      .N_`field' = `:word count of `.`field''' - 1
+  }
+
+  * Anexión del formato de cada variable
+  .fmts = ""
+  foreach cmd in `.cmds' {
+    gettoken stat : cmd
+    if ("`stat'" == "total") local fmt "#,###"
+    if ("`stat'" != "total") local fmt "#,###.0"
+    .fmts = "`.fmts' `fmt'"
+  }
+
+  * Valores por defecto del resto de los campos
+  if ("`.months'" == "") .months = "0"
+end
+
+* Carga la BBDD relevante para la tabla
+capture program drop selectvars
+program define .selectvars
+  version 14.1
+  syntax, año(string) mes(string)
+  * Identificación de la base relevante
+  local mes = string(`mes', "%02.0f")
+  if ("`.src'" == "casen") local df "$datos/CASEN/CASEN `año'"
+  if ("`.src'" == "ene")   local df "$datos/ENE/ENE `año' `mes'"
+  if ("`.src'" == "esi")   local df "$datos/ESI/ESI `año' Personas"
+  if ("`.src'" == "sii")   local df "$datos/SII/SII - Base empresas `año'"
+
+  * Selección de las variables relevantes
+  select_`.src', varlist(`"`.varlist1'"') año(`año') mes(`mes')
+  use `r(selection)' using "`df'", clear
+end
+
+* Genera las variables relevantes para la tabla
+capture program drop mutatevars
+program define .mutatevars
+  version 14.1
+  syntax, año(string) mes(string)
+  * Mutación, variable por variable (notar que también se admiten opciones)
+  foreach var in `.varlist1' {
+    gettoken var opt : var, parse(",")
+    gettoken tmp opt : opt, parse(",")
+    capture confirm variable `var'
+    if (_rc == 0) continue
+    if ("`.src'" == "ene") gen_`.src'`var', `opt' año(`año') mes(`mes')
+    if ("`.src'" != "ene") gen_`.src'`var', `opt' año(`año')
+  }
+end
+
+* Recupera las estadísticas (como variables), luego de usar el comando estimate
+capture program drop get_stats
+program define .get_stats
+  version 14.1
+  syntax, stat(string)
+  * Objetos temporales
+  tempname bh o2
+  * Macros auxiliares
+  if ("`stat'" == "proportion") local k = 100
+  if ("`stat'" != "proportion") local k = 1
+  * Estadísticas (como matrices)
+  matrix `bh' = `k'^1 * e(b)'
+  matrix `o2' = `k'^2 * vecdiag(e(V))'
+  * Estadísticas (como variables)
+  drop _all
+  foreach var in bh o2 {
+    svmat ``var'', names("`var'")
+    rename `var'1 `var'
+  }
+  generate cv = 100 * abs(sqrt(o2) / bh)
+end
+
+* Anexa los dominios a las estadísticas recuperadas con .get.estimates
+capture program drop get_domains
+program define .get_domains
+  version 14.1
+  syntax, stat(string)
+  * Despacho
+  if ("`stat'" != "proportion") .get_domains_v1
+  if ("`stat'" == "proportion") .get_domains_v2
+end
+
+* Versión N°1 de .get_domains (usar tras estimate total/mean/ratio)
+capture program drop get_domains_v1
+program define .get_domains_v1
+  version 14.1
+  syntax
+  * Identificación de los dominios
+  tempvar id
+  if (`.N_over' >= 1) {
+    * Creación de un id único
+    generate `id' = ""
+    forvalues i = 1(1)`c(N)' {
+      local str : word `i' of `: colnames e(b)'
+      if (`.N_over' == 1) replace `id' = "`str'" in `i'
+      else {
+        local str = subinstr("`str'", "_subpop_", "", 1)
+        local str : word `str' of `e(over_labels)'
+        replace `id' = "`str'" in `i'
+      }
+    }
+    * Recuperación de los dominios originales
+    split `id', generate(id)
+    forvalues i = 1(1)`.N_over' {
+      local name : word `i' of `.over'
+      destring id`i', replace
+      rename id`i' `name'
+    }
+  }
+end
+
+* Versión N°2 de .get_domains (usar tras estimate proportion)
+capture program drop get_domains_v2
+program define .get_domains_v2
+  version 14.1
+  syntax
+  * Macros auxiliares
+  if (`.N_over' != 1) local prop_id : coleq    e(b)
+  if (`.N_over' == 1) local prop_id : colnames e(b)
+  * Identificación de los dominios
+  tempvar id
+  if (`.N_along' >= 1) {
+    * Creación de un id único
+    generate `id' = ""
+    forvalues i = 1(1)`c(N)' {
+      local str : word `i' of `: colnames e(b)'
+      if (`.N_along' == 1) replace `id' = "`str'" in `i'
+      else {
+        local str = subinstr("`str'", "_subpop_", "", 1)
+        local str : word `str' of `e(over_labels)'
+        replace `id' = "`str'" in `i'
+      }
+    }
+    * Recuperación de los dominios originales
+    split `id', generate(id)
+    forvalues i = 1(1)`.N_along' {
+      local name : word `i' of `.over'
+      destring id`i', replace
+      rename id`i' `name'
+    }
+  }
+  * Identificación de las proporciones
+  generate `e(varlist)' = ""
+  forvalues i = 1(1)`c(N)' {
+    local str : word `i' of `prop_id'
+    local str = subinstr("`str'", "_prop_", "", 1)
+    local str : word `str' of `e(label1)'
+    replace `e(varlist)' = "`str'" in `i'
+  }
+  destring `e(varlist)', replace
+end
+
+* Limpia la tabla (la ordena, le agrega etiquetas, etc.)
+capture program drop clean
+program define .clean
+  version 14.1
+  syntax
+  * Etiquetado (valores)
+  foreach año in `.years' {
+    label define año `año' "`año'", add
+  }
+  foreach mes in `.months' {
+    label define mes `mes' "`mes'", add
+  }
+  forvalues i = 1(1)`.N_cmds' {
+    label define mask `i' "`:word `i' of `.masks''", modify
+  }
+  foreach var in año mes mask {
+    label values `var' `var'
+  }
+  * Etiquetado (variables)
+  label variable año     "Año"
+  label variable mes     "Mes"
+  label variable cmdtype "Tipo de comando (e.g., total)"
+  label variable mask    "Estadístico"
+  label variable bh      "Estimado"
+  label variable o2      "Varianza"
+  label variable cv      "Coeficiente de variación (%)"
+  foreach var in `.over' {
+    label values `var' `var'
+    label variable `var' "`: variable label `var''"
+  }
+  * Ordenación
+  order año mes  cmdtype mask `.over' bh o2 cv
+  gsort año mes  cmdtype mask `.over'
+  if ("`.months'" == "0") drop mes
+end
+
+* Crea la tabla especificada
+capture program drop create
+program define .create
+  version 14.1
+  syntax
+  ** Preámbulo
+  clear
+  .complete
+
+  ** Cuerpo
+  quietly : {
+    tempfile df
+    save `df', emptyok
+    foreach año in `.years' {
+      foreach mes in `.months' {
+        * Selección
+        capture : .selectvars, año("`año'") mes("`mes'")
+        if (_rc != 0) continue
+
+        * Mutación
+        .mutatevars, año("`año'") mes("`mes'")
+
+        * Captura de lvar
+        foreach var in  `.over' {
+          local lvar`var' : variable label `var'
+        }
+
+        * Diseño muestral
+        svyset _psu [pw = _pweight], strata(_estrato) singleunit(certainty)
+
+        * Estimación y anexión (en línea) de los resultados
+        snapshot save
+        foreach vars in "" `.aggregate' {
+          forvalues i = 1(1)`.N_cmds' {
+            * Agregaciones
+            snapshot restore 1
+            foreach var in `vars' {
+      				replace `var' = 1e6
+      			}
+
+            * Comando / Máscara
+            local cmd  : word `i' of `.cmds'
+            local mask : word `i' of `.masks'
+
+            * Estimación
+            gettoken stat : cmd
+            local test = ("`stat'" == "proportion")
+            if (`test' == 1) local opts `"over(`.along', nolabel) nolabel"'
+            if (`test' == 0) local opts `"over(`.over', nolabel)"'
+            svy, subpop(`.subpop') : `cmd', `opts' nolegend
+            * display "svy, subpop(`.subpop') : `cmd', `opts' nolegend"
+            * noisily : ereturn list
+
+            * Conversión de los resultados en una BBDD
+            .get_stats,   stat("`stat'")
+            .get_domains, stat("`stat'")
+
+            * ID auxiliares
+            generate cmdtype = "`stat'"
+            generate mask    = `i'
+            generate año     = `año'
+            generate mes     = `mes'
+
+            * Ordenación
+            order año mes `.over' cmdtype mask bh o2 cv
+            gsort año mes `.over' cmdtype mask
+
+        		* Anexión
+        		append using `df'
+        		save `df', replace
+          }
+      	}
+        snapshot erase _all
+      }
+    }
+
+    ** Epílogo
+    .clean
+    foreach var in `.over' {
+      label variable `var' "`lvar`var''"
+    }
+  }
+end
+
+* Agrega los resultados trimestrales de una tabla previamente creada
+capture program drop annualize
+program define .annualize
+  version 14.1
+  syntax
+  * Objetos temporales
+  tempvar temp
+  * Agregación
+  generate `temp' = bh
+  collapse (sum) bh (max) o2 (count) `temp', by(año `.over' cmdtype mask)
+  replace bh = bh / `temp'
+  * replace bh = bh / `temp'      if  inlist(cmdtype, "mean", "ratio")
+  * replace bh = bh / `.N_months' if !inlist(cmdtype, "mean", "ratio")
+  generate cv = 100 * sqrt(o2) / bh
+  * Etiquetado
+  label variable bh "estimado"
+  label variable o2 "varianza"
+  label variable cv "coeficiente de variación (%)"
+end
+
+* Convierte totales en proporciones
+capture program drop as_proportion
+program define .as_proportion
+  version 14.1
+  syntax
+  * Objetos temporales
+  tempvar max_bh
+  * Salvaguardas
+  if (`"`.aggregate'"' == "") {
+    display as error "La tabla ya debe tener el subtotal calculado"
+    exit 1
+  }
+  * Agregación
+  egen `max_bh' = max(bh), by(año mask `.along')
+  replace bh = 100 * bh / `max_bh'
+  replace o2 = .
+end
+
+* Exporta la tabla a Excel (aplicando el formato del manual)
+capture program drop export_excel
+program define .export_excel
+  version 14.1
+  syntax varlist, file(string)
+  quietly : {
+    *===========================================================================
+    * Prólogo
+    *===========================================================================
+
+    * Macros auxiliares
+    local N_along  = `:word count of `.colvar'' - 1
+    local N_rowvar = `:word count of `.rowvar'' - 1
+    foreach var in `.rowvar' `.colvar' {
+      quietly : inspect `var'
+      local K`var' = r(N_unique)
+    }
+
+    * Hoja de destino
+    local var "`varlist'"
+    *local file "$proyecto/data/`file'.xlsx"
+    putexcel set "`file'", sheet("`var'", replace) modify
+    local export_cmd `"export excel using "`file'", sheet("`var'") sheetmodify"'
+
+    *===========================================================================
+    * Encabezado de columnas
+    *===========================================================================
+
+    * Identificación
+    preserve
+    bysort  `.colvar' : keep if (_n == 1)
+    decode2 `.colvar', replace
+
+    * Exportación
+    local k = 2
+    foreach var in `.colvar' {
+      forvalues i = 1(1)`c(N)' {
+        local j = `i' + `N_rowvar'
+        local Y : word `j' of `c(ALPHA)'
+        putexcel `Y'`k' = `var'[`i']
+      }
+      local ++k
+    }
+
+    *===========================================================================
+    * Formato de columnas
+    *===========================================================================
+
+    local fmts ""
+    forvalues i = 1(1)`c(N)' {
+      if (cmdtype[`i'] == "total") local fmt "#,##0"
+      if (cmdtype[`i'] != "total") local fmt "#,##0.0"
+      local fmts = "`fmts' `fmt'"
+    }
+
+    *===========================================================================
+    * Encabezados de filas
+    *===========================================================================
+
+    * Identificación
+    restore, preserve
+    bysort  `.rowvar' : keep if (_n == 1)
+    decode2 `.rowvar', replace
+    keep `.rowvar'
+
+    * Exportación
+    local i = 1
+    foreach var in `.rowvar' {
+      local lb : variable label `var'
+      local A  : word `i' of `c(ALPHA)'
+      putexcel `A'2 = "`lb'"
+      local ++i
+    }
+    `export_cmd' cell("A`k'")
+
+    *===========================================================================
+    * Cuerpo de la tabla
+    *===========================================================================
+
+    * Identificación
+    restore, preserve
+    keep `.colvar' `.rowvar' `varlist'
+    reshape2 `varlist', i(`.rowvar') j(`.colvar')
+    drop `.rowvar'
+
+    * Exportación
+    local i = `N_rowvar' + 1
+    local B : word `i' of `c(ALPHA)'
+    `export_cmd' cell("`B'`k'")
+
+    *===========================================================================
+    * Exportación (formato)
+    *===========================================================================
+
+    * Marcadores de filas
+    local N0 = 2
+    local N1 = `k' - 1
+    local N2 = `k' - 0
+    local N3 = `c(N)' + `k' - 2
+    local N4 = `c(N)' + `k' - 1
+
+    * Marcadores de columnas
+    local Ncols1 = `c(k)'
+    local Ncols2 = `c(k)' + `N_rowvar'
+
+
+
+    * Formato de número
+    forvalues i = 1(1)`Ncols1' {
+      local j = `i' + `N_rowvar'
+    	local X : word `j' of `c(ALPHA)'
+    	local fmt : word `i' of `fmts'
+    	putexcel (`X'`N2':`X'`N4'), nformat("`fmt'")
+    }
+
+    * Alineación
+    local Z : word `Ncols2' of `c(ALPHA)'
+    putexcel (B`N0':`Z'`N1'), hcenter
+    putexcel (B`N2':`Z'`N4'), right
+
+    * Fuente
+    putexcel (A`N0':`Z'`N4'), font("Times New Roman", 11)
+
+    * Color de relleno
+    putexcel (A`N0':`Z'`N4'), fpattern(solid, white)
+
+    * Combinación de celdas (encabezados de columnas)
+    local i  = 2
+    local Ni = 1
+    local Di = `Ncols1'
+    foreach var in `.colvar' {
+      local Di = `Di' / `K`var''
+      local Ni = `Ni' * `K`var''
+      forvalues j = 1(1)`Ni' {
+        local j0 = `N_rowvar' + 1 + `Di' * (`j' - 1)
+        local j1 = `N_rowvar' - 0 + `Di' * (`j' - 0)
+        local A : word `j0' of `c(ALPHA)'
+        local B : word `j1' of `c(ALPHA)'
+        putexcel (`A'`i':`B'`i'), merge hcenter
+      }
+      local ++i
+    }
+    local --i
+    forvalues j = 1(1)`N_rowvar' {
+      local A : word `j' of `c(ALPHA)'
+      if (`i' > 2) putexcel (`A'2:`A'`i'), left merge
+      else         putexcel (`A'2:`A'`i'), left
+    }
+
+    * Combinación de celdas (encabezados de filas)
+    local i  = 1
+    local Ni = 1
+    local Di = `c(N)'
+    foreach var in `.rowvar' {
+      local Di = `Di' / `K`var''
+      local Ni = `Ni' * `K`var''
+      local A : word `i' of `c(ALPHA)'
+      forvalues j = 1(1)`Ni' {
+        local j0 = `N2' - 0 + `Di' * (`j' - 1)
+        local j1 = `N2' - 1 + `Di' * (`j' - 0)
+        putexcel (`A'`j0':`A'`j1'), merge left vcenter
+      }
+      local ++i
+    }
+
+    * Bordes (general)
+    putexcel (A`N0':`Z'`N0'), border("top", "medium", "black")
+    putexcel (A`N3':`Z'`N3'), border("bottom", "thin", "black")
+    putexcel (A`N4':`Z'`N4'), border("bottom", "medium", "black")
+    forvalues i = `N0'(1)`N1' {
+      putexcel (A`i':`Z'`i'), border("bottom", "thin", "black")
+    }
+  }
+end
+
+/*
+
+ESTE EJEMPLO SERÁ ÚTIL MÁS ADELANTE
+local varlist `"(a b) (b c)"'
+local varlist = subinstr(`"`varlist'"', "(",`"""', .)
+local varlist = subinstr(`"`varlist'"', ")",`"""', .)
+display `"`varlist'"'
+foreach var in `varlist' {
+	display `"`var'"'
+} */
