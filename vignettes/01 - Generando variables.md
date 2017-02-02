@@ -15,9 +15,11 @@ en donde
 
 Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
-> Importante
-> Si desea replicar los ejemplos de esta viñeta en Stata, debe fijar dos macros globales:
->   $data - el directorio raíz de las BBDD (vea el README para más información).
+### Importante
+
+Si desea replicar los ejemplos de esta viñeta en Stata, debe fijar las siguientes macros globales:
+
+- ``$data``, el directorio raíz de las BBDD (vea el README para más información).
 
 ### Ejemplo 1.1
 
