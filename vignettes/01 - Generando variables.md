@@ -1,13 +1,7 @@
 1. Generando variables
-======================
+----------------------
 
-``OLN-Tools`` contiene una extensa biblioteca de variables. Esta se compone de
-5 carpetas. El nombre (genérico) de cada carpeta es ``src/ol_tools_<bbdd>``, en
-donde ``<bbdd>`` revela la BB.DD. sobre la que trabajan las variables ahí
-contenidas.
-
-Note que todos los programas ``src/ol_tools_<bbdd>`` poseen la misma sintaxis:
-
+``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. Su sintaxis genérica es: 
 ```
   gen_<bbdd><variable>, año(<año>) [mes(<mes>)]
 ```
@@ -15,5 +9,6 @@ Note que todos los programas ``src/ol_tools_<bbdd>`` poseen la misma sintaxis:
 en donde
 
 * ``<variable>`` es la variable que deseamos generar.
+* ``<bbdd>`` es la BBDD en la cual se inserta la variable. Las opciones son ``casen``, ``ene``, ``esi``, ``pib``, ``sii``.
 * ``<año>`` es el año para el cual deseamos generar la variable.
-* ``<mes>`` es el mes para el cual deseamos generar la variable.
+* ``<mes>`` es el mes para el cual deseamos generar la variable (solo requerido si ``<bbdd> = ene``.
