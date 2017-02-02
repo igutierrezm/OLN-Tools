@@ -17,13 +17,21 @@ Note que las variables necesarias para generar `` `var1'`` ya deben estar cargad
 
 ### Importante
 
-Si desea replicar los ejemplos de esta viñeta en Stata, debe fijar las siguientes macros globales:
+Si desea replicar los ejemplos de esta viñeta en Stata, debe fijar las siguientes macros globales con antelación:
 
-- ``$data``, el directorio raíz de las BBDD (vea el README para más información).
+- ``$data``, el directorio raíz de las BBDD.
 
 ### Ejemplo 1.1
 
-Suponga que deseamos generar la variable *años de escolaridad* (``_esc``) usando la ENE 2016 01. Asumiendo que el directorio raíz de las BBDD fue guardado en $data, podemos generar ``_esc`` con el siguiente código:
+El siguiente código genera la variable *años de escolaridad* (``_esc``) usando la ENE 2016 01:
 ```stata
-gen_casen_esc, año(2016) mes(01)
+  gen_casen_esc, año(2016) mes(01)
 ```
+
+### Ejemplo 1.2
+
+El siguiente código genera la variable *nivel de educación* (``_educ``) usando la ESI 2015: 
+```stata
+  gen_casen_esc, año(2016) mes(01)
+```
+
