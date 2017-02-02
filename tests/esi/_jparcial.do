@@ -10,7 +10,7 @@ forvalues año = 2010(1)2015 {
 	select_esi, varlist(`var1') año(`año')
 	local var0 "`r(selection)'"
 	* BBDD
-	capture : use "$pkg/data/test data/esi/`año'/`var1'.dta", clear
+	capture : use "$pkg/data/tests/esi/`año'/`var1'.dta", clear
 	
 	gen_esi`var1', año("`año'")
 	contract `var0' `var1'
