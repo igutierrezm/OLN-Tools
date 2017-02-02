@@ -10,7 +10,8 @@
 ``OLN-Tools`` ofrece tres programas:
 
 ```stata
-  gen_<bbdd><output>, año(<año>) [mes(<mes>)]
+  select_<bbdd>, varlist(<output>) año(<año>) mes(<mes>)
+  gen_<bbdd><output>, año(<año>) mes(<mes>)
 ```
 
 en donde
