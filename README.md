@@ -17,14 +17,19 @@ por el Observatorio Laboral Nacional. Consta de:
 Instalación
 -----------
 
-1. Visite https://github.com/igutierrezm.
-2. Clone el repo de OLN-Tools. Guárdelo en ``$pkg``.
-3. En Stata, tipee lo siguiente:
+1. Clone el repo de OLN-Tools.
+2. En Stata, tipee lo siguiente:
 ```stata
   foreach folder in "" "_casen" "_ene" "_esi" "_pib" "_sii" {
   	net install ol_tools`folder', all force from("$pkg/src")
   }
 ```
+en donde ``$pkg`` (una macro global) es el directorio en el cual guardó ``OLN-Tools``.
+
+Aprendiendo a usar OLN-Tools
+----------------------------
+
+Para aprender a usar el paquete, lea las notas contenidas en ``vignettes/``. Se recomienda leerlas en el orden.
 
 Importante
 ----------
@@ -49,27 +54,6 @@ $datos/
 en donde:
 - ``<año>`` representa a un año en formato ``%4d`` (por ejemplo, ``2015``).
 - ``<mes>`` representa a un mes en formato ``%2d`` (por ejemplo, ``01``).
-
-
-
-
-
-Instalación
------------
-
-En Stata, tipee
-```stata
-  local url "https://rawgit.com/igutierrezm/OLN-Tools/master/src"
-  net install ol_tools_casen, all from("`url'")
-  net install ol_tools_ene,   all from("`url'")
-  net install ol_tools_esi,   all from("`url'")
-  net install ol_tools,       all from("`url'")
-```
-
-Uso
----
-
-Por editar.
 
 Licencia
 --------
