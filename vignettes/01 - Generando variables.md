@@ -13,9 +13,10 @@ en donde
 * `` `año'`` es el año para el cual deseamos generar la variable.
 * `` `mes'`` es el mes para el cual deseamos generar la variable (solo requerido si ``<bbdd> = ene``).
 
+Para ver un resumen de las variables asociadas la `` `bbdd' ``, tipee ``dictionary_`bbdd'``
+
 Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
-A continuación, se presenta un listado con todas las
 
 
 ### Importante
