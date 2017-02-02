@@ -25,7 +25,7 @@ foreach año in `años' {
 	if (_rc != 0) continue
 
 	* BBDD
-	capture : use "$pkg/data/test data/casen/`año'/`var1'.dta", clear
+	capture : use "$pkg/data/tests/casen/`año'/`var1'.dta", clear
 	gen_casen`var1', año("`año'")
 	generate nolabel = `var1'
 

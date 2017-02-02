@@ -26,12 +26,12 @@ foreach año in `años' {
 	capture : select_casen, varlist("`var1'") año("`año'")
 	local var0 "`r(selection)'"
 	if (_rc != 0) continue
-	
+
 	* BBDD
-	capture : use "$pkg/data/test data/casen/`año'/`var1'.dta", clear
+	capture : use "$pkg/data/tests/casen/`año'/`var1'.dta", clear
 	gen_casen`var1', año("`año'")
 	generate nolabel = `var1'
-	
+
 	* Visualización
 	format * %100.0g
 	noisily : display _newline "{title:Test N°1 `año'}"
