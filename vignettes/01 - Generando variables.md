@@ -13,7 +13,7 @@ en donde
 * `` `año'`` es el año para el cual deseamos generar la variable.
 * `` `mes'`` es el mes para el cual deseamos generar la variable (solo requerido si ``<bbdd> = ene``).
 
-Note que todas las funciones antes mencionadas asumen que las variables necesarias para generar ``var1`` se encuentran cargadas en Stata.
+Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
 ### Ejemplo 1.1
 
