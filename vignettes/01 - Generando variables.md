@@ -17,9 +17,7 @@ Note que todas las funciones antes mencionadas asumen que las variables necesari
 
 ### Ejemplo 1.1
 
-El archivo 
-El siguiente código genera la variable *años de escolaridad* (``_esc``) usando la ENE 2016 01.
-
+Suponga que deseamos generar la variable *años de escolaridad* (``_esc``) usando la ENE 2016 01. Asumiendo que el directorio raíz de las BBDD fue guardado en $data, podemos generar ``_esc`` con el siguiente código:
 ```stata
-
+gen_casen_esc, año(2016) mes(01)
 ```
