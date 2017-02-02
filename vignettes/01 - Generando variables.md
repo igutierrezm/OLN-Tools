@@ -15,6 +15,9 @@ en donde
 
 Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
+A continuación, se presenta un listado con todas las
+
+
 ### Importante
 
 Si desea replicar los ejemplos de esta viñeta en Stata, debe fijar las siguientes macros globales con antelación:
