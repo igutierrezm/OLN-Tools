@@ -7,7 +7,7 @@ local var0 "c1 c10 c11"
 local var1 "_jparcial_inv"
 
 * BBDD
-use `var0' using "$pkg/data/test data/ene/2016/01/`var1'.dta", clear
+use `var0' using "$pkg/data/tests/ene/2016/01/`var1'.dta", clear
 gen_ene`var1', año("2016") mes("01")
 contract `var0' `var1'
 gen nolabel = `var1'

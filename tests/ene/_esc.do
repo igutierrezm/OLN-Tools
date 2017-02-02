@@ -7,7 +7,7 @@ local var0 "nivel curso"
 local var1 "_esc"
 
 * Base de prueba
-use `var0' using "$pkg/data/test data/ene/2016/01/`var1'.dta", clear
+use `var0' using "$pkg/data/tests/ene/2016/01/`var1'.dta", clear
 gen_ene`var1', año("2016") mes("01")
 contract `var0' `var1'
 drop _freq
