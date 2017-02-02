@@ -2,8 +2,8 @@
 ----------------------
 
 ``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. Su sintaxis genérica es: 
-```
-  gen_<bbdd><variable>, año(<año>) [mes(<mes>)]
+```stata
+  gen_`bbdd'`variable', año("`año'") [mes("`mes'")]
 ```
 
 en donde
