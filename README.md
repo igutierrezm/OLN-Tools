@@ -3,6 +3,17 @@ OLN-Tools
 
 Herramientas para la automatización de las tablas elaboradas por el OLN.
 
+Introducción
+------------
+
+OLN-Tools es un paquete para crear las tablas más comunmente utilizadas
+por el Observatorio Laboral Nacional. Consta de:
+
+- Una biblioteca de programas para generar la mayoría de las variables
+  utilizadas por el OLN.
+- Un sistema OO para especificar, estimar y exportar (a MS Excel) la mayoría
+  de las tablas utilizadas por el OLN.
+
 Instalación
 -----------
 
@@ -42,20 +53,6 @@ en donde:
 
 
 
-Introducción
-------------
-
-OLN-Tools es un paquete para crear las tablas más comunmente utilizadas
-por el Observatorio Laboral Nacional. Consta de:
-
-- Una biblioteca de programas para generar la mayoría de las variables
-  utilizadas por el OLN.
-- Un sistema OO para especificar, estimar y exportar (a MS Excel) la mayoría
-  de las tablas utilizadas por el OLN.
-
-De momento, la biblioteca de variables de este paquete solo considera a las
-encuestas CASEN, ENE y ESI; pero esperamos que ese listado se extienda con el
-tiempo.
 
 Instalación
 -----------
