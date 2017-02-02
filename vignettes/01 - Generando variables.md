@@ -15,6 +15,8 @@ en donde
 
 Note que las variables necesarias para generar `` `var1'`` ya deben estar cargadas para que estos programas funcionen.
 
+  Importante
+
 ### Ejemplo 1.1
 
 Suponga que deseamos generar la variable *años de escolaridad* (``_esc``) usando la ENE 2016 01. Asumiendo que el directorio raíz de las BBDD fue guardado en $data, podemos generar ``_esc`` con el siguiente código:
