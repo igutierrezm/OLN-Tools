@@ -5,7 +5,7 @@
 * ``<output>``, el nombre de la variable que deseamos generar.
 * ``<bbdd>``, el identificador de la BBDD de referencia (``casen``, ``ene``, ``esi``, ``pib``, ``sii``).
 * ``<año>``, el año asociado a ``<bbdd>``.
-* ``<mes>``, el mes asociado a ``<bbdd>`` (solo requerido si ``<bbdd> = ene``).
+* ``<mes>``, el mes asociado a ``<bbdd>``.
 
 ``OLN-Tools`` ofrece tres programas:
 
