@@ -28,10 +28,17 @@ local selection "`r(selection)'"
 use `selection' using "`datos'/CASEN/CASEN 2015.dta", clear
 
 * Output
-ol_generate, varlist("_ocupado") db("casen") año("2015") from("`datos'") 
+ol_generate, varlist("_ocupado") db("casen") año("2015") mes("") from("`datos'") 
 ```
 
-Note que ambas funciones (``ol_select`` y ``ol_generate``) tienen una sintaxis muy similar. Ambas tienen los siguientes parámetros:
+Note que ambas funciones (``ol_select`` y ``ol_generate``) tienen una sintaxis muy similar. El parámetro ``varlist()`` identifica la variable que nos interesa generar, mientras que los parámetros ``db()``, ``año()`` y ``mes()`` identifican a la BBDD de referencia. Claro está, no todas las variables requieren que especifiquemos ``año()`` o ``mes()``. En particular, para la CASEN, podemos omitir el parámetro ``mes()``.
+
+
+| Command | Description |
+| ---: | :--- |
+| ``varlist(string)`` | el nombre de la variable que deseamos generar |
+| ``db(string)`` | el nombre de la BBDD de referencia (las opciones son: ``"casen"``, ``"ene"``, ``"esi"``, ``"pib"``, ``"sii"``) |
+
 * ``varlist(string)``, el nombre de la variable que deseamos generar.
 * ``db(string)``, el nombre de la BBDD de referencia (las opciones son: ``"casen"``, ``"ene"``, ``"esi"``, ``"pib"``, ``"sii"``).
 
