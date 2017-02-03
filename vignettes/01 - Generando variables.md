@@ -28,7 +28,7 @@ local selection "`r(selection)'"
 use `selection' using "`datos'/CASEN/CASEN 2015.dta", clear
 
 * Output
-ol_generate, variable("_ocupado") db("casen") año("2015") from("`datos'") 
+ol_generate, varlist("_ocupado") db("casen") año("2015") from("`datos'") 
 ```
 
 * Fijando en 
