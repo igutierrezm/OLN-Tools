@@ -1,7 +1,7 @@
 Generando Estadísticas
 ======================
 
-``OLN-Tools`` contiene un sistema OO para generar estadísticas. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a este sistema.
+``OLN-Tools`` contiene un sistema OO para generar estadísticas que consideren el diseño complejo de las distintas encuestas (CASEN, ENE, ESI, etc.). Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a este sistema.
 
 ### Ejemplo 1
 
