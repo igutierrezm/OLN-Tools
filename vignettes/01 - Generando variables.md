@@ -17,7 +17,7 @@ Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usand
 El siguiente ejemplo ilustra el uso de ambas funciones en Stata:
 
 ```stata
-* Directorio raíz de las BBDD
+* Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
 local root "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Inputs relevantes (strings)
