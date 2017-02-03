@@ -1,11 +1,11 @@
 1. Generando variables
 ----------------------
 
-``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables, así como una serie de funciones que facilitan su uso. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho.
+``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables, así como una serie de funciones que facilitan su uso. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a estas funciones.
 
-## 1.1. Un ejemplo motivador
+## Ejemplo 1.1. 
 
-Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usando la Encuesta Nacional de Empleo. Naturalmente, esto requerirá que el analista genere al menos una variable:
+Suponga que desea estimar el número de ocupados para el año 2015 usando la encuesta CASEN. Naturalmente, esto requerirá que el analista genere al menos una variable:
 
 * ``_ocupado``, igual 1 si está ocupado, 0 si no está ocupado y (digamos) ``1e5`` si ns/nr.
 
@@ -30,6 +30,17 @@ use `selection' using "`datos'/CASEN/CASEN 2015.dta", clear
 * Output
 ol_generate, varlist("_ocupado") db("casen") año("2015") from("`datos'") 
 ```
+
+Note que ambas funciones (``ol_select`` y ``ol_generate``) tienen una sintaxis muy similar. Ambas tienen los siguientes parámetros:
+* ``varlist(string)``, el nombre de la variable que deseamos generar.
+* ``db(string)``, el nombre de la BBDD de referencia (las opciones son: ``"casen"``, ``"ene"``, ``"esi"``, ``"pib"``, ``"sii"``).
+
+
+
+La única diferencia es que ``ol_generate`` requiere que el analista le indique el directorio raíz
+
+
+vea la documentación para una explicación detallada 
 
 * Fijando en 
 
