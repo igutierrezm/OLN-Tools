@@ -5,18 +5,22 @@
 
 ## 1.1. Un ejemplo motivador
 
-Suponga que desea estimar el porcentaje de ocupados que cotizan en el sistema de salud en los años 2011, 2013 y 2015, usando siempre la encuesta CASEN. Naturalmente, esto requerirá que el analista genere al menos dos variables:
+Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usando la Encuesta Nacional de Empleo. Naturalmente, esto requerirá que el analista genere al menos una variable:
 
-* ``_ocupado``, una variable que valga 1 si está ocupado y 0 en caso contrario.
-* ``_cotiza_pension``, una variable que valga 1 si está cotizando y 0 en caso contrario.
+* ``_ocupado``, una variable que valga 1 si está ocupado, 0 en caso contrario.
 
-``OLN-Tools`` facilita esta tarea con dos funciones: ``ol_select`` y ``ol_generate``. ``ol_select`` permite identificar las variables necesarias (y suficientes) para generar una variable, mientras que  ``ol_genera`` se concentra en la creación de la variable como tal.
+``OLN-Tools`` facilita esta tarea con dos funciones: ``ol_select`` y ``ol_generate``. 
+
+* ``ol_select`` permite identificar las variables necesarias (y suficientes) para generar una variable, 
+* ``ol_generate`` se concentra en la creación de la variable como tal.
 
 El siguiente ejemplo ilustra el uso de ambas funciones:
 
 ```stata
   * Loop principal
-  forvalues año = 2011(1)
+  forvalues año = 2011(2)2015 {
+    *  
+  }
 ```
 
 * Fijando en 
