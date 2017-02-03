@@ -5,9 +5,16 @@ Generando Tablas
 
 ### Ejemplo 1
 
-Suponga que desea estimar la distribución de ocupados y desocupados por tramo de edad, para los años 2010 y 2015. Siguiendo la lógica de las dos viñetas anteriores, podemos proceder de la siguiente manera:
+Suponga que desea construir una tabla con la distribución de ocupados y desocupados por tramo de edad, para los años 2010 y 2015. La siguiente figura ilustra el formato esperado:
+![Figura 03-01](https://rawgit.com/igutierrezm/OLN-Tools/master/fig/vignettes/figura 03-01.png)
 
+Ya que esta tabla tiene dos paneles (digamos, *ocupados* y *desocupados*) podemos construirla de la siguiente manera:
 ```stata
+* Housekeeping
+clear all
+cls
+tempfile df
+
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
@@ -22,11 +29,12 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.from     = "`datos'"
 .my_table.varlist0 = "_ocupado"
 
-* Estimación de la tabla como una BBDD en Stata)
+* Estimación - Panel N°1 (ocupados):
+.my_table.subpop   = "if (_ocupado == 1)"
 .my_table.create
+
 ```
 
 
-![Figura 03-01](https://rawgit.com/igutierrezm/OLN-Tools/master/fig/vignettes/figura 03-01.png)
 
 asdasda
