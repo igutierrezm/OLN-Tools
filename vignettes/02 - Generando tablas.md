@@ -136,5 +136,3 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 Algunos puntos a destacar:
 * El campo ``.aggregate`` puede ser incluir varios listados, pero cada listado debe ir entre paréntesis (de lo contrario, no habría cómo distinguir un listado de otro).
-
-## Algunas comentarios finales
