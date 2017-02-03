@@ -18,23 +18,25 @@ Instalación
 -----------
 
 1. Clone el repo de OLN-Tools.
-2. En Stata, tipee lo siguiente:
+2. En Stata, declare las siguientes macros **globales**:
+  * ``$pkg``, el directorio en el cual guardó el repo clonado.
+  * ``$datos``, el directorio raíz de las BBDD.
+3. En Stata, tipee lo siguiente:
 ```stata
   foreach folder in "" "_casen" "_ene" "_esi" "_pib" "_sii" {
   	net install ol_tools`folder', all force from("$pkg/src")
   }
 ```
-en donde ``$pkg`` (una macro global) es el directorio en el cual guardó ``OLN-Tools``.
 
 Aprendiendo a usar OLN-Tools
 ----------------------------
 
-Para aprender a usar el paquete, lea las notas contenidas en ``vignettes/``. Se recomienda leerlas en el orden.
+Para aprender a usar el paquete, lea las notas contenidas en ``$pkg/vignettes``. Se recomienda leerlas en el orden.
 
 Importante
 ----------
 
-OLN-ITD asume que las BBDD dentro de ``$datos`` se organizan como sigue:
+``OLN-Tools`` asume que las BBDD dentro de ``$datos`` se organizan como sigue:
 ```
 $datos/
   CASEN/CASEN <año>.dta        // CASEN genérica
