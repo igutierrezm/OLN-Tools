@@ -21,14 +21,14 @@ El siguiente ejemplo ilustra el uso de ambas funciones en Stata:
 local root "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Inputs relevantes (strings)
-ol_select, variable("_ocupado") db("casen") root("`root'") año("2016")
+ol_select, variable("_ocupado") db("casen") año("2016")
 local inputs = "`r(selection)'"
 
 * Inputs relevantes (variables)
 use `inputs' using "`root'/CASEN/CASEN 2015.dta", clear
 
 * Output
-ol_generate, variable("_ocupado") db("casen") años("2016")
+ol_generate, variable("_ocupado") root("`root'") db("casen") años("2016")
 
 
 ```
