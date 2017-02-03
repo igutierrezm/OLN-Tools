@@ -11,8 +11,8 @@ Suponga que desea estimar el número de ocupados para para el trimestre 2015 02 
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
-* Declaración de una tabla nueva
-.my_table = .ol_table.new  // i.e., "my_table" es una nueva instancia de un objeto de tipo "ol_table"
+* Creación de una nueva tabla (.mytable)
+.my_table = .ol_table.new
 
 * Actualización de .my_table
 .my_table.cmds     = "(total _counter)"     // listado de comandos (las opciones se capturan en otros campos)
@@ -21,9 +21,13 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.subpop   = "if (_ocupado == 1)"   // sub-población
 .my_table.src      = "ene"                  // fuente
 .my_table.from     = "`datos'"              // directorio raíz de todas las bbdd
-.my_table.varlist0 = "_ocupado"             // variables consideradas para esta tabla
-
+.my_table.varlist0 = "_ocupado"             // listado de las variables consideradas para esta tabla
 ```
+Algunos puntos a destacar:
+* Cada comando dentro del campo ``.cmds`` debe ir entre paréntesis. 
+* Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
+* Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
+
 
 Como se puede apreciar, ambas funciones tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD, pues algunas variables requieren más de una BBDD para ser construidas.
 
