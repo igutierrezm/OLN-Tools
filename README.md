@@ -21,6 +21,7 @@ Instalación
 2. En Stata, declare las siguientes macros **globales**:
   * ``$pkg``, el directorio en el cual guardó el repo clonado.
   * ``$datos``, el directorio raíz de las BBDD.
+  El analista debe declarar estas macros 
 3. En Stata, tipee lo siguiente:
 ```stata
   foreach folder in "" "_casen" "_ene" "_esi" "_pib" "_sii" {
@@ -28,8 +29,8 @@ Instalación
   }
 ```
 
-Aprendiendo a usar OLN-Tools
-----------------------------
+Uso
+---
 
 Para aprender a usar el paquete, lea las notas contenidas en ``$pkg/vignettes``. Se recomienda leerlas en el orden.
 
