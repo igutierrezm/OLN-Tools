@@ -7,7 +7,7 @@
 
 Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usando la Encuesta Nacional de Empleo. Naturalmente, esto requerirá que el analista genere al menos una variable:
 
-* ``_ocupado``, igual 1 si está ocupado, 0 si no está ocupado y (digamos) 1e5 si ns/nr.
+* ``_ocupado``, igual 1 si está ocupado, 0 si no está ocupado y (digamos) ``1e5`` si ns/nr.
 
 ``OLN-Tools`` facilita esta tarea con dos funciones: ``ol_select`` y ``ol_generate``. 
 
