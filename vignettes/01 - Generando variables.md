@@ -11,16 +11,23 @@ Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usand
 
 ``OLN-Tools`` facilita esta tarea con dos funciones: ``ol_select`` y ``ol_generate``. 
 
-* ``ol_select`` se concentra en identificar los inputs necesarios para generar una variable. Por ejemplo, para genera ``_ocupado``, necesitamos la variable ``cae_general`` (obviamente, existen otras opciones).
+* ``ol_select`` se concentra en identificar los inputs necesarios para generar una variable.
 * ``ol_generate`` se concentra en la creación de la variable como tal.
 
-El siguiente ejemplo ilustra el uso de ambas funciones:
+El siguiente ejemplo ilustra el uso de ambas funciones en Stata:
 
 ```stata
-  * Loop principal
-  forvalues año = 2011(2)2015 {
-    *  
-  }
+* No ejecutar
+*  global datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
+*  global pkg   "C:/Users/Pedro/Documents/GitHub/OLN-Tools"
+
+* ¿Qué variables necesito para crear _ocupado? La respuesta será guardada en `inputs'
+lo_select, variable("_ocupado") db("casen") año("2016")
+local inputs = "`r(selection)'"
+
+* Carga de la BBDD relevante (recuerde las convenciones declaradas en README.md)
+use `inputs' using "$datos/CASEN/CASEN 2015.dta", clear
+
 ```
 
 * Fijando en 
