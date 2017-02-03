@@ -28,6 +28,10 @@ Algunos puntos a destacar:
 * Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
 * Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
 
+Una vez especificada, el siguiente comando realizará todos los cálculos y los presentará como una BBDD
+```
+.my_table.create
+```
 
 Como se puede apreciar, ambas funciones tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD, pues algunas variables requieren más de una BBDD para ser construidas.
 
