@@ -117,7 +117,7 @@ Suponga que desea estimar la distribución de ocupados por categoría ocupaciona
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Declaración de una nueva tabla (my_table)
-.my_table = .ol_table.new                      // Inicialización de la tabla
+.my_table = .ol_table.new                       // Inicialización de la tabla
 .my_table.cmds      = "(proportion _cise_v1)"   // listado de comandos (las opciones se capturan en otros campos)
 .my_table.masks     = "(n. de ocupados)"        // listado de máscaras (describen los comandos)
 .my_table.years     = "2015"                    // listado de años considerados
