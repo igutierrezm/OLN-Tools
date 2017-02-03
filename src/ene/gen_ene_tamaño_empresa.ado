@@ -2,7 +2,7 @@
 capture program drop gen_ene_tamaño_empresa
 program define gen_ene_tamaño_empresa, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Objetos temporales
   tempvar b15_1 b15_2
   * Mutación

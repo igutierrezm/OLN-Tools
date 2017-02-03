@@ -1,7 +1,7 @@
 capture program drop gen_ene_jparcial_inv
 program define gen_ene_jparcial_inv, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Abreviaciones
   local var "_jparcial_inv"
   * Mutación

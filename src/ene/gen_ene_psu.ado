@@ -1,7 +1,7 @@
 capture program drop gen_ene_psu
 program define gen_ene_psu, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   generate long _psu = id_directorio
   * Etiquetado

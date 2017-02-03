@@ -2,7 +2,7 @@
 capture program drop gen_ene_cise_v3
 program define gen_ene_cise_v3, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Abreviaciones
   local tc  "_tipo_contrato"
   local var "_cise_v3"
@@ -31,4 +31,3 @@ program define gen_ene_cise_v3, rclass
     modify
   label variable `var' "Categoría ocupacional"
 end
- 

@@ -2,7 +2,7 @@
 capture program drop gen_ene_cise_v1
 program define gen_ene_cise_v1, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Abreviaciones
   local var "_cise_v1"
   * RMutación

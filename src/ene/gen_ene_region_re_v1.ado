@@ -2,7 +2,7 @@
 capture program drop gen_ene_region_re_v1
 program define gen_ene_region_re_v1, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
 	* Mutacion
   local var "_region_re_v1"
 	# delimit ;

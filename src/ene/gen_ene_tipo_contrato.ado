@@ -1,7 +1,7 @@
 capture program drop gen_ene_tipo_contrato
 program define gen_ene_tipo_contrato, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   local var "_tipo_contrato"
   generate `var' = 1e5

@@ -1,7 +1,7 @@
 capture program drop gen_ene_estrato
 program define gen_ene_estrato, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   generate long _estrato = estrato
   * Etiquetado

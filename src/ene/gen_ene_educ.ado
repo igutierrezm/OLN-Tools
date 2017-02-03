@@ -2,7 +2,7 @@
 capture program drop gen_ene_educ
 program define gen_ene_educ, rclass
 	version 14.1
-	syntax, año(string) mes(string)
+	syntax, año(string) mes(string) [from(string)]
 	* Objetos temporales
 	tempvar educ
 	* Abreviaciones
@@ -10,7 +10,7 @@ program define gen_ene_educ, rclass
 	local t "termino_nivel"
 	* Mutación
 	generate `educ' = `n' * (3 - 2 * `t') if inrange(`t', 1, 2)
-	replace  `educ' = . if !inrange(`n', 0, 12) & (`n' != 14) 
+	replace  `educ' = . if !inrange(`n', 0, 12) & (`n' != 14)
 	# delimit ;
 		recode `educ'
 			(1e6     = 1e6 "Nacional")

@@ -2,7 +2,7 @@
 capture program drop gen_ene_b7
 program define gen_ene_b7, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   forvalues v = 1(1)7 {
     recode b7_`v'              ///

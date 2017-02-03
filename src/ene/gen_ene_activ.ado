@@ -2,7 +2,7 @@
 capture program drop gen_ene_activ
 program define gen_ene_activ
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   # delimit ;
     recode cae_general

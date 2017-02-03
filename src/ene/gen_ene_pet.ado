@@ -1,7 +1,7 @@
 capture program drop gen_ene_pet
 program define gen_ene_pet, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   recode cae_general (1/9 = 1) (0 = 0) (else = 1e5), generate(_pet)
   * Etiquetado

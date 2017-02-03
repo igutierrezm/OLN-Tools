@@ -2,7 +2,7 @@
 capture program drop gen_ene_rama1_v2
 program define gen_ene_rama1_v2, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Unión de las ramas de ocupados y cesantes
   tempvar rama1
   generate `rama1' = .

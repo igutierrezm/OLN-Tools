@@ -2,6 +2,7 @@ capture program drop select_casen
 program define select_casen, rclass
   version 14.1
   syntax, varlist(string) año(string) [mes(string)]
+
   * Variables relevantes, según año y variable:
   local selection ""
   foreach var in `varlist' {

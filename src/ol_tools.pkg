@@ -12,6 +12,7 @@ f _general/encode2.ado
 f _general/expect_equal.ado
 f _general/ol_dictionary.ado
 f _general/ol_generate.ado
+f _general/ol_select.ado
 f _general/ol_table.class
 f _general/bsrweights.ado
 f _general/reshape2.ado

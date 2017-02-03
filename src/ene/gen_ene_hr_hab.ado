@@ -2,7 +2,7 @@
 capture program drop gen_ene_hr_hab
 program define gen_ene_hr_hab, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   recode habituales (999 = .), generate(_hr_hab)
   * Etiquetado

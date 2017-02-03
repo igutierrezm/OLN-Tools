@@ -1,7 +1,7 @@
 capture program drop gen_ene_oficio1
 program define gen_ene_oficio1, rclass
 	version 14.1
-	syntax, año(string) mes(string)
+	syntax, año(string) mes(string) [from(string)]
 	* Mutación
 	recode b1 (10 = 1e5) (missing = 1e5), generate(_oficio1)
 	* Etiquetado

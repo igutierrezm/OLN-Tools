@@ -1,7 +1,7 @@
 capture program drop gen_ene_exceso_hr_chl
 program define gen_ene_exceso_hr_chl, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   local var "_exceso_hr_chl"
   recode habituales (0/45 = 0) (46/998 = 1) (else = 1e5), generate(`var')

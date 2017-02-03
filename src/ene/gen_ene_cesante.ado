@@ -1,7 +1,7 @@
 capture program drop gen_ene_cesante
 program define gen_ene_cesante, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   recode cae_general (4 = 1) (0/3 5/9 = 0) (else = 1e5), generate(_cesante)
   * Etiquetado (valores)

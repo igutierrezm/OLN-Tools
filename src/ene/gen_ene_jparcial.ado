@@ -1,7 +1,7 @@
 capture program drop gen_ene_jparcial
 program define gen_ene_jparcial, rclass
   version 14.1
-  syntax, año(string) mes(string)
+  syntax, año(string) mes(string) [from(string)]
   * Mutación
   # delimit ;
     recode c1
