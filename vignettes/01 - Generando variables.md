@@ -18,7 +18,7 @@ El siguiente ejemplo ilustra el uso de ambas funciones en Stata:
 
 ```stata
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
-local root "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
+local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Inputs relevantes (strings)
 ol_select, variable("_ocupado") db("casen") año("2016")
@@ -28,7 +28,7 @@ local inputs = "`r(selection)'"
 use `inputs' using "`root'/CASEN/CASEN 2015.dta", clear
 
 * Output
-ol_generate, variable("_ocupado") root("`root'") db("casen") año("2016")
+ol_generate, variable("_ocupado") from("`datos'") db("casen") año("2016")
 
 
 ```
