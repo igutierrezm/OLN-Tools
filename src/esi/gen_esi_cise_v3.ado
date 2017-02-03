@@ -3,7 +3,7 @@ version 14.1
 capture program drop gen_esi_cise_v3
 program define gen_esi_cise_v3, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Mutación
   # delimit ;
   recode CISE

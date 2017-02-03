@@ -1,7 +1,7 @@
 capture program drop gen_esi_mantuvo_empleo
 program define gen_esi_mantuvo_empleo, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Mutación:
   local var "_mantuvo_empleo"
   if inrange(`año', 2011, 2015) {

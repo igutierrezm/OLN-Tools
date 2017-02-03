@@ -1,7 +1,7 @@
 capture program drop gen_esi_tamaño_empresa
 program define gen_esi_tamaño_empresa, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Objetos temporales
   tempvar B15_1 B15_2
   * Mutación

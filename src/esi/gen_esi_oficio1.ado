@@ -2,7 +2,7 @@
 capture program drop gen_esi_oficio1
 program define gen_esi_oficio1, rclass
 	version 14.1
-	syntax, año(string)
+	syntax, año(string) [mes(string) from(string)]
 	* Mutación
 	local var "_oficio1"
 	recode B1 (10 = 1e5) (missing = 1e5), generate(`var')

@@ -1,7 +1,7 @@
 capture program drop gen_esi_psu
 program define gen_esi_psu, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Objetos temporales
   tempfile df_esi
   save `df_esi', replace

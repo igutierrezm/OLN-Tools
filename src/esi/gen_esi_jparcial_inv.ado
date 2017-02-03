@@ -1,7 +1,7 @@
 capture program drop gen_esi_jparcial_inv
 program define gen_esi_jparcial_inv, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Mutación
   generate _jparcial_inv = 1e5
   replace  _jparcial_inv = 1 if (C1 == 2) & (C10 == 1) & (C11 == 1)

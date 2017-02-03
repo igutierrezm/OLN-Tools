@@ -1,7 +1,7 @@
 capture program drop gen_esi_tramo_edad_v2
 program define gen_esi_tramo_edad_v2, rclass
 	version 14.1
-	syntax, año(string)
+	syntax, año(string) [mes(string) from(string)]
 	* Mutación
 	# delimit ;
 	recode EDAD

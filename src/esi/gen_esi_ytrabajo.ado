@@ -2,7 +2,7 @@
 version 14.1
 capture program drop gen_esi_ytrabajo
 program define gen_esi_ytrabajo, rclass
-syntax, año(string)
+syntax, año(string) [mes(string) from(string)]
   * Mutación
   generate _ytrabajo = ING_T_T / 1000
   * Etiquetado

@@ -1,7 +1,7 @@
 capture program drop gen_esi_educ
 program define gen_esi_educ, rclass
 	version 14.1
-	syntax, año(string)
+	syntax, año(string) [mes(string) from(string)]
 	* Mutación
 	tempvar temp
 	generate `temp' = NIVEL * (3 - 2 * TERMINO_NIVEL) if (NIVEL != 999)
