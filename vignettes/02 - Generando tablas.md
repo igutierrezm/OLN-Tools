@@ -5,7 +5,7 @@ Generando Estadísticas
 
 ### Ejemplo 1
 
-Suponga que desea estimar el número de ocupados para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
+Suponga que desea estimar el número de ocupados para cada rama de actividad económica y para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
 
 ```stata
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
@@ -17,6 +17,7 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.years    = "2015"                 // listado de años considerados
 .my_table.months   = "2 5 8 11"             // listado de meses considerados
 .my_table.subpop   = "if (_ocupado == 1)"   // sub-población
+.my_table.over     = "(_rama1_v1)"          // dominios de estimación
 .my_table.src      = "ene"                  // fuente (opciones: casen, ene, esi, pib, sii)
 .my_table.from     = "`datos'"              // directorio raíz de todas las bbdd
 .my_table.varlist0 = "_ocupado"             // listado de las variables consideradas para esta tabla
