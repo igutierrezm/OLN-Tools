@@ -33,7 +33,7 @@ Algunos puntos a destacar:
 
 ### Ejemplo 2
 
-Suponga que desea estimar el número de ocupados, según rama de actividad económica, para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
+Suponga que desea estimar el número de ocupados, para cada rama de actividad económica, para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
 
 ```stata
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
@@ -57,7 +57,7 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 ### Ejemplo 3
 
-Suponga que desea estimar la distribución de ocupados por categoría ocupacional, según rama de actividad económica, para cada trimestre del 2016, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
+Suponga que desea estimar la distribución de ocupados por categoría ocupacional, para rama de actividad económica, para cada trimestre del 2016, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
 
 ```stata
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
@@ -79,6 +79,13 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 * Estimación de la tabla (como una BBDD en Stata)
 .my_table.create
 ```
+
+Algunos puntos a destacar:
+* Tanto ``.by`` como ``.along`` contienen variables que determinan dominios de estimación. La diferencia radica en que, en caso de calcular proporciones, estas se calcularán de manera proporcional a cada combinación de variables en ``.along``.
+
+* Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
+* Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
+
 
 ### Ejemplo100
 
