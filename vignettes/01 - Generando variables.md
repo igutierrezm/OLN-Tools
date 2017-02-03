@@ -1,9 +1,15 @@
 1. Generando variables
 ----------------------
 
-``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. En esta viñeta, explicaremos las 3 principales funciones que el paquete ofrece para trabajar con dicha biblioteca:
+``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. En esta viñeta, se explicarán las funciones básicas para utilizarlas
 
-## 1.1. Diccionarios de variables
+## 1.1. Un ejemplo motivador
+
+Suponga que desea estimar el porcentaje de ocupados que cotizan en el sistema de salud en los años 2011, 2013 y 2015, usando siempre la encuesta CASEN. Naturalmente, esto requerirá que el analista genere al menos dos variables:
+
+* ``_ocupado``, una variable que valga 1 si está ocupado, 0 en caso contrario.
+* ``_cotiza_pension``, una variable que valga 1 si está cotizando, 0 en caso contrario.
+
 
 Para visualizar las variables que ``OLN-Tools`` ofrece para la BBDD ``<db>``, tipee en Stata
 ```stata
