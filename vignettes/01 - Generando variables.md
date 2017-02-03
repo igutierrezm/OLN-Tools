@@ -22,15 +22,13 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Inputs relevantes (strings)
 ol_select, varlist("_ocupado") db("casen") año("2015")
-local inputs "`r(inputs)'"
+local selection "`r(selection)'"
 
 * Inputs relevantes (variables)
-use `inputs' using "`datos'/CASEN/CASEN 2015.dta", clear
+use `selection' using "`datos'/CASEN/CASEN 2015.dta", clear
 
 * Output
 ol_generate, variable("_ocupado") db("casen") año("2015") from("`datos'") 
-
-
 ```
 
 * Fijando en 
