@@ -17,16 +17,19 @@ Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usand
 El siguiente ejemplo ilustra el uso de ambas funciones en Stata:
 
 ```stata
-* No ejecutar
-*  global datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
-*  global pkg   "C:/Users/Pedro/Documents/GitHub/OLN-Tools"
+* Directorio raíz de las BBDD
+local root "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
-* ¿Qué variables necesito para crear _ocupado? La respuesta será guardada en `inputs'
-lo_select, variable("_ocupado") db("casen") año("2016")
+* Inputs relevantes (strings)
+ol_select, variable("_ocupado") db("casen") root("`root'") año("2016")
 local inputs = "`r(selection)'"
 
-* Carga de la BBDD relevante (recuerde las convenciones declaradas en README.md)
-use `inputs' using "$datos/CASEN/CASEN 2015.dta", clear
+* Inputs relevantes (variables)
+use `inputs' using "`root'/CASEN/CASEN 2015.dta", clear
+
+* Output
+ol_generate, variable("_ocupado") db("casen") años("2016")
+
 
 ```
 
