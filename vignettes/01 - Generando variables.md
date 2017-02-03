@@ -33,6 +33,11 @@ ol_generate, varlist("_ocupado") db("casen") año("2015") mes("") from("`datos'"
 
 Como se puede apreciar, ambas funciones tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD, pues algunas variables requieren más de una BBDD para ser construidas.
 
+Para ver el listado completo de las variables cubiertas para la encuesta CASEN, tipee en Stata
+```stata
+  ol_dictionary, db("casen")  // otras opciones son "ene", "esi", "pib" y "sii"
+```
+
 | Command | Description |
 | ---: | :--- |
 | ``varlist(string)`` | el nombre de la variable que deseamos generar |
