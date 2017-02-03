@@ -5,7 +5,8 @@ Generando Tablas
 
 ### Ejemplo 1
 
-Suponga que desea estimar el número de ocupados para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
+Suponga que desea estimar la distribución de ocupados y desocupados por tramo de edad, para los años 2010 y 2015 (por simplicidad usaremos el primer trimestre de cada año).
+
 
 ![Figura 03-01](https://rawgit.com/igutierrezm/OLN-Tools/master/fig/vignettes/figura 03-01.png)
 
