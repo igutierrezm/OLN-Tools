@@ -11,11 +11,15 @@ Suponga que desea construir una tabla con la distribución de ocupados y desocup
 Ya que esta tabla tiene dos paneles (digamos, *ocupados* y *desocupados*) podemos construirla de la siguiente manera:
 ```stata
 * Housekeeping
+set more off
 clear all
 cls
-tempfile df
 
-* Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
+* Objetos temporales
+tempfile df
+save `df', emptyok
+
+* Directorio raíz de las BBDD
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Declaración de una nueva tabla (my_table)
@@ -24,7 +28,7 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.masks    = "(% de ocupados)"
 .my_table.years    = "2010 2015"
 .my_table.months   = "2 5 8 11"
-.my_table.subpop   = "if (_ocupado == 1) %% if (_desocupado == 1)"
+.my_table.subpop   = "if (_ocupado == 1)"
 .my_table.src      = "ene"
 .my_table.from     = "`datos'"
 .my_table.varlist0 = "_ocupado"
@@ -32,7 +36,6 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 * Estimación - Panel N°1 (ocupados):
 .my_table.subpop   = "if (_ocupado == 1)"
 .my_table.create
-
 ```
 
 
