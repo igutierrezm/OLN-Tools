@@ -11,7 +11,7 @@ Suponga que desea estimar el número de ocupados para el trimestre 2016 01 usand
 
 ``OLN-Tools`` facilita esta tarea con dos funciones: ``ol_select`` y ``ol_generate``. 
 
-* ``ol_select`` permite identificar las variables necesarias (y suficientes) para generar una variable, 
+* ``ol_select`` se concentra en identificar los inputs necesarios para generar una variable. Por ejemplo, para genera ``_ocupado``, necesitamos la variable ``cae_general`` (obviamente, existen otras opciones).
 * ``ol_generate`` se concentra en la creación de la variable como tal.
 
 El siguiente ejemplo ilustra el uso de ambas funciones:
