@@ -28,42 +28,8 @@ Algunos puntos a destacar:
 * Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
 * Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
 
-Una vez especificada, el siguiente comando realizará todos los cálculos y los presentará como una BBDD
+Una vez especificada, el siguiente comando realizará todos los cálculos y los presentará los resultados como una BBDD
 ```
 .my_table.create
 ```
 
-Como se puede apreciar, ambas funciones tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD, pues algunas variables requieren más de una BBDD para ser construidas.
-
-Para ver el listado completo de las variables cubiertas para la encuesta CASEN, tipee en Stata
-```stata
-  ol_dictionary, db("casen")  // otras opciones son "ene", "esi", "pib" y "sii"
-```
-
-### Ejemplo 2
-
-Suponga que desea estimar el porcentaje de ocupados conmutantes (distinguiendo a Ñuble de Bío-Bío) para cada trimestre del 2015 usando la ENE. Naturalmente, esto requerirá que el analista genere al menos dos variables:
-
-* ``_ocupado``, igual 1 si está ocupado, 0 si no, y (digamos) ``1e5`` si ns/nr.
-* ``_conmutante_v2``, igual 1 si es conmutante, 0 si no, y (digamos) ``1e5`` si ns/nr.
-
-El siguiente ejemplo ilustra cómo generar ambas variables, para cada trimestre, usando ``OLN-Tools``
-
-```stata
-* Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
-local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
-
-* Loop sobre los trimestres:
-local varlist "_ocupado _conmutante_v2"
-foreach mes in "02" "05" "08" "11" {
-  * Inputs relevantes (strings)
-  ol_select, varlist("`varlist'") db("ene") año("2015") mes("`mes'")
-  local selection "`r(selection)'"
-
-  * Inputs relevantes (variables)
-  use `selection' using "`datos'/ENE/ENE 2015 `mes'.dta", clear
-
-  * Creación de la variable _ocupado
-  ol_generate, varlist("`varlist'") db("ene") año("2015") mes("`mes'") from("`datos'") 
-}
-```
