@@ -31,7 +31,7 @@ use `selection' using "`datos'/CASEN/CASEN 2015.dta", clear
 ol_generate, varlist("_ocupado") db("casen") año("2015") mes("") from("`datos'") 
 ```
 
-Como se puede ambas funciones (``ol_select`` y ``ol_generate``) tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD (``from()``), pues algunas variables requieren más de una BBDD para ser construidas.
+Como se puede ambas funciones (``ol_select`` y ``ol_generate``) tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD, pues algunas variables requieren más de una BBDD para ser construidas.
 
 | Command | Description |
 | ---: | :--- |
