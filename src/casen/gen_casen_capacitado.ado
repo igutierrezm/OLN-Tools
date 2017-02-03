@@ -1,7 +1,7 @@
 capture program drop gen_casen_capacitado
 program define gen_casen_capacitado, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Mutación
   local var "_capacitado"
   select_casen, varlist("_capacitado") año(`año')

@@ -2,7 +2,7 @@
 capture program drop gen_casen_asalariado
 program define gen_casen_asalariado, rclass
   version 14.1
-  syntax, año(string)
+  syntax, año(string) [mes(string) from(string)]
   * Mutación
   select_casen, varlist("_asalariado") año(`año')
   # delimit ;
@@ -16,4 +16,3 @@ program define gen_casen_asalariado, rclass
   * Etiquetado
   label variable _asalariado "¿Es un trabajador asalariado?"
 end
- 
