@@ -52,13 +52,13 @@ El siguiente ejemplo ilustra cómo generar ambas variables, para cada trimestre,
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Loop sobre los trimestres:
-forvalues mes in "02" "05" "08" "11" {
+foreach mes in "02" "05" "08" "11" {
   * Inputs relevantes (strings)
   ol_select, varlist("_ocupado _conmutante_v2") db("ene") año("2015") mes("`mes'")
   local selection "`r(selection)'"
 
   * Inputs relevantes (variables)
-  use `selection' using "`datos'/ENE/2015/ENE 2015 `mes'.dta", clear
+  use `selection' using "`datos'/ENE/ENE 2015 `mes'.dta", clear
 
   * Creación de la variable _ocupado
   ol_generate, varlist("_ocupado _conmutante_v2") db("ene") año("2015") mes("`mes'") from("`datos'") 
