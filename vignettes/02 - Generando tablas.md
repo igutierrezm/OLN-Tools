@@ -81,11 +81,8 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 ```
 
 Algunos puntos a destacar:
-* Tanto ``.by`` como ``.along`` contienen variables que determinan dominios de estimación. La diferencia radica en que, en caso de calcular proporciones, estas se calcularán de manera proporcional a cada combinación de variables en ``.along``.
-
-* Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
-* Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
-
+* Los campos ``.by`` y ``.along`` determinan *en conjunto* los dominios de estimación.
+* La diferencia radica en que, en caso de calcular proporciones, dichas proporciones se calcularán de manera proporcional a cada combinación de variables en ``.along``.
 
 ### Ejemplo100
 
