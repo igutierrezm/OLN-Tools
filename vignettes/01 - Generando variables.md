@@ -25,10 +25,10 @@ ol_select, variable("_ocupado") db("casen") año("2016")
 local inputs = "`r(selection)'"
 
 * Inputs relevantes (variables)
-use `inputs' using "`root'/CASEN/CASEN 2015.dta", clear
+use `inputs' using "`datos'/CASEN/CASEN 2015.dta", clear
 
 * Output
-ol_generate, variable("_ocupado") from("`datos'") db("casen") año("2016")
+ol_generate, variable("_ocupado") db("casen") año("2016") from("`datos'") 
 
 
 ```
