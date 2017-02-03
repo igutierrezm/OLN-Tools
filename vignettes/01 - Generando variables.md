@@ -1,7 +1,7 @@
 1. Generando variables
 ----------------------
 
-``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. En esta viñeta, se explicarán las funciones básicas para utilizarlas
+``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables. Esta viñeta muestra, a través de ejemplo, como utilizarla.
 
 ## 1.1. Un ejemplo motivador
 
