@@ -17,7 +17,7 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 * Actualización de .my_table
 .my_table.cmds     = "(total _counter)"     // listado de comandos (las opciones se capturan en otros campos)
 .my_table.years    = "2015"                 // listado de años considerados
-.my_table.months   = "02"                   // listado de meses considerados
+.my_table.months   = "2 5 8 11"             // listado de meses considerados
 .my_table.subpop   = "if (_ocupado == 1)"   // sub-población
 .my_table.src      = "ene"                  // fuente
 .my_table.from     = "`datos'"              // directorio raíz de todas las bbdd
