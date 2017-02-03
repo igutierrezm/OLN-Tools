@@ -6,7 +6,6 @@ d Distribution-Date: 20160105
 d
 d Support: email ivangutierrez@observatorionacional.cl
 
-
 * casen/
 f casen/gen_casen_alfabetizado.ado
 f casen/gen_casen_asalariado.ado
