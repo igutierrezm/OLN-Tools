@@ -21,8 +21,8 @@ El siguiente ejemplo ilustra el uso de ambas funciones en Stata:
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 * Inputs relevantes (strings)
-ol_select, variable("_ocupado") db("casen") año("2016")
-local inputs = "`r(selection)'"
+ol_select, varlist("_ocupado") db("casen") año("2015")
+local inputs "`r(inputs)'"
 
 * Inputs relevantes (variables)
 use `inputs' using "`datos'/CASEN/CASEN 2015.dta", clear
