@@ -19,14 +19,14 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.years    = "2015"                 // listado de años considerados
 .my_table.months   = "2 5 8 11"             // listado de meses considerados
 .my_table.subpop   = "if (_ocupado == 1)"   // sub-población
-.my_table.src      = "ene"                  // fuente
+.my_table.src      = "ene"                  // fuente (opciones: casen, ene, esi, pib, sii)
 .my_table.from     = "`datos'"              // directorio raíz de todas las bbdd
 .my_table.varlist0 = "_ocupado"             // listado de las variables consideradas para esta tabla
 ```
 Algunos puntos a destacar:
 * Cada comando dentro del campo ``.cmds`` debe ir entre paréntesis. 
-* Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
 * Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
+* Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
 
 
 Como se puede apreciar, ambas funciones tienen una sintaxis muy similar. El parámetro ``varlist()`` indica la variable que nos interesa generar, mientras que el resto identifica a la BBDD de referencia. Adicionalmente, ``ol_generate`` necesita conocer el directorio raíz de las BBDD, pues algunas variables requieren más de una BBDD para ser construidas.
