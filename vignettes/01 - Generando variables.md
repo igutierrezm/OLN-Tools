@@ -28,7 +28,7 @@ local inputs "`r(inputs)'"
 use `inputs' using "`datos'/CASEN/CASEN 2015.dta", clear
 
 * Output
-ol_generate, variable("_ocupado") db("casen") año("2016") from("`datos'") 
+ol_generate, variable("_ocupado") db("casen") año("2015") from("`datos'") 
 
 
 ```
