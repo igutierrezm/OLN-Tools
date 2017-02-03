@@ -1,5 +1,5 @@
-2. Generando tablas
-===================
+Generando tablas
+================
 
 ``OLN-Tools`` contiene un sistema OO para generar tablas. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a este sistema.
 
@@ -11,10 +11,8 @@ Suponga que desea estimar el número de ocupados para para el trimestre 2015 02 
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
-* Creación de una nueva tabla (.mytable)
-.my_table = .ol_table.new
-
-* Actualización de .my_table
+* Declaración de una nueva tabla (my_table)
+.my_table = .ol_table.new                   // Inicialización de la tabla
 .my_table.cmds     = "(total _counter)"     // listado de comandos (las opciones se capturan en otros campos)
 .my_table.years    = "2015"                 // listado de años considerados
 .my_table.months   = "2 5 8 11"             // listado de meses considerados
