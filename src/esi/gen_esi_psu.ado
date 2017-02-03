@@ -1,12 +1,12 @@
 capture program drop gen_esi_psu
 program define gen_esi_psu, rclass
   version 14.1
-  syntax, año(string) [mes(string) from(string)]
+  syntax, from(string) año(string) [mes(string)]
   * Objetos temporales
   tempfile df_esi
   save `df_esi', replace
   * Identificación de la ENE asociada a la ESI utilizada
-  local df_ene "$datos/ENE/ENE `año' 11"
+  local df_ene "`from'/ENE/ENE `año' 11"
   * Identificación del psu asociado a cada vivienda
   use id* using "`df_ene'", clear
   rename id_identificacion ID_IDENTIFICACION
