@@ -5,7 +5,7 @@ Generando Estadísticas
 
 ### Ejemplo 1
 
-Suponga que desea estimar el número de ocupados para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo *especificar* la tabla que deseamos:
+Suponga que desea estimar el número de ocupados para cada trimestre del año 2015, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
 
 ```stata
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
@@ -20,16 +20,15 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.src      = "ene"                  // fuente (opciones: casen, ene, esi, pib, sii)
 .my_table.from     = "`datos'"              // directorio raíz de todas las bbdd
 .my_table.varlist0 = "_ocupado"             // listado de las variables consideradas para esta tabla
+
+* Estimación de la tabla (se presentará como una BBDD en Stata)
+.my_table.create
 ```
+
 Algunos puntos a destacar:
 * Cada comando dentro del campo ``.cmds`` debe ir entre paréntesis. 
 * Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
 * Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
-
-Una vez especificada, el siguiente comando realizará todos los cálculos y los presentará los resultados como una BBDD
-```
-.my_table.create
-```
 
 ### Ejemplo 2
 
