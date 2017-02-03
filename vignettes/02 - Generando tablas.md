@@ -1,7 +1,7 @@
-Generando tablas
-================
+Generando Estadísticas
+======================
 
-``OLN-Tools`` contiene un sistema OO para generar tablas. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a este sistema.
+``OLN-Tools`` contiene un sistema OO para generar estadísticas. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a este sistema.
 
 ### Ejemplo 1
 
