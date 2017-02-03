@@ -3,7 +3,7 @@
 
 ``OLN-Tools`` contiene una extensa biblioteca de funciones para generar variables, así como una serie de funciones que facilitan su uso. Esta viñeta muestra, a través de una serie de ejemplos, como sacarle el máximo provecho a estas funciones.
 
-## Ejemplo 1.1. 
+### Ejemplo 1.1. 
 
 Suponga que desea estimar el número de ocupados para el año 2015 usando la encuesta CASEN. Naturalmente, esto requerirá que el analista genere al menos una variable:
 
