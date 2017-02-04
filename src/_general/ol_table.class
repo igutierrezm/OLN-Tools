@@ -3,11 +3,12 @@ version 14.1
 class ol_table {
   * Comandos
   string cmds
-  string masks
+  string cmds_lb
   * Dominios
   string years
   string months
-  string subpop
+  string subpops
+  string subpops_lb
   string by
   string along
   * Estructura
@@ -34,10 +35,12 @@ program define .complete
   version 14.1
   syntax
 
-  * Ajuste de los campos .cmds, .masks y .aggregate:
-  foreach symbol in "(" ")" {
+  * Ajuste de los campos .cmds, .cmds_lb y .aggregate:
+  foreach symbol in "{" "}" {
     .cmds      = subinstr(`"`.cmds'"',      "`symbol'", `"""', .)
-    .masks     = subinstr(`"`.masks'"',     "`symbol'", `"""', .)
+    .cmds_lb     = subinstr(`"`.cmds_lb'"',     "`symbol'", `"""', .)
+    .subpops      = subinstr(`"`.subpops'"',      "`symbol'", `"""', .)
+    .subpops_lb     = subinstr(`"`.subpops_lb'"',     "`symbol'", `"""', .)
     .aggregate = subinstr(`"`.aggregate'"', "`symbol'", `"""', .)
   }
 
@@ -48,7 +51,7 @@ program define .complete
   .over = "`.along' `.by'"
 
   * Anexión de las dimensiones de la tabla
-  foreach field in months years cmds along by over {
+  foreach field in months years cmds subpops along by over {
       .N_`field' = `:word count of `.`field''' - 1
   }
 
@@ -199,16 +202,20 @@ program define .clean
     label define mes `mes' "`mes'", add
   }
   forvalues i = 1(1)`.N_cmds' {
-    label define mask `i' "`:word `i' of `.masks''", modify
+    label define cmd_lb `i' "`:word `i' of `.cmds_lb''", modify
   }
-  foreach var in año mes mask {
+  forvalues j = 1(1)`.N_subpops' {
+    label define subpop_lb `j' "`:word `j' of `.subpops_lb''", modify
+  }
+  foreach var in año mes cmd_lb subpop_lb {
     label values `var' `var'
   }
   * Etiquetado (variables)
   label variable año     "Año"
   label variable mes     "Mes"
-  label variable cmdtype "Tipo de comando (e.g., total)"
-  label variable mask    "Estadístico"
+  label variable cmd_type "Tipo de comando (e.g., total)"
+  label variable cmd_lb   "Etiqueta del comando"
+  label variable subpop_lb "Etiqueta de la sub-población"
   label variable bh      "Estimado"
   label variable o2      "Varianza"
   label variable cv      "Coeficiente de variación (%)"
@@ -217,8 +224,8 @@ program define .clean
     label variable `var' "`: variable label `var''"
   }
   * Ordenación
-  order año mes  cmdtype mask `.over' bh o2 cv
-  gsort año mes  cmdtype mask `.over'
+  order año mes cmd_type cmd_lb subpop_lb `.over' bh o2 cv
+  gsort año mes cmd_type cmd_lb subpop_lb `.over'
   if ("`.months'" == "0") drop mes
 end
 
@@ -257,40 +264,47 @@ program define .create
         snapshot save
         foreach vars in "" `.aggregate' {
           forvalues i = 1(1)`.N_cmds' {
-            * Agregaciones
-            snapshot restore 1
-            foreach var in `vars' {
-      				replace `var' = 1e6
-      			}
+            forvalues j = 1(1)`.N_subpops' {
+              * Agregaciones
+              snapshot restore 1
+              foreach var in `vars' {
+        				replace `var' = 1e6
+        			}
 
-            * Comando / Máscara
-            local cmd  : word `i' of `.cmds'
-            local mask : word `i' of `.masks'
+              * Comando
+              local cmd  : word `i' of `.cmds'
+              local cmd_lb : word `i' of `.cmds_lb'
 
-            * Estimación
-            gettoken stat : cmd
-            local test = ("`stat'" == "proportion")
-            if (`test' == 1) local opts `"over(`.along', nolabel) nolabel"'
-            if (`test' == 0) local opts `"over(`.over', nolabel)"'
-            svy, subpop(`.subpop') : `cmd', `opts' nolegend
+              * Sub-población
+              local subpop    : word `j' of `.subpops'
+              local subpop_lb : word `j' of `.subpops_lb'
 
-            * Conversión de los resultados en una BBDD
-            .get_stats,   stat("`stat'")
-            .get_domains, stat("`stat'")
+              * Estimación
+              gettoken stat : cmd
+              local test = ("`stat'" == "proportion")
+              if (`test' == 1) local opts `"over(`.along', nolabel) nolabel"'
+              if (`test' == 0) local opts `"over(`.over', nolabel)"'
+              svy, subpop(`subpop') : `cmd', `opts' nolegend
 
-            * ID auxiliares
-            generate cmdtype = "`stat'"
-            generate año = `año'
-            generate mes = `mes'
-            generate mask = `i'
+              * Conversión de los resultados en una BBDD
+              .get_stats,   stat("`stat'")
+              .get_domains, stat("`stat'")
 
-            * Ordenación
-            order año mes `.over' cmdtype mask bh o2 cv
-            gsort año mes `.over' cmdtype mask
+              * ID auxiliares
+              generate cmd_type = "`stat'"
+              generate año = `año'
+              generate mes = `mes'
+              generate cmd_lb = `i'
+              generate subpop_lb = `j'
 
-        		* Anexión
-        		append using `df'
-        		save `df', replace
+              * Ordenación
+              order año mes `.over' cmd_type cmd_lb subpop_lb bh o2 cv
+              gsort año mes `.over' cmd_type cmd_lb subpop_lb
+
+          		* Anexión
+          		append using `df'
+          		save `df', replace
+            }
           }
       	}
         snapshot erase _all
@@ -314,10 +328,10 @@ program define .annualize
   tempvar temp
   * Agregación
   generate `temp' = bh
-  collapse (sum) bh (max) o2 (count) `temp', by(año `.over' cmdtype mask)
+  collapse (sum) bh (max) o2 (count) `temp', by(año `.over' cmd_type cmd_lb)
   replace bh = bh / `temp'
-  * replace bh = bh / `temp'      if  inlist(cmdtype, "mean", "ratio")
-  * replace bh = bh / `.N_months' if !inlist(cmdtype, "mean", "ratio")
+  * replace bh = bh / `temp'      if  inlist(cmd_type, "mean", "ratio")
+  * replace bh = bh / `.N_months' if !inlist(cmd_type, "mean", "ratio")
   generate cv = 100 * sqrt(o2) / bh
   * Etiquetado
   label variable bh "estimado"
@@ -338,7 +352,7 @@ program define .as_proportion
     exit 1
   }
   * Agregación
-  egen `max_bh' = max(bh), by(año mask `.along')
+  egen `max_bh' = max(bh), by(año cmd_lb `.along')
   replace bh = 100 * bh / `max_bh'
   replace o2 = .
 end
@@ -393,8 +407,8 @@ program define .export_excel
 
     local fmts ""
     forvalues i = 1(1)`c(N)' {
-      if (cmdtype[`i'] == "total") local fmt "#,##0"
-      if (cmdtype[`i'] != "total") local fmt "#,##0.0"
+      if (cmd_type[`i'] == "total") local fmt "#,##0"
+      if (cmd_type[`i'] != "total") local fmt "#,##0.0"
       local fmts = "`fmts' `fmt'"
     }
 
