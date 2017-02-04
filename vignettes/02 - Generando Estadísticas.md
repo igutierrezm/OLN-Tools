@@ -29,9 +29,9 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
 Algunos puntos a destacar:
 * Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
-* Los símbolos ``{`` y ``}`` juegan un rol especial dentro de este sistema OO: permiten separar múltiples instrucciones dentro de un solo campo. Actualmente, admiten llaves  los campos ``.cmds``, ``.cmds_lb``, ``.sobpops`` y ``.subpops_lb``.
+* Los símbolos ``{`` y ``}`` juegan un rol especial dentro de este sistema OO: permiten separar múltiples instrucciones dentro de un solo campo.
 
-El siguiente ejempleo ilustrará el poder de las llaves.
+El siguiente ejempleo ilustra el poder de las llaves.
 
 ### Ejemplo 2
 
@@ -176,4 +176,4 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 ```
 
 Algunos puntos a destacar:
-* El campo ``.aggregate`` puede ser incluir varios listados, pero cada listado debe ir entre paréntesis (de lo contrario, no habría cómo distinguir un listado de otro).
+* El campo ``.aggregate`` puede ser incluir varios listados, pero cada listado debe ir entre llaves.
