@@ -19,23 +19,25 @@ cls
 tempfile df
 save `df', emptyok
 
-* Directorio raíz de las BBDD
-local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
-
-* Declaración de una nueva tabla (my_table)
+* Declaración de una nueva tabla
 .my_table = .ol_table.new
 .my_table.cmds     = "proportion _tramo_edad_v1"
 .my_table.masks    = "(% de ocupados)"
 .my_table.years    = "2010 2015"
 .my_table.months   = "2 5 8 11"
-.my_table.subpop   = "if (_ocupado == 1)"
 .my_table.src      = "ene"
-.my_table.from     = "`datos'"
+.my_table.from     = "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 .my_table.varlist0 = "_ocupado"
 
-* Estimación - Panel N°1 (ocupados):
+* Estimación - Panel N°1:
 .my_table.subpop   = "if (_ocupado == 1)"
 .my_table.create
+gen subpop = 
+
+* Estimación - Panel N°2:
+.my_table.subpop   = "if (_ocupado == 1)"
+.my_table.create
+
 ```
 
 
