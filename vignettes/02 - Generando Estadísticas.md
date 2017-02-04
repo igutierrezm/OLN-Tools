@@ -114,11 +114,11 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 Algunos puntos a destacar:
 * A diferencia del comando oficial, el sistema OO convierte de inmediato las proporciones en porcentajes.
 
-El siguiente ejemplo ilustra cómo lidea con el caso (tan molesto como habitual) en el cual necesitas estimar la distribución de una variable *X*, condicional a cada valor de otra variable *Y*.
+El siguiente ejemplo ilustra cómo lidea con el caso (tan molesto como habitual) en el cual necesitas estimar la distribución de una variable X, condicional a cada valor de otra variable Y.
 
 ### Ejemplo 5
 
-Suponga que desea estimar la distribución de ocupados por categoría ocupacional, para rama de actividad económica, para cada trimestre del 2016, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
+Suponga que desea estimar la distribución de ocupados por categoría ocupacional, para cada trimestre y rama de actividad económica del 2016, usando la ENE. El siguiente código muestra cómo realizar esta tarea usando el sistema OO de ``OLN-Tools``:
 
 ```stata
 * Directorio raíz de las BBDD (recuerde las convenciones declaradas en README.md)
