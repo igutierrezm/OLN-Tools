@@ -28,7 +28,7 @@ local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 ```
 
 Algunos puntos a destacar:
-* Los símbolos ``{`` y ``}`` juegan un rol especial dentro de este sistema OO: permiten separar múltiples instrucciones dentro de un solo campo. Actualmente, los campos que admiten el uso de llaves son ``.cmds``, ``.cmds_lb``, ``.sobpops`` y ``.subpops_lb``.
+* Los símbolos ``{`` y ``}`` juegan un rol especial dentro de este sistema OO: permiten separar múltiples instrucciones dentro de un solo campo. Actualmente, admiten llaves  los campos ``.cmds``, ``.cmds_lb``, ``.sobpops`` y ``.subpops_lb``.
 * Las variables ``_counter``, ``_psu``, ``_estrato`` y ``_pweight`` se añaden automáticamente a ``.varlist0``.
 * Cada tabla admite una sola sub-población, aunque ya veremos que esa no es una restricción en la práctica.
 
