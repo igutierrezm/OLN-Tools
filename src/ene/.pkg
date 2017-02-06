@@ -1,0 +1,45 @@
+d '': 
+d
+d Distribution-Date: 20170206
+d
+F gen_ene_activ.ado
+F gen_ene_asalariado.ado
+F gen_ene_b7.ado
+F gen_ene_cesante.ado
+F gen_ene_cise_v1.ado
+F gen_ene_cise_v1.md
+F gen_ene_cise_v2.ado
+F gen_ene_cise_v3.ado
+F gen_ene_conmutante_v1.ado
+F gen_ene_conmutante_v2.ado
+F gen_ene_counter.ado
+F gen_ene_desocupado.ado
+F gen_ene_edad.ado
+F gen_ene_educ.ado
+F gen_ene_esc.ado
+F gen_ene_estrato.ado
+F gen_ene_exceso_hr_chl.ado
+F gen_ene_exceso_hr_int.ado
+F gen_ene_hr_hab.ado
+F gen_ene_jparcial.ado
+F gen_ene_jparcial_inv.ado
+F gen_ene_mujer.ado
+F gen_ene_ocupado.ado
+F gen_ene_oficio1.ado
+F gen_ene_pea.ado
+F gen_ene_pet.ado
+F gen_ene_psu.ado
+F gen_ene_pweight.ado
+F gen_ene_rama1_v1.ado
+F gen_ene_rama1_v2.ado
+F gen_ene_region_re_v1.ado
+F gen_ene_region_re_v2.ado
+F gen_ene_region_tr_v1.ado
+F gen_ene_region_tr_v2.ado
+F gen_ene_superior_completa.ado
+F gen_ene_tamaño_empresa.ado
+F gen_ene_tipo_contrato.ado
+F gen_ene_tramo_edad_v1.ado
+F gen_ene_tramo_edad_v2.ado
+F lval_ene_mes.ado
+F select_ene.ado
