@@ -1,7 +1,10 @@
-## Title
+Title
+--------
+
 gen\_ene\_cise\_v1 - Categoría ocupacional (agregación estándar) - ENE.
 
-## Syntax
+Syntax
+------
 
 gen\_ene\_cise\_v1, año(*string*) mes(*string*) from(*string*)
 
