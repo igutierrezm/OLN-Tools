@@ -256,7 +256,6 @@ program define .create
         foreach var in  `.over' {
           local lvar`var' : variable label `var'
         }
-
         * Diseño muestral
         svyset _psu [pw = _pweight], strata(_estrato) singleunit(certainty)
 

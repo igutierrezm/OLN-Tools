@@ -15,4 +15,5 @@ f _general/ol_dictionary.ado
 f _general/ol_generate.ado
 f _general/ol_select.ado
 f _general/ol_table.class
+f _general/ol_table2.class
 f _general/reshape2.ado

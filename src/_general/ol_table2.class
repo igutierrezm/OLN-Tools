@@ -1,0 +1,145 @@
+* ol_table2 - Una clase para especificar todas las tablas del OLN/OLR
+version 14.1
+class ol_table2 {
+  * Comandos
+  string cmds
+  string varlist
+  string aggregations
+  * Etiquetas
+  string label_bh
+  string label_subpop
+  * Períodos cubiertos
+  string years
+  string months
+  * BBDD
+  string src
+  string from
+  * Formato
+  string rowvar
+  string colvar
+  * Campos auxiliares (se agregan a lo largo del programa)
+  string over
+  string fmts
+  double N_over
+  double N_cmds
+  double N_along
+}
+
+* .create - Crea la tabla especificada
+capture program drop create
+program define .create
+  version 14.1
+  syntax
+
+  *=============================================================================
+  * 1. Interpretar correctamente los argumentos del objeto
+  *=============================================================================
+
+  * Re-interpretar las llaves como comillas
+  foreach symbol in "{" "}" {
+    foreach field in ".cmds" ".label_bh" ".label_subpop" ".aggregations" {
+      `field' = subinstr(`"``field''"', "`symbol'", `"""', .)
+    }
+  }
+
+  * Rellenar varlist con las variables más comúnmente utilizadas
+  .varlist = `"`.varlist' _counter _psu _estrato _pweight"'
+
+  * Identificar el número de comandos y agregaciones
+  foreach field in "cmds" "aggregations" {
+    .N_`field' = `:word count of `.`field''' - 1
+  }
+
+  * Indicar qué hacer si la BBDD no es mensual
+  if ("`.months'" == "") .months = "0"
+
+  *=============================================================================
+  * 2. Obtener, para cada mes y año, las estadísticas pedidas
+  *=============================================================================
+
+  foreach año in `.years' {
+    foreach mes in `.months' {
+
+      *=========================================================================
+      * 2.1. Cargar y preparar la BBDD para la estimación
+      *=========================================================================
+
+      * Identificar las BBDD relevante
+      local mes = string(`mes', "%02.0f")
+      if ("`.src'" == "casen") local df "`.from'/CASEN/CASEN `año'"
+      if ("`.src'" == "ene")   local df "`.from'/ENE/ENE `año' `mes'"
+      if ("`.src'" == "esi")   local df "`.from'/ESI/ESI `año' Personas"
+      if ("`.src'" == "sii")   local df "`.from'/SII/SII - Base empresas `año'"
+
+      * Cargar solo las variables de la BBDD que sirven a la tabla
+      ol_select, varlist(`"`.varlist'"') db("`.src'") año(`año') mes(`mes')
+      capture : use `r(selection)' using "`df'", clear
+      if (_rc != 0) continue // la BBDD podría no existir
+
+      * Generar todas las otras variables importantes
+      ol_generate,               ///
+        varlist(`"`.varlist'"')  ///
+        from("`.from'")          ///
+        año("`año'")             ///
+        mes("`mes'")             ///
+        db("`.src'")
+
+      * Declaración del diseño muestral
+      svyset _psu [pw = _pweight], strata(_estrato) singleunit(certainty)
+
+      *=========================================================================
+      * 2.2. Realizar todas las estimaciones
+      *=========================================================================
+
+      * Loop sobre comandos y agregaciones
+      snapshot save
+      forvalues i = 1(1)`.N_cmds' {
+        foreach vars in "" `.aggregate' {
+
+          * Realizar las agregaciones
+          snapshot restore 1
+          foreach var in `vars' {
+            replace `var' = 1e6
+          }
+
+          * Identificar el comando (junto a sus etiquetas) asociado a `i'
+          foreach x in "cmds" "label_bh" "label_subpop" {
+            local `x'_i : word `i' of `.`x''
+          }
+
+          * Estimación
+          display as error "`cmds_i' nolabel nolegend"
+          noisily : `cmds_i' nolegend
+          * Asumo aquí que el usuario siempre incluirá subpop() y over()
+          /*
+          * Conversión de los resultados en una BBDD
+          .get_stats,   stat("`stat'")
+          .get_domains, stat("`stat'")
+
+          * ID auxiliares
+          generate cmd_type = "`stat'"
+          generate año = `año'
+          generate mes = `mes'
+          generate cmd_lb = `i'
+          generate subpop_lb = `j'
+
+          * Ordenación
+          order año mes `.over' cmd_type cmd_lb subpop_lb bh o2 cv
+          gsort año mes `.over' cmd_type cmd_lb subpop_lb
+
+          * Anexión
+          append using `df'
+          save `df', replace
+          */
+        }
+      }
+      snapshot erase _all
+
+      *=========================================================================
+      * 2.3. Limpiar las BBDD
+      *=========================================================================
+
+    }
+  }
+
+end
