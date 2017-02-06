@@ -1,7 +1,7 @@
 capture program drop gen_sii_tamaño_empresa
 program define gen_sii_tamaño_empresa
 	version 14.1
-	syntax, año(string)
+	syntax, año(string) [mes(string) from(string)]
 	* Mutación
   local var "_tamaño_empresa"
 	# delimit ;

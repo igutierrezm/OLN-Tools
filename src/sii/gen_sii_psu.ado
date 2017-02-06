@@ -1,7 +1,7 @@
 capture program drop gen_sii_psu
 program define gen_sii_psu
 	version 14.1
-	syntax, año(string)
+	syntax, año(string) [mes(string) from(string)]
 	* Mutación
   generate _psu = 1
 	* Etiquetado

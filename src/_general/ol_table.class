@@ -264,7 +264,7 @@ program define .create
         foreach vars in "" `.aggregate' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
-              * Agregaciones
+            * Agregaciones
               snapshot restore 1
               foreach var in `vars' {
         				replace `var' = 1e6
