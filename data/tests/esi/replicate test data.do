@@ -65,6 +65,6 @@ foreach var1 in `varlist' {
 		drop _freq
 
 		* Guardado
-		save "$pkg/data/test data/esi/`año'/`var1'", replace
+		save "$pkg/data/tests/esi/`año'/`var1'", replace
 	}
 }
