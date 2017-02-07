@@ -11,7 +11,9 @@ f esi/gen_esi_asalariado.ado
 f esi/gen_esi_cise_v1.ado
 f esi/gen_esi_cise_v3.ado
 f esi/gen_esi_counter.ado
+f esi/gen_esi_edad.ado
 f esi/gen_esi_educ.ado
+f esi/gen_esi_esc.ado
 f esi/gen_esi_estrato.ado
 f esi/gen_esi_hr_hab.ado
 f esi/gen_esi_joven.ado
@@ -30,6 +32,7 @@ f esi/gen_esi_tamaño_empresa.ado
 f esi/gen_esi_tipo_contrato.ado
 f esi/gen_esi_tramo_edad_v1.ado
 f esi/gen_esi_tramo_edad_v2.ado
+f esi/gen_esi_superior_completa.ado
 f esi/gen_esi_yprincipal.ado
 f esi/gen_esi_ytrabajo.ado
 f esi/select_esi.ado

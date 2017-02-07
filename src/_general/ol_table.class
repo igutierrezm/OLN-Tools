@@ -214,7 +214,7 @@ program define .clean
   label variable año     "Año"
   label variable mes     "Mes"
   label variable cmd_type "Tipo de comando (e.g., total)"
-  label variable cmd_lb   "Etiqueta del comando"
+  label variable cmd_lb   "Indicador"
   label variable subpop_lb "Etiqueta de la sub-población"
   label variable bh      "Estimado"
   label variable o2      "Varianza"
@@ -283,7 +283,7 @@ program define .create
               local test = ("`stat'" == "proportion")
               if (`test' == 1) local opts `"over(`.along', nolabel) nolabel"'
               if (`test' == 0) local opts `"over(`.over', nolabel)"'
-              svy, subpop(`subpop') : `cmd', `opts' nolegend
+              noisily : svy, subpop(`subpop') : `cmd', `opts' nolegend
 
               * Conversión de los resultados en una BBDD
               .get_stats,   stat("`stat'")
@@ -360,7 +360,7 @@ end
 capture program drop export_excel
 program define .export_excel
   version 14.1
-  syntax varlist, file(string)
+  syntax varlist, file(string) sheet(string)
   quietly : {
     *===========================================================================
     * Prólogo
@@ -377,8 +377,8 @@ program define .export_excel
     * Hoja de destino
     local var "`varlist'"
     *local file "$proyecto/data/`file'.xlsx"
-    putexcel set "`file'", sheet("`var'", replace) modify
-    local export_cmd `"export excel using "`file'", sheet("`var'") sheetmodify"'
+    putexcel set "`file'", sheet("`sheet'", replace) modify
+    local export_cmd `"export excel using "`file'", sheet("`sheet'") sheetmodify"'
 
     *===========================================================================
     * Encabezado de columnas
@@ -523,21 +523,13 @@ program define .export_excel
 
     * Bordes (general)
     putexcel (A`N0':`Z'`N0'), border("top", "medium", "black")
-    putexcel (A`N3':`Z'`N3'), border("bottom", "thin", "black")
-    putexcel (A`N4':`Z'`N4'), border("bottom", "medium", "black")
+
     forvalues i = `N0'(1)`N1' {
       putexcel (A`i':`Z'`i'), border("bottom", "thin", "black")
     }
   }
+  if ("`.aggregate'" != "") {
+    putexcel (A`N3':`Z'`N3'), border("bottom", "thin", "black")
+  }
+  putexcel (A`N4':`Z'`N4'), border("bottom", "medium", "black")
 end
-
-/*
-
-ESTE EJEMPLO SERÁ ÚTIL MÁS ADELANTE
-local varlist `"(a b) (b c)"'
-local varlist = subinstr(`"`varlist'"', "(",`"""', .)
-local varlist = subinstr(`"`varlist'"', ")",`"""', .)
-display `"`varlist'"'
-foreach var in `varlist' {
-	display `"`var'"'
-} */

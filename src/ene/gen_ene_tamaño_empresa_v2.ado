@@ -1,6 +1,6 @@
 * Tamaño de empresa (según n. de trabajadores)
-capture program drop gen_ene_tamaño_empresa
-program define gen_ene_tamaño_empresa, rclass
+capture program drop gen_ene_tamaño_empresa_v2
+program define gen_ene_tamaño_empresa_v2, rclass
   version 14.1
   syntax, año(string) mes(string) [from(string)]
   * Objetos temporales
@@ -9,7 +9,7 @@ program define gen_ene_tamaño_empresa, rclass
   generate `b15_1' = b15_1
   generate `b15_2' = b15_2
   destring `b15_1' `b15_2', replace
-  local var "_tamaño_empresa"
+  local var "_tamaño_empresa_v2"
   local cat "categoria_ocupacion"
   # delimit ;
     recode `b15_1'

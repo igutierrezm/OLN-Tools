@@ -5,5 +5,5 @@ program define gen_ene_edad, rclass
   * Mutación
   generate _edad = edad
   * Etiquetado
-  label variable edad "Edad"
+  label variable _edad "Edad"
 end

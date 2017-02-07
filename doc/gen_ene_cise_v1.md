@@ -1,9 +1,9 @@
 #### Title
-gen\_ene\_cise\_v1 - Categoría ocupacional (agregación estándar) - ENE.
+**gen_ene_cise_v1** - Categoría ocupacional (agregación estándar) - ENE.
 
 #### Syntax
 
-gen\_ene\_cise\_v1, año(*string*) mes(*string*) from(*string*)
+gen_ene_cise_v1, año(*string*) mes(*string*) from(*string*)
 
  *Arguments* | *Descriptions*
  :--- | :---
