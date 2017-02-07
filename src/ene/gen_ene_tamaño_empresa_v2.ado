@@ -6,11 +6,9 @@ program define gen_ene_tamaño_empresa_v2, rclass
   * Objetos temporales
   tempvar b15_1 b15_2
   * Mutación
-  generate `b15_1' = b15_1
-  generate `b15_2' = b15_2
-  destring `b15_1' `b15_2', replace
   local var "_tamaño_empresa_v2"
   local cat "categoria_ocupacion"
+  destring b15_1 b15_2, generate(`b15_1' `b15_2')
   # delimit ;
     recode `b15_1'
       (1e6  = 1e6 "Nacional")
