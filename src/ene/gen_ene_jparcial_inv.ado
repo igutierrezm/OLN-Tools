@@ -13,8 +13,8 @@ program define gen_ene_jparcial_inv, rclass
   * Etiquetado
   # delimit ;
     label define `var'
-      0   "No"
-      1   "Sí"
+      000 "No"
+      001 "Sí"
       1e5 "ns/nr"
       1e6 "Nacional",
       modify;

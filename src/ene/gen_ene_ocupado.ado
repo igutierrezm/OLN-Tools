@@ -8,8 +8,8 @@ program define gen_ene_ocupado, rclass
   * Etiquetado
   # delimit ;
     label define _ocupado
-      0 "No"
-      1 "Sí"
+      000 "No"
+      001 "Sí"
       1e5 "ns/nr"
       1e6 "Nacional";
   # delimit cr

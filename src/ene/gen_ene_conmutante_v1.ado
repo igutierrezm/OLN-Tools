@@ -14,10 +14,10 @@ program define gen_ene_conmutante_v1, rclass
   * Etiquetado
   # delimit ;
     label define `var'
-      0 "No conmutantes"
-      1 "Conmutantes"
+      000 "No"
+      001 "Sí"
       1e5 "ns/nr"
-      1e6 "nacional";
+      1e6 "Nacional";
   # delimit cr
   label values `var' `var'
   label variable `var' "¿Es un conmutante?"

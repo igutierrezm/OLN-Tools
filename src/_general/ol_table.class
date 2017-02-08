@@ -323,42 +323,63 @@ program define .create
   }
 end
 
-* Agrega los resultados trimestrales de una tabla previamente creada
+* Agrega los resultados trimestrales de una tabla previamente creada - v1
+capture program drop annualize_v1
+program define .annualize_v1
+  version 14.1
+  syntax, over(string)
+  * Objetos temporales
+  tempvar n1
+  * Agregación
+  generate `n1' = bh
+  local bylist "año `over' cmd_type cmd_lb subpop_lb"
+  collapse (sum) bh (max) o2 (count) `n1', by("`bylist'")
+  replace bh = bh / `n1'
+  generate cv = 100 * sqrt(o2) / bh
+  * Etiquetado
+  label variable bh "Estimado"
+  label variable o2 "Varianza"
+  label variable cv "Coeficiente de variación (%)"
+end
+
+* Agrega los resultados trimestrales de una tabla previamente creada - v2
 capture program drop annualize_v2
 program define .annualize_v2
   version 14.1
-  syntax
+  syntax, over(string)
   * Objetos temporales
-  tempvar temp
+  tempvar n1 n2
   * Agregación
-  generate `temp' = bh
-  collapse (sum) bh (max) o2 (count) `temp', by(año `.over' cmd_type cmd_lb)
-  * replace bh = bh / `temp'
-  * replace bh = bh / `temp'      if  inlist(cmd_type, "mean", "ratio")
-  * replace bh = bh / `.N_months' if !inlist(cmd_type, "mean", "ratio")
+  generate `n1' = bh
+  generate `n2' = 01
+  local bylist "año `over' cmd_type cmd_lb subpop_lb"
+  collapse (sum) bh (max) o2 (count) `n1' `n2', by("`bylist'")
+  replace bh = bh / `n1' if  inlist(cmd_type, "mean", "ratio")
+  replace bh = bh / `n2' if !inlist(cmd_type, "mean", "ratio")
   generate cv = 100 * sqrt(o2) / bh
   * Etiquetado
-  label variable bh "estimado"
-  label variable o2 "varianza"
-  label variable cv "coeficiente de variación (%)"
+  label variable bh "Estimado"
+  label variable o2 "Varianza"
+  label variable cv "Coeficiente de variación (%)"
 end
 
 * Convierte totales en proporciones
 capture program drop as_proportion
 program define .as_proportion
   version 14.1
-  syntax
-  * Objetos temporales
-  tempvar max_bh
-  * Salvaguardas
-  if (`"`.aggregate'"' == "") {
-    display as error "La tabla ya debe tener el subtotal calculado"
-    exit 1
-  }
-  * Agregación
-  egen `max_bh' = max(bh), by(año cmd_lb `.along')
-  replace bh = 100 * bh / `max_bh'
-  replace o2 = .
+  syntax [if], by(string) along(string)
+  * Macros auxiliares y objetos temporales
+  tempvar total_bh
+
+  * Destrucción de subtotales (como categorías) y reconstrucción como variables
+  marksample touse
+  replace bh = . if (cmd_type == "total") & (`by' == 1e6) & (`touse' == 1)
+  egen `total_bh' = total(bh) if `touse', by(año cmd_lb subpop_lb `along')
+
+  * Proporciones
+  replace cmd_type = "proportion"    if (`touse' == 1)
+  replace bh = 100 * bh / `total_bh' if (`touse' == 1)
+  replace bh = 100 if (`touse' == 1) & (bh == .)
 end
 
 * Exporta la tabla a Excel (aplicando el formato del manual)
@@ -381,9 +402,14 @@ program define .export_excel
 
     * Hoja de destino
     local var "`varlist'"
-    *local file "$proyecto/data/`file'.xlsx"
     putexcel set "`file'", sheet("`sheet'", replace) modify
     local export_cmd `"export excel using "`file'", sheet("`sheet'") sheetmodify"'
+
+    * Trucamiento de las variables
+    if ("`varlist'" == "bh") {
+      replace bh = round(bh, 01) if (cmd_type == "total")
+      replace bh = round(bh, .1) if (cmd_type != "total")
+    }
 
     *===========================================================================
     * Encabezado de columnas

@@ -45,7 +45,7 @@ local varlist `"
 	"_region_tr_v1"
 	"_region_tr_v2"
 	"_superior_completa"
-	"_tamaño_empresa"
+	"_tamaño_empresa_v2"
 	"_tipo_contrato"
 	"_tramo_edad_v1"
 	"_tramo_edad_v2"
@@ -65,14 +65,14 @@ foreach var1 in `varlist' {
 			* Mensaje de verificación
 			local length = 20 - ustrlen("`var1'")
 			noisily : display as text "`var1' " _skip(`length') "inputs : `var0'"
-			
-			
+
+
 			* BBDD
 			local file "$datos/ENE/ENE `año' `mes'.dta"
 			else use `var0' using "`file'", clear
 			contract `var0'
 			drop _freq
-			
+
 			* Guardado
 			save "$pkg/data/tests/ene/`año'/`mes'/`var1'", replace
 		}

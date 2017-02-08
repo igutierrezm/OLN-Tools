@@ -5,9 +5,9 @@ program define gen_ene_jparcial, rclass
   * Mutación
   # delimit ;
     recode c1
-      (1e6  = 1e6 "nacional")
-      (1    = 0   "no")
-      (2    = 1   "sí")
+      (1e6  = 1e6 "Nacional")
+      (1    = 0   "No")
+      (2    = 1   "Sí")
       (else = 1e5 "ns/nr"),
       generate(_jparcial);
   # delimit cr
