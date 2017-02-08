@@ -3,10 +3,10 @@ program define gen_pib_mes
 	version 14.1
 	syntax
 	* Mutación
-  generate mes = month(fecha)
+  generate _mes = month(fecha)
   * Etiquetado
 	# delimit ;
-    label define mes
+    label define _mes
       01 "dic-feb"
       02 "ene-mar"
       03 "feb-abr"
@@ -21,6 +21,6 @@ program define gen_pib_mes
       12 "nov-ene",
       modify;
 	# delimit cr
-  label values mes mes
-	label variable mes "Trimestre"
+  label values _mes _mes
+	label variable _mes "Trimestre"
 end

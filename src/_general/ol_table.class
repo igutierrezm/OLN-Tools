@@ -37,11 +37,16 @@ program define .complete
 
   * Ajuste de los campos .cmds, .cmds_lb y .aggregate:
   foreach symbol in "{" "}" {
+    foreach field in cmds cmds_lb subpops subpops_lb aggregate {
+      .`field' = subinstr(`"`.`field''"', "`symbol'", `"""', .)
+    }
+    /*
     .cmds      = subinstr(`"`.cmds'"',      "`symbol'", `"""', .)
     .cmds_lb     = subinstr(`"`.cmds_lb'"',     "`symbol'", `"""', .)
     .subpops      = subinstr(`"`.subpops'"',      "`symbol'", `"""', .)
     .subpops_lb     = subinstr(`"`.subpops_lb'"',     "`symbol'", `"""', .)
     .aggregate = subinstr(`"`.aggregate'"', "`symbol'", `"""', .)
+    */
   }
 
   * Anexión de las variables necesarias para la inferencia estadística
@@ -319,8 +324,8 @@ program define .create
 end
 
 * Agrega los resultados trimestrales de una tabla previamente creada
-capture program drop annualize
-program define .annualize
+capture program drop annualize_v2
+program define .annualize_v2
   version 14.1
   syntax
   * Objetos temporales
@@ -328,7 +333,7 @@ program define .annualize
   * Agregación
   generate `temp' = bh
   collapse (sum) bh (max) o2 (count) `temp', by(año `.over' cmd_type cmd_lb)
-  replace bh = bh / `temp'
+  * replace bh = bh / `temp'
   * replace bh = bh / `temp'      if  inlist(cmd_type, "mean", "ratio")
   * replace bh = bh / `.N_months' if !inlist(cmd_type, "mean", "ratio")
   generate cv = 100 * sqrt(o2) / bh
@@ -461,8 +466,6 @@ program define .export_excel
     local Ncols1 = `c(k)'
     local Ncols2 = `c(k)' + `N_rowvar'
 
-
-
     * Formato de número
     forvalues i = 1(1)`Ncols1' {
       local j = `i' + `N_rowvar'
@@ -523,13 +526,10 @@ program define .export_excel
 
     * Bordes (general)
     putexcel (A`N0':`Z'`N0'), border("top", "medium", "black")
-
+    putexcel (A`N3':`Z'`N3'), border("bottom", "thin", "black")
+    putexcel (A`N4':`Z'`N4'), border("bottom", "medium", "black")
     forvalues i = `N0'(1)`N1' {
       putexcel (A`i':`Z'`i'), border("bottom", "thin", "black")
     }
   }
-  if ("`.aggregate'" != "") {
-    putexcel (A`N3':`Z'`N3'), border("bottom", "thin", "black")
-  }
-  putexcel (A`N4':`Z'`N4'), border("bottom", "medium", "black")
 end

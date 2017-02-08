@@ -3,7 +3,7 @@ program define gen_pib_año
 	version 14.1
 	syntax
 	* Mutación
-  generate año = year(fecha)
+  generate _año = year(fecha)
   * Etiquetado
-	label variable año "Año"
+	label variable _año "Año"
 end
