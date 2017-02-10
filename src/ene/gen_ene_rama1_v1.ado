@@ -31,3 +31,4 @@ program define gen_ene_rama1_v1, rclass
     * Etiquetado
     label variable _rama1_v1 "Rama de actividad económica"
 end
+ 

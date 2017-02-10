@@ -40,13 +40,6 @@ program define .complete
     foreach field in cmds cmds_lb subpops subpops_lb aggregate {
       .`field' = subinstr(`"`.`field''"', "`symbol'", `"""', .)
     }
-    /*
-    .cmds      = subinstr(`"`.cmds'"',      "`symbol'", `"""', .)
-    .cmds_lb     = subinstr(`"`.cmds_lb'"',     "`symbol'", `"""', .)
-    .subpops      = subinstr(`"`.subpops'"',      "`symbol'", `"""', .)
-    .subpops_lb     = subinstr(`"`.subpops_lb'"',     "`symbol'", `"""', .)
-    .aggregate = subinstr(`"`.aggregate'"', "`symbol'", `"""', .)
-    */
   }
 
   * Anexión de las variables necesarias para la inferencia estadística
@@ -481,6 +474,7 @@ program define .export_excel
     * Exportación (formato)
     *===========================================================================
 
+
     * Marcadores de filas
     local N0 = 2
     local N1 = `k' - 1
@@ -534,6 +528,7 @@ program define .export_excel
       else         putexcel (`A'2:`A'`i'), left
     }
 
+    /*** No funciona si el tamaño de las celdas varía (lo arreglaré luego)
     * Combinación de celdas (encabezados de filas)
     local i  = 1
     local Ni = 1
@@ -542,13 +537,16 @@ program define .export_excel
       local Di = `Di' / `K`var''
       local Ni = `Ni' * `K`var''
       local A : word `i' of `c(ALPHA)'
+      display as error "A = `A', Di = `Di', Ni = `Ni'"
       forvalues j = 1(1)`Ni' {
         local j0 = `N2' - 0 + `Di' * (`j' - 1)
         local j1 = `N2' - 1 + `Di' * (`j' - 0)
+        display as error "A = `A', j0 = `j0', j1 = `j1'"
         putexcel (`A'`j0':`A'`j1'), merge left vcenter
       }
       local ++i
     }
+    ***/
 
     * Bordes (general)
     putexcel (A`N0':`Z'`N0'), border("top", "medium", "black")
