@@ -29,3 +29,16 @@ foreach file of local files {
 }
 beep
 ***/
+
+/***/
+* ESI
+cd "`datos'/ESI"
+local files : dir "`datos'/ESI/" files "*.dta", respectcase
+foreach file of local files {
+	display as error "`file'"
+	unicode analyze "`file'"
+	unicode encoding set Windows-1252
+	unicode translate "`file'"
+}
+beep
+/***/
