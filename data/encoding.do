@@ -4,10 +4,10 @@ clear all
 * Macros auxiliares
 local datos "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
 
+/***
 * ENE
-/*
 cd "`datos'/ENE"
-local files : dir "`datos'/ENE/" files "*.dta", respectcase
+local files : dir "`datos'/ENE/" files "ENE 2014 11.dta", respectcase
 foreach file of local files {
 	display as error "`file'"
 	unicode analyze "`file'"
@@ -15,7 +15,9 @@ foreach file of local files {
 	unicode translate "`file'"
 }
 beep
-*/
+***/
+
+/***
 * CASEN
 cd "`datos'/CASEN"
 local files : dir "`datos'/CASEN/" files "*.dta", respectcase
@@ -26,3 +28,4 @@ foreach file of local files {
 	unicode translate "`file'"
 }
 beep
+***/

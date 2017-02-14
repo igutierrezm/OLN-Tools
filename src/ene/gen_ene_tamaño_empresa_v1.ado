@@ -22,11 +22,14 @@ program define gen_ene_tamaño_empresa_v1, rclass
     	(else = 1e5 "ns/nr"),
     	generate(`var');
   # delimit cr
-  replace `var' = 2 if (`b15_1' == 2) & (`b15_2' == 10)
+  * Casos especiales
   replace `var' = 0 if (`b15_1' == 1) & (`b15_2' == 01) & (`cat' == 2)
+  replace `var' = 2 if (`b15_1' == 2) & (`b15_2' == 10)
+  * Convención - frente a la duda (unipersonal, micro, pequeño), quedará micro.
+  
+  *replace `var' = 1e5 if (`b15_1' == 1) & (`cat' == .) & (`b15_2' == 1)
   * mvs
-  replace `var' = 1e5 if (`b15_1' == 1) & (`cat' == .) & (`b15_2' == 1)
-  replace `var' = 1e5 if (`b15_1' == 1) & (`cat' == 2) & inlist(`b15_2', ., 999)
+  *replace `var' = 1e5 if (`b15_1' == 1) & (`cat' == 2) & inlist(`b15_2', ., 999)
   * Etiquetado
   label variable `var' "Tamaño de empresa (según n. de trabajadores)"
 end

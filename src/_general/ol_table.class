@@ -262,7 +262,8 @@ program define .create
         foreach vars in "" `.aggregate' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
-            * Agregaciones
+
+              * Agregaciones
               snapshot restore 1
               foreach var in `vars' {
         				replace `var' = 1e6
@@ -281,7 +282,9 @@ program define .create
               local test = ("`stat'" == "proportion")
               if (`test' == 1) local opts `"over(`.along', nolabel) nolabel"'
               if (`test' == 0) local opts `"over(`.over', nolabel)"'
+              noisily : display "svy, subpop(`subpop') : `cmd', `opts' nolegend"
               noisily : svy, subpop(`subpop') : `cmd', `opts' nolegend
+              noisily : ereturn list
 
               * Conversión de los resultados en una BBDD
               .get_stats,   stat("`stat'")
@@ -307,12 +310,13 @@ program define .create
         snapshot erase _all
       }
     }
-
+    /*
     ** Epílogo
     .clean
     foreach var in `.over' {
       label variable `var' "`lvar`var''"
     }
+    */
   }
 end
 
@@ -344,11 +348,10 @@ program define .annualize_v2
   tempvar n1 n2
   * Agregación
   generate `n1' = bh
-  generate `n2' = 01
   local bylist "año `over' cmd_type cmd_lb subpop_lb"
-  collapse (sum) bh (max) o2 (count) `n1' `n2', by("`bylist'")
+  collapse (sum) bh (max) o2 (count) `n1', by("`bylist'")
   replace bh = bh / `n1' if  inlist(cmd_type, "mean", "ratio")
-  replace bh = bh / `n2' if !inlist(cmd_type, "mean", "ratio")
+  replace bh = bh / 4    if !inlist(cmd_type, "mean", "ratio")
   generate cv = 100 * sqrt(o2) / bh
   * Etiquetado
   label variable bh "Estimado"
