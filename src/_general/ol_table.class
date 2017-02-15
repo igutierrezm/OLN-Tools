@@ -310,13 +310,12 @@ program define .create
         snapshot erase _all
       }
     }
-    /*
+
     ** Epílogo
     .clean
     foreach var in `.over' {
       label variable `var' "`lvar`var''"
     }
-    */
   }
 end
 

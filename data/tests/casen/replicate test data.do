@@ -17,6 +17,8 @@ local varlist `"
 	"_boleta"
 	"_capacitado"
 	"_cise_v1"
+	"_cise_v3"
+	"_contrato"
 	"_cotiza_pension"
 	"_cotiza_salud"
 	"_counter"
@@ -37,6 +39,7 @@ local varlist `"
 	"_pweight"
 	"_rama1_v1"
 	"_region_re_v1"
+	"_tipo_contrato"
 	"_tramo_edad_v1"
 	"_tramo_edad_v2"
 	"_yprincipal_hr"
@@ -46,7 +49,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in `varlist' {
+foreach var1 in _cise_v3 {
 	foreach año in 1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015 {
 		* Inputs de `var1'
 		capture : select_casen, varlist("`var1'") año("`año'")

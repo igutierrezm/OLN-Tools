@@ -64,6 +64,28 @@ program define select_casen, rclass
         exit 1
       }
     }
+    * Clasificación internacional de situación de empleo (v3):
+    if ("`var'" == "_cise_v3") {
+      if inrange(`año', 2011, 2015) local temp "o15 o17 o16"
+      if inrange(`año', 2009, 2009) local temp "o23 o25 o26"
+      if inrange(`año', 2006, 2006) local temp "o19 o20 o21"
+      if inrange(`año', 2003, 2003) local temp "o9 o11 o12a"
+      if (`año' < 2003) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
+    * ¿Tiene contrato escrito?
+    if ("`var'" == "_contrato") {
+      if inrange(`año', 2011, 2015) local temp "o17"
+      if inrange(`año', 2009, 2009) local temp "o25"
+      if inrange(`año', 2006, 2006) local temp "o20"
+      if inrange(`año', 2003, 2003) local temp "o11"
+      if (`año' < 2003) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
     * ¿Cotiza en el sistema de pensiones?
     if ("`var'" == "_cotiza_pension") {
       if inrange(`año', 2015, 2015) local temp "o28 o29"
@@ -81,6 +103,14 @@ program define select_casen, rclass
       if inrange(`año', 2013, 2013) local temp "s14"
       if inrange(`año', 2011, 2011) local temp "s17"
       if (`año' < 2011) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
+    * ¿Está desocupado?:
+    if ("`var'" == "_desocupado") {
+      if inrange(`año', 2000, 2015) local temp "activ"
+      if (`año' < 2000) {
         display as error "`var' no disponible"
         exit 1
       }
@@ -196,6 +226,22 @@ program define select_casen, rclass
         exit 1
       }
     }
+    * ¿Pertenece a la PEA?:
+    if ("`var'" == "_pea") {
+      if inrange(`año', 2000, 2015) local temp "activ"
+      if (`año' < 2000) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
+    * ¿Pertenece a la PET?:
+    if ("`var'" == "_pet") {
+      if inrange(`año', 2000, 2015) local temp "activ"
+      if (`año' < 2000) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
     * PSU:
     if ("`var'" == "_psu") {
       if inrange(`año', 2011, 2015) local temp "varunit"
@@ -232,6 +278,17 @@ program define select_casen, rclass
       if inrange(`año', 2009, 2015) local temp "region"
       if inrange(`año', 1990, 2006) local temp "r comu"
       if (`año' < 1990) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
+    * ¿Tiene contrato escrito?
+    if ("`var'" == "_tipo_contrato") {
+      if inrange(`año', 2011, 2015) local temp "o17 o16"
+      if inrange(`año', 2009, 2009) local temp "o25 o26"
+      if inrange(`año', 2006, 2006) local temp "o20 o21"
+      if inrange(`año', 2003, 2003) local temp "o11 o12a"
+      if (`año' < 2003) {
         display as error "`var' no disponible"
         exit 1
       }

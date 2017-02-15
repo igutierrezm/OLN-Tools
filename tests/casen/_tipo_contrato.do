@@ -3,17 +3,17 @@
 *===============================================================================
 
 * Macros auxiliares
-local var1 "_cise_v1"
+local var1 "_tipo_contrato"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected_2000 = (1, 2, 3, 3, 3, 3, 3, 6, 3, 1e5)'
-matrix expected_2003 = (1, 2, 3, 3, 3, 3, 3, 6, 3, 1e5)'
-matrix expected_2006 = (1, 2, 3, 3, 3, 3, 3, 6, 3, 1e5)'
-matrix expected_2009 = (1, 2, 3, 3, 3, 3, 3, 6, 3, 1e5)'
-matrix expected_2011 = (1, 2, 3, 3, 3, 3, 3, 3, 6, 1e5)'
-matrix expected_2013 = (1, 2, 3, 3, 3, 3, 3, 3, 6, 1e5)'
-matrix expected_2015 = (1, 2, 3, 3, 3, 3, 3, 3, 6, 1e5)'
+matrix n2003 = (4, 1, 12, 07)
+matrix n2006 = (4, 1, 12, 13)
+matrix n2009 = (5, 0, 12, 07)
+matrix n2011 = (1, 0, 04, 07)
+matrix n2013 = (1, 1, 05, 07)
+matrix n2015 = (1, 1, 05, 07)
+matrix i     = (2, 1e5, 1, 1e5)
 
 * Contrastes, según año
 foreach año in `años' {
@@ -35,6 +35,13 @@ foreach año in `años' {
 	noisily : label list
 
 	* Contrastes
+	matrix n = n`año'
+	matrix expected = J(1, 1, 3)
+	forvalues k = 1(1)4 {
+		if (n[1, `k'] != 0) {
+			matrix expected = (expected \ J(n[1, `k'], 1, i[1, `k']))
+		}
+	}
 	local id "Test N°1 `año'"
-	expect_equal, expected("expected_`año'") id(`id') observed("`var1'")
+	expect_equal, expected("expected") id(`id') observed("`var1'")
 }
