@@ -152,6 +152,14 @@ program define select_casen, rclass
         exit 1
       }
     }
+    * ¿Está inactivo?:
+    if ("`var'" == "_inactivo") {
+      if inrange(`año', 2000, 2015) local temp "activ"
+      if (`año' < 2000) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
     * ¿Tiene ascendencia indígena?
     if ("`var'" == "_indigena") {
       if inrange(`año', 2015, 2015) local temp "r3"
@@ -269,6 +277,16 @@ program define select_casen, rclass
       *if inrange(`año', 2003, 2003) local temp "o8"
       *if inrange(`año', 2000, 2000) local temp "o9"
       if (`año' < 2011) {
+        display as error "`var' no disponible"
+        exit 1
+      }
+    }
+    * Razón de la inactividad
+    if ("`var'" == "_razon_inactividad") {
+      if inrange(`año', 2011, 2015) local temp "o7r1"
+      if inrange(`año', 2006, 2009) local temp "o6"
+
+      if (`año' < 2006) {
         display as error "`var' no disponible"
         exit 1
       }

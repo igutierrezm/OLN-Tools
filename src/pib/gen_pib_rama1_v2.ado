@@ -19,7 +19,7 @@ program define gen_pib_rama1_v2, rclass
     	(09 10 = 09  "`str'")
     	(11    = 10  "Servicios Personales")
     	(12    = 11  "Administración Pública")
-    	(1e6   = 1e6 "Nacional")
+    	(13   = 1e6 "Nacional")
       (1e5   = 1e5 "ns/nr")
     	(else  = .),
     	generate(_rama1_v2);
