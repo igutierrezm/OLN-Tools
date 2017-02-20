@@ -221,6 +221,7 @@ program define .clean
     label values `var' `var'
     label variable `var' "`: variable label `var''"
   }
+  lval_ene_mes
   * Ordenación
   order año mes cmd_type cmd_lb subpop_lb `.over' bh o2 cv
   gsort año mes cmd_type cmd_lb subpop_lb `.over'
@@ -323,7 +324,7 @@ end
 capture program drop annualize_v1
 program define .annualize_v1
   version 14.1
-  syntax, over(string)
+  syntax [, over(string)]
   * Objetos temporales
   tempvar n1
   * Agregación
@@ -342,7 +343,7 @@ end
 capture program drop annualize_v2
 program define .annualize_v2
   version 14.1
-  syntax, over(string)
+  syntax [, over(string)]
   * Objetos temporales
   tempvar n1 n2
   * Agregación
@@ -362,7 +363,7 @@ end
 capture program drop as_proportion
 program define .as_proportion
   version 14.1
-  syntax [if], by(string) along(string)
+  syntax [if], [by(string) along(string)]
   * Macros auxiliares y objetos temporales
   tempvar total_bh
 
