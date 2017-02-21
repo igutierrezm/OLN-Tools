@@ -4,7 +4,7 @@ capture program drop gen_esi_ytrabajo
 program define gen_esi_ytrabajo, rclass
 syntax, año(string) [mes(string) from(string)]
   * Mutación
-  generate _ytrabajo = ING_T_T / 1000
+  generate _ytrabajo = ING_T_T
   * Etiquetado
-  label variable _ytrabajo "Ingreso de la ocupación principal (M$)"
+  label variable _ytrabajo "Ingreso de la ocupación principal ($)"
 end

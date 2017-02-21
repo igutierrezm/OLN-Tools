@@ -5,7 +5,7 @@ program define gen_casen_yprincipal, rclass
   * Mutación
   local var "_yprincipal"
   select_casen, varlist("`var'") año(`año')
-  generate `var' = `r(selection)' / 1000
+  generate `var' = `r(selection)'
   * Etiquetado
-  label variable `var' "Ingreso ocupación principal (M$)"
+  label variable `var' "Ingreso ocupación principal ($)"
 end

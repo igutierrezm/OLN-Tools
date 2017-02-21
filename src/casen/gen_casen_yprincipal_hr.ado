@@ -8,5 +8,5 @@ program define gen_casen_yprincipal_hr, rclass
   capture : gen_casen_hr_hab,     año(`año')
   generate `var' = _yprincipal / _hr_hab / 4
   * Etiquetado
-  label variable `var' "Ingreso/hr [oc. principal, hrs. hab] (M$/hr)"
+  label variable `var' "Ingreso/hr [oc. principal, hrs. hab] ($/hr)"
 end

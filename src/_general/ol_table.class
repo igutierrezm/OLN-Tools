@@ -194,10 +194,10 @@ program define .clean
   syntax
   * Etiquetado (valores)
   foreach año in `.years' {
-    label define año `año' "`año'", add
+    label define año `año' "`año'", modify
   }
   foreach mes in `.months' {
-    label define mes `mes' "`mes'", add
+    label define mes `mes' "`mes'", modify
   }
   forvalues i = 1(1)`.N_cmds' {
     label define cmd_lb `i' "`:word `i' of `.cmds_lb''", modify
@@ -209,28 +209,29 @@ program define .clean
     label values `var' `var'
   }
   * Etiquetado (variables)
-  label variable año     "Año"
-  label variable mes     "Mes"
-  label variable cmd_type "Tipo de comando (e.g., total)"
-  label variable cmd_lb   "Indicador"
-  label variable subpop_lb "Etiqueta de la sub-población"
-  label variable bh      "Estimado"
-  label variable o2      "Varianza"
-  label variable cv      "Coeficiente de variación (%)"
+  capture : label variable año         "Año"
+  capture : label variable mes         "Mes"
+  capture : label variable cmd_type    "Tipo de comando (e.g., total)"
+  capture : label variable cmd_lb      "Indicador"
+  capture : label variable subpop_lb   "Etiqueta de la sub-población"
+  capture : label variable subpop_size "Tamaño de la sub-población"
+  capture : label variable bh          "Estimado"
+  capture : label variable o2          "Varianza"
+  capture : label variable cv          "Coeficiente de variación (%)"
   foreach var in `.over' {
     label values `var' `var'
     label variable `var' "`: variable label `var''"
   }
   lval_ene_mes
   * Ordenación
-  order año mes cmd_type cmd_lb subpop_lb `.over' bh o2 cv
+  order año mes cmd_type cmd_lb subpop_lb `.over'
   gsort año mes cmd_type cmd_lb subpop_lb `.over'
   if ("`.months'" == "0") drop mes
 end
 
-* Crea la tabla especificada
-capture program drop create
-program define .create
+* Deduce los tamaños muestrales (sin expansión)
+capture program drop sample_sizes
+program define .sample_sizes
   version 14.1
   syntax
   ** Preámbulo
@@ -240,6 +241,94 @@ program define .create
   ** Cuerpo
   quietly : {
     tempfile df
+    save `df', emptyok
+    foreach año in `.years' {
+      foreach mes in `.months' {
+        * Selección
+        capture : .selectvars, año("`año'") mes("`mes'")
+        if (_rc != 0) continue
+        generate subpop_size = 1
+
+        * Mutación
+        ol_generate,                ///
+          varlist(`"`.varlist1'"')  ///
+          from("`.from'")           ///
+          db("`.src'")              ///
+          año("`año'")              ///
+          mes("`mes'")
+
+        * Captura de lvar
+        foreach var in `.over' {
+          local lvar`var' : variable label `var'
+        }
+        * Estimación y anexión (en línea) de los resultados
+        snapshot save
+        foreach vars in "" `.aggregate' {
+          forvalues i = 1(1)`.N_cmds' {
+            forvalues j = 1(1)`.N_subpops' {
+
+              * Agregaciones
+              snapshot restore 1
+              foreach var in `vars' {
+        				replace `var' = 1e6
+        			}
+
+              * Comando
+              local cmd    : word `i' of `.cmds'
+              local cmd_lb : word `i' of `.cmds_lb'
+
+              * Sub-población
+              local subpop    : word `j' of `.subpops'
+              local subpop_lb : word `j' of `.subpops_lb'
+
+              * Estimación
+              gettoken stat : cmd
+              noisily : display "`temp_counter' `subpop', by(`.over')"
+              noisily : collapse (sum) subpop_size `subpop', by(`.over')
+
+              * ID auxiliares
+              generate cmd_type = "`stat'"
+              generate año = `año'
+              generate mes = `mes'
+              generate cmd_lb = `i'
+              generate subpop_lb = `j'
+
+              * Ordenación
+              order año mes `.over' cmd_type cmd_lb subpop_lb subpop_size
+              gsort año mes `.over' cmd_type cmd_lb subpop_lb
+
+          		* Anexión
+          		append using `df'
+          		save `df', replace
+            }
+          }
+      	}
+        snapshot erase _all
+      }
+    }
+
+    ** Epílogo
+    .clean
+    foreach var in `.over' {
+      label variable `var' "`lvar`var''"
+    }
+  }
+end
+
+* Crea la tabla especificada
+capture program drop create
+program define .create
+  version 14.1
+  syntax
+  ** Preámbulo
+  tempfile df0 df
+  .sample_sizes
+  save `df0', replace
+
+  ** Cuerpo
+  clear
+  .complete
+  quietly : {
     save `df', emptyok
     foreach año in `.years' {
       foreach mes in `.months' {
@@ -313,12 +402,14 @@ program define .create
     }
 
     ** Epílogo
+    merge 1:1 año mes `.over' cmd_type cmd_lb subpop_lb using `df0'
     .clean
     foreach var in `.over' {
       label variable `var' "`lvar`var''"
     }
   }
 end
+
 
 * Agrega los resultados trimestrales de una tabla previamente creada - v1
 capture program drop annualize_v1

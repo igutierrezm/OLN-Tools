@@ -5,7 +5,7 @@ program define gen_casen_ytrabajo, rclass
   * Mutación
   local var "_ytrabajo"
   select_casen, varlist("`var'") año(`año')
-  generate `var' = `r(selection)' / 1000
+  generate `var' = `r(selection)'
   * Etiquetado
-  label variable `var' "Ingreso del trabajo (M$)"
+  label variable `var' "Ingreso del trabajo ($)"
 end
