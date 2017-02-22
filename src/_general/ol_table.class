@@ -209,15 +209,15 @@ program define .clean
     label values `var' `var'
   }
   * Etiquetado (variables)
-  capture : label variable año         "Año"
-  capture : label variable mes         "Mes"
-  capture : label variable cmd_type    "Tipo de comando (e.g., total)"
-  capture : label variable cmd_lb      "Indicador"
-  capture : label variable subpop_lb   "Etiqueta de la sub-población"
-  capture : label variable subpop_size "Tamaño de la sub-población"
-  capture : label variable bh          "Estimado"
-  capture : label variable o2          "Varianza"
-  capture : label variable cv          "Coeficiente de variación (%)"
+  capture : label variable año       "Año"
+  capture : label variable mes       "Mes"
+  capture : label variable cmd_type  "Tipo de comando (e.g., total)"
+  capture : label variable cmd_lb    "Indicador"
+  capture : label variable subpop_lb "Etiqueta de la sub-población"
+  capture : label variable n         "Tamaño del dominio (sin expandir)"
+  capture : label variable bh        "Estimado"
+  capture : label variable o2        "Varianza"
+  capture : label variable cv        "Coeficiente de variación (%)"
   foreach var in `.over' {
     label values `var' `var'
     label variable `var' "`: variable label `var''"
@@ -226,7 +226,6 @@ program define .clean
   * Ordenación
   order año mes cmd_type cmd_lb subpop_lb `.over'
   gsort año mes cmd_type cmd_lb subpop_lb `.over'
-  if ("`.months'" == "0") drop mes
 end
 
 * Deduce los tamaños muestrales (sin expansión)
@@ -247,7 +246,7 @@ program define .sample_sizes
         * Selección
         capture : .selectvars, año("`año'") mes("`mes'")
         if (_rc != 0) continue
-        generate subpop_size = 1
+        generate n = 1
 
         * Mutación
         ol_generate,                ///
@@ -261,6 +260,7 @@ program define .sample_sizes
         foreach var in `.over' {
           local lvar`var' : variable label `var'
         }
+
         * Estimación y anexión (en línea) de los resultados
         snapshot save
         foreach vars in "" `.aggregate' {
@@ -283,18 +283,18 @@ program define .sample_sizes
 
               * Estimación
               gettoken stat : cmd
-              noisily : display "`temp_counter' `subpop', by(`.over')"
-              noisily : collapse (sum) subpop_size `subpop', by(`.over')
+              collapse (sum) n `subpop', by(`.over')
 
               * ID auxiliares
               generate cmd_type = "`stat'"
               generate año = `año'
-              generate mes = `mes'
               generate cmd_lb = `i'
               generate subpop_lb = `j'
+              generate mes = 0
+              if ("`.months'" != "") replace mes = `mes'
 
               * Ordenación
-              order año mes `.over' cmd_type cmd_lb subpop_lb subpop_size
+              order año mes `.over' cmd_type cmd_lb subpop_lb n
               gsort año mes `.over' cmd_type cmd_lb subpop_lb
 
           		* Anexión
@@ -323,7 +323,7 @@ program define .create
   ** Preámbulo
   tempfile df0 df
   .sample_sizes
-  save `df0', replace
+  quietly : save `df0', replace
 
   ** Cuerpo
   clear
@@ -402,14 +402,14 @@ program define .create
     }
 
     ** Epílogo
-    merge 1:1 año mes `.over' cmd_type cmd_lb subpop_lb using `df0'
+    merge 1:1 año mes `.over' cmd_type cmd_lb subpop_lb using `df0', nogenerate
     .clean
+    if ("`.months'" == "0") drop mes
     foreach var in `.over' {
       label variable `var' "`lvar`var''"
     }
   }
 end
-
 
 * Agrega los resultados trimestrales de una tabla previamente creada - v1
 capture program drop annualize_v1
@@ -421,13 +421,14 @@ program define .annualize_v1
   * Agregación
   generate `n1' = bh
   local bylist "año `over' cmd_type cmd_lb subpop_lb"
-  collapse (sum) bh (max) o2 (count) `n1', by("`bylist'")
+  collapse (sum) bh (max) o2 (count) `n1' (mean) n, by("`bylist'")
   replace bh = bh / `n1'
   generate cv = 100 * sqrt(o2) / bh
   * Etiquetado
   label variable bh "Estimado"
   label variable o2 "Varianza"
   label variable cv "Coeficiente de variación (%)"
+  label variable n  "Tamaño del dominio (sin expandir)"
 end
 
 * Agrega los resultados trimestrales de una tabla previamente creada - v2
@@ -440,14 +441,16 @@ program define .annualize_v2
   * Agregación
   generate `n1' = bh
   local bylist "año `over' cmd_type cmd_lb subpop_lb"
-  collapse (sum) bh (max) o2 (count) `n1', by("`bylist'")
+  collapse (sum) bh (max) o2 (count) `n1' (sum) n, by("`bylist'")
   replace bh = bh / `n1' if  inlist(cmd_type, "mean", "ratio")
   replace bh = bh / 4    if !inlist(cmd_type, "mean", "ratio")
   generate cv = 100 * sqrt(o2) / bh
+  replace n = n / 4
   * Etiquetado
   label variable bh "Estimado"
   label variable o2 "Varianza"
   label variable cv "Coeficiente de variación (%)"
+  label variable n  "Tamaño del dominio (sin expandir)"
 end
 
 * Convierte totales en proporciones
@@ -467,6 +470,28 @@ program define .as_proportion
   replace cmd_type = "proportion"    if (`touse' == 1)
   replace bh = 100 * bh / `total_bh' if (`touse' == 1)
   replace bh = 100 if (`touse' == 1) & (bh == .)
+end
+
+capture program drop add_asterisks
+program define .add_asterisks
+  version 14.1
+  syntax[, add_over(string)]
+  * Macros y objetos temporales
+  tempvar id_aux n_aux test
+  * Mutación
+  unab all : _all
+  local exceptions bh cv n `add_over'
+  local over : list all - exceptions
+  generate `id_aux' = _n
+  generate `test' = inlist(cmd_type, "total", "proportion")
+  bysort `over' : egen `n_aux' = total(n)
+  replace n = `n_aux' if (`test' == 1)
+  generate asterisk = "*"
+  replace asterisk  = " " if (n >= 50) & (`test' == 1)
+  replace asterisk  = " " if (n >= 50) & (cv <= 25) & (`test' == 0)
+  sort `id_aux'
+  * Etiquetado
+  label variable asterisk "=* si bh está sujeto a alta variabilidad muestral"
 end
 
 * Exporta la tabla a Excel (aplicando el formato del manual)
@@ -494,8 +519,11 @@ program define .export_excel
 
     * Trucamiento de las variables
     if ("`varlist'" == "bh") {
-      replace bh = round(bh, 01) if (cmd_type == "total")
-      replace bh = round(bh, .1) if (cmd_type != "total")
+      tempvar bh_aux
+      tostring bh, generate(`bh_aux') format(%9,0fc) force
+      tostring bh, replace format(%9,1fc) force
+      replace bh = `bh_aux' if (cmd_type == "total")
+      replace bh = bh + asterisk
     }
 
     *===========================================================================
@@ -521,13 +549,13 @@ program define .export_excel
     *===========================================================================
     * Formato de columnas
     *===========================================================================
-
+    /*
     local fmts ""
     forvalues i = 1(1)`c(N)' {
       if (cmd_type[`i'] == "total") local fmt "#,##0"
       if (cmd_type[`i'] != "total") local fmt "#,##0.0"
       local fmts = "`fmts' `fmt'"
-    }
+    } */
 
     *===========================================================================
     * Encabezados de filas
@@ -568,7 +596,6 @@ program define .export_excel
     * Exportación (formato)
     *===========================================================================
 
-
     * Marcadores de filas
     local N0 = 2
     local N1 = `k' - 1
@@ -580,13 +607,13 @@ program define .export_excel
     local Ncols1 = `c(k)'
     local Ncols2 = `c(k)' + `N_rowvar'
 
-    * Formato de número
+    /* * Formato de número
     forvalues i = 1(1)`Ncols1' {
       local j = `i' + `N_rowvar'
     	local X : word `j' of `c(ALPHA)'
     	local fmt : word `i' of `fmts'
     	putexcel (`X'`N2':`X'`N4'), nformat("`fmt'")
-    }
+    } */
 
     * Alineación
     local Z : word `Ncols2' of `c(ALPHA)'
