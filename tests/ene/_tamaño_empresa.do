@@ -4,7 +4,7 @@
 
 * Macros auxiliares
 local var0 "b15_1 b15_2 categoria_ocupacion"
-local var1 "_tamaño_empresa_v1"
+local var1 "_tamaño_empresa"
 
 * BBDD
 use `var0' using "$pkg/data/tests/ene/2016/01/`var1'.dta", clear

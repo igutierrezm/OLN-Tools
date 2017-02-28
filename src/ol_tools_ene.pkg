@@ -41,9 +41,8 @@ f ene/gen_ene_region_re_v2.ado
 f ene/gen_ene_region_tr_v1.ado
 f ene/gen_ene_region_tr_v2.ado
 f ene/gen_ene_superior_completa.ado
-f ene/gen_ene_tamaño_empresa_v1.ado
+f ene/gen_ene_tamaño_empresa.ado
 f ene/gen_ene_tipo_contrato.ado
 f ene/gen_ene_tramo_edad_v1.ado
 f ene/gen_ene_tramo_edad_v2.ado
-f ene/lval_ene_mes.ado
 f ene/select_ene.ado

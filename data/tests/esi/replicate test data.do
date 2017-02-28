@@ -15,16 +15,16 @@ local varlist `"
 	"_cise_v1"
 	"_cise_v3"
 	"_counter"
+	"_edad"
 	"_educ"
+	"_esc"
 	"_estrato"
 	"_hr_hab"
 	"_joven"
-	"_jparcial_inv"
 	"_jparcial"
+	"_jparcial_inv"
 	"_mantuvo_empleo"
 	"_mujer"
-	"_ñuble_re"
-	"_ñuble_tr"
 	"_ocupado"
 	"_oficio1"
 	"_psu"
@@ -68,3 +68,4 @@ foreach var1 in `varlist' {
 		save "$pkg/data/tests/esi/`año'/`var1'", replace
 	}
 }
+beep

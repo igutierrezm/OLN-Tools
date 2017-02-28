@@ -8,7 +8,6 @@ program define gen_casen_cise_v1
   if inrange(`año', 2011, 2015) {
     # delimit ;
     recode `r(selection)'
-      (0    =   0 "No Corresponde")
       (1    =   1 "Empleadores")
       (2    =   2 "Cuenta Propia")
       (3/8  =   3 "Asalariados")

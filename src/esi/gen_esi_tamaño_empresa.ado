@@ -1,19 +1,18 @@
 * Tamaño de empresa (según n. de trabajadores)
-capture program drop gen_esi_tamaño_empresa_v1
-program define gen_esi_tamaño_empresa_v1, rclass
+capture program drop gen_esi_tamaño_empresa
+program define gen_esi_tamaño_empresa
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Objetos temporales
   tempvar B15_1 B15_2
   * Mutación
-  local var "_tamaño_empresa_v1"
+  local var "_tamaño_empresa"
   local cat "CISE"
   generate `B15_1' = B15_1
   generate `B15_2' = B15_2
   destring `B15_1' `B15_2', replace
   # delimit ;
     recode `B15_1'
-      (1e6  = 1e6 "Nacional")
       (0    =   0 "Unipersonal")
     	(1/2  =   1 "Micro")
     	(3    =   2 "Pequeña")
@@ -28,4 +27,4 @@ program define gen_esi_tamaño_empresa_v1, rclass
   * Etiquetado
   label variable `var' "Tamaño de empresa (según n. de trabajadores)"
 end
-* Convención - frente a la duda (unipersonal, micro, pequeño), quedará micro.
+* Último acuerdo: Frente a la duda unipersonal/micro/pequeño, quedará micro.

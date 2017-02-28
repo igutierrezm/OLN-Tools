@@ -7,8 +7,8 @@ local var1 "_yprincipal_hr"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected_2013 = (6.25, ., 5, ., ., ., .)'
-matrix expected_2015 = (6.25, ., 5, ., ., .)'
+matrix expected_2013 = (6250, ., 5000, ., ., ., .)'
+matrix expected_2015 = (6250, ., 5000, ., ., .)'
 
 * Contrastes, según año
 foreach año in `años' {

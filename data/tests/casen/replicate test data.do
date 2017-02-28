@@ -27,6 +27,7 @@ local varlist `"
 	"_esc"
 	"_estrato"
 	"_hr_hab"
+	"_inactivo"
 	"_indigena"
 	"_inmigrante"
 	"_joven"
@@ -35,6 +36,8 @@ local varlist `"
 	"_ocupado"
 	"_oficio1"
 	"_oficio4"
+	"_pea"
+	"_pet"
 	"_psu"
 	"_pweight"
 	"_rama1_v1"
@@ -50,7 +53,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _razon_inactividad {
+foreach var1 in `varlist' {
 	foreach año in 1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015 {
 		* Inputs de `var1'
 		capture : select_casen, varlist("`var1'") año("`año'")
@@ -71,3 +74,4 @@ foreach var1 in _razon_inactividad {
 		save "$pkg/data/tests/casen/`año'/`var1'", replace
 	}
 }
+beep

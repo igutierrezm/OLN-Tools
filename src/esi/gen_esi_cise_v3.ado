@@ -7,7 +7,6 @@ program define gen_esi_cise_v3, rclass
   * Mutación
   # delimit ;
   recode CISE
-    (0    =   0 "No corresponde")
     (1    =   1 "Empleadores")
     (2    =   2 "Cuenta propia")
     (7    =   6 "Familiares no Remunerados")

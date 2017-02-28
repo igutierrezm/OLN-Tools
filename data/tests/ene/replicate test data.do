@@ -45,7 +45,7 @@ local varlist `"
 	"_region_tr_v1"
 	"_region_tr_v2"
 	"_superior_completa"
-	"_tamaño_empresa_v1"
+	"_tamaño_empresa"
 	"_tipo_contrato"
 	"_tramo_edad_v1"
 	"_tramo_edad_v2"
@@ -66,7 +66,6 @@ foreach var1 in `varlist' {
 			local length = 20 - ustrlen("`var1'")
 			noisily : display as text "`var1' " _skip(`length') "inputs : `var0'"
 
-
 			* BBDD
 			local file "$datos/ENE/ENE `año' `mes'.dta"
 			else use `var0' using "`file'", clear
@@ -78,3 +77,4 @@ foreach var1 in `varlist' {
 		}
 	}
 }
+beep

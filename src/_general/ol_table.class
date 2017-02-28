@@ -4,6 +4,7 @@ class ol_table {
   * Comandos
   string cmds
   string cmds_lb
+  string cmds_fmt
   * Dominios
   string years
   string months
@@ -15,7 +16,9 @@ class ol_table {
   string rowvar
   string colvar
   * Agregaciones
-  string aggregate
+  string margins
+  string margins0
+  string margins_lb
   * I-O
   string src
   string from
@@ -35,9 +38,9 @@ program define .complete
   version 14.1
   syntax
 
-  * Ajuste de los campos .cmds, .cmds_lb y .aggregate:
+  * Ajuste de los campos .cmds, .cmds_lb y .margins0:
   foreach symbol in "{" "}" {
-    foreach field in cmds cmds_lb subpops subpops_lb aggregate {
+    foreach field in cmds cmds_lb cmds_fmt subpops subpops_lb margins margins_lb {
       .`field' = subinstr(`"`.`field''"', "`symbol'", `"""', .)
     }
   }
@@ -49,7 +52,7 @@ program define .complete
   .over = "`.along' `.by'"
 
   * Anexión de las dimensiones de la tabla
-  foreach field in months years cmds subpops along by over {
+  foreach field in months years cmds subpops along by over margins {
       .N_`field' = `:word count of `.`field''' - 1
   }
 
@@ -64,6 +67,31 @@ program define .complete
 
   * Valores por defecto del resto de los campos
   if ("`.months'" == "") .months = "0"
+
+  * Construye todas las posibles Agregaciones
+  quietly : {
+    drop _all
+    set obs 2
+    forvalues i = 1(1)`.N_margins' {
+    	local var : word `i' of `.margins'
+    	generate v`i' = ""
+    	replace  v`i' = "`var'" in 2
+    }
+    capture : fillin *
+    capture : drop _fillin
+
+    egen margins_int = group(*), missing label lname(margins)
+    decode margins, generate(margins_str)
+    local margins = ""
+    forvalues i = 2(1)`c(N)' {
+      local margins = "`margins'" + " {" + margins_str[`i'] + "}"
+    }
+    .margins0 = "`margins'"
+    foreach symbol in "{" "}" {
+      .margins0 = subinstr(`"`.margins0'"', "`symbol'", `"""', .)
+    }
+    drop _all
+  }
 end
 
 * Carga la BBDD relevante para la tabla
@@ -77,12 +105,11 @@ program define .selectvars
   if ("`.src'" == "casen") local df "`.from'/CASEN/CASEN `año'"
   if ("`.src'" == "ene")   local df "`.from'/ENE/ENE `año' `mes'"
   if ("`.src'" == "esi")   local df "`.from'/ESI/ESI `año' Personas"
-  if ("`.src'" == "sii")   local df "`.from'/SII/SII - Base empresas `año'"
+  if ("`.src'" == "sii")   local df "`.from'/SII/AC `año'"
 
   * Selección de las variables relevantes
   ol_select, varlist(`"`.varlist1'"') db("`.src'") año(`año') mes(`mes')
   use `r(selection)' using "`df'", clear
-
 end
 
 * Recupera las estadísticas (como variables), luego de usar el comando estimate
@@ -200,22 +227,35 @@ program define .clean
     label define mes `mes' "`mes'", modify
   }
   forvalues i = 1(1)`.N_cmds' {
-    label define cmd_lb `i' "`:word `i' of `.cmds_lb''", modify
+    local cmd_lb : word `i' of `.cmds_lb'
+    gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
+    gettoken dots cmd_lb : cmd_lb
+    label define cmd_lb `cmd_cd' "`cmd_lb'", modify
   }
   forvalues j = 1(1)`.N_subpops' {
-    label define subpop_lb `j' "`:word `j' of `.subpops_lb''", modify
+    local subpop_lb : word `j' of `.subpops_lb'
+    gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
+    gettoken dots subpop_lb : subpop_lb
+    label define subpop_lb `subpop_cd' "`subpop_lb'", modify
   }
   foreach var in año mes cmd_lb subpop_lb {
     label values `var' `var'
   }
+  local i = 1
+  foreach var in `.margins' {
+    local str : word `i' of `.margins_lb'
+    label define `var' 1e6 "`str'", modify
+    local ++i
+  }
   * Etiquetado (variables)
   capture : label variable año       "Año"
   capture : label variable mes       "Mes"
-  capture : label variable cmd_type  "Tipo de comando (e.g., total)"
-  capture : label variable cmd_lb    "Indicador"
+  capture : label variable cmd_type  "Tipo de indicador (e.g., total)"
+  capture : label variable cmd_fmt   "Formato del indicador (e.g., %9.1f)"
+  capture : label variable cmd_lb    "Descripción del indicador"
   capture : label variable subpop_lb "Etiqueta de la sub-población"
   capture : label variable n         "Tamaño del dominio (sin expandir)"
-  capture : label variable bh        "Estimado"
+  capture : label variable bh        "Indicador"
   capture : label variable o2        "Varianza"
   capture : label variable cv        "Coeficiente de variación (%)"
   foreach var in `.over' {
@@ -224,8 +264,8 @@ program define .clean
   }
   lval_ene_mes
   * Ordenación
-  order año mes cmd_type cmd_lb subpop_lb `.over'
-  gsort año mes cmd_type cmd_lb subpop_lb `.over'
+  order año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
+  gsort año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
 end
 
 * Deduce los tamaños muestrales (sin expansión)
@@ -263,10 +303,11 @@ program define .sample_sizes
 
         * Estimación y anexión (en línea) de los resultados
         snapshot save
-        foreach vars in "" `.aggregate' {
+        if (`.margins0' == "") local margins0 `""""'
+        if (`.margins0' != "") local margins0 `""" `.margins0'"'
+        foreach vars in `margins0' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
-
               * Agregaciones
               snapshot restore 1
               foreach var in `vars' {
@@ -274,12 +315,15 @@ program define .sample_sizes
         			}
 
               * Comando
-              local cmd    : word `i' of `.cmds'
-              local cmd_lb : word `i' of `.cmds_lb'
+              local cmd     : word `i' of `.cmds'
+              local cmd_lb  : word `i' of `.cmds_lb'
+              local cmd_fmt : word `i' of `.cmds_fmt'
+              gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
 
               * Sub-población
               local subpop    : word `j' of `.subpops'
               local subpop_lb : word `j' of `.subpops_lb'
+              gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
 
               * Estimación
               gettoken stat : cmd
@@ -287,15 +331,16 @@ program define .sample_sizes
 
               * ID auxiliares
               generate cmd_type = "`stat'"
+              generate cmd_fmt  = "`cmd_fmt'"
               generate año = `año'
-              generate cmd_lb = `i'
-              generate subpop_lb = `j'
+              generate cmd_lb = `cmd_cd'
+              generate subpop_lb = `subpop_cd'
               generate mes = 0
               if ("`.months'" != "") replace mes = `mes'
 
               * Ordenación
-              order año mes `.over' cmd_type cmd_lb subpop_lb n
-              gsort año mes `.over' cmd_type cmd_lb subpop_lb
+              order año mes `.over' cmd_type cmd_fmt cmd_lb subpop_lb n
+              gsort año mes `.over' cmd_type cmd_fmt cmd_lb subpop_lb
 
           		* Anexión
           		append using `df'
@@ -349,7 +394,9 @@ program define .create
 
         * Estimación y anexión (en línea) de los resultados
         snapshot save
-        foreach vars in "" `.aggregate' {
+        if (`.margins0' == "") local margins0 `""""'
+        if (`.margins0' != "") local margins0 `""" `.margins0'"'
+        foreach vars in `margins0' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
 
@@ -360,12 +407,15 @@ program define .create
         			}
 
               * Comando
-              local cmd  : word `i' of `.cmds'
-              local cmd_lb : word `i' of `.cmds_lb'
+              local cmd     : word `i' of `.cmds'
+              local cmd_lb  : word `i' of `.cmds_lb'
+              local cmd_fmt : word `i' of `.cmds_fmt'
+              gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
 
               * Sub-población
               local subpop    : word `j' of `.subpops'
               local subpop_lb : word `j' of `.subpops_lb'
+              gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
 
               * Estimación
               gettoken stat : cmd
@@ -381,15 +431,16 @@ program define .create
               .get_domains, stat("`stat'")
 
               * ID auxiliares
-              generate cmd_type = "`stat'"
-              generate año = `año'
-              generate mes = `mes'
-              generate cmd_lb = `i'
-              generate subpop_lb = `j'
+              generate cmd_lb    = `cmd_cd'
+              generate cmd_fmt   = "`cmd_fmt'"
+              generate cmd_type  = "`stat'"
+              generate subpop_lb = `subpop_cd'
+              generate año       = `año'
+              generate mes       = `mes'
 
               * Ordenación
-              order año mes `.over' cmd_type cmd_lb subpop_lb bh o2 cv
-              gsort año mes `.over' cmd_type cmd_lb subpop_lb
+              order año mes `.over' cmd_type cmd_fmt cmd_lb subpop_lb bh o2 cv
+              gsort año mes `.over' cmd_type cmd_fmt cmd_lb subpop_lb
 
           		* Anexión
           		append using `df'
@@ -402,7 +453,7 @@ program define .create
     }
 
     ** Epílogo
-    merge 1:1 año mes `.over' cmd_type cmd_lb subpop_lb using `df0', nogenerate
+    merge 1:1 año mes `.over' cmd_type cmd_fmt cmd_lb subpop_lb using `df0', nogenerate
     .clean
     if ("`.months'" == "0") drop mes
     foreach var in `.over' {
@@ -411,36 +462,16 @@ program define .create
   }
 end
 
-* Agrega los resultados trimestrales de una tabla previamente creada - v1
-capture program drop annualize_v1
-program define .annualize_v1
+* Agrega los resultados trimestrales de una tabla previamente creada
+capture program drop annualize
+program define .annualize
   version 14.1
-  syntax [, over(string)]
-  * Objetos temporales
-  tempvar n1
-  * Agregación
-  generate `n1' = bh
-  local bylist "año `over' cmd_type cmd_lb subpop_lb"
-  collapse (sum) bh (max) o2 (count) `n1' (mean) n, by("`bylist'")
-  replace bh = bh / `n1'
-  generate cv = 100 * sqrt(o2) / bh
-  * Etiquetado
-  label variable bh "Estimado"
-  label variable o2 "Varianza"
-  label variable cv "Coeficiente de variación (%)"
-  label variable n  "Tamaño del dominio (sin expandir)"
-end
-
-* Agrega los resultados trimestrales de una tabla previamente creada - v2
-capture program drop annualize_v2
-program define .annualize_v2
-  version 14.1
-  syntax [, over(string)]
+  syntax
   * Objetos temporales
   tempvar n1 n2
   * Agregación
   generate `n1' = bh
-  local bylist "año `over' cmd_type cmd_lb subpop_lb"
+  local bylist "año cmd_type cmd_fmt cmd_lb subpop_lb `.along' `.by'"
   collapse (sum) bh (max) o2 (count) `n1' (sum) n, by("`bylist'")
   replace bh = bh / `n1' if  inlist(cmd_type, "mean", "ratio")
   replace bh = bh / 4    if !inlist(cmd_type, "mean", "ratio")
@@ -454,39 +485,56 @@ program define .annualize_v2
 end
 
 * Convierte totales en proporciones
-capture program drop as_proportion
-program define .as_proportion
+capture program drop add_proportions
+program define .add_proportions
   version 14.1
-  syntax [if], [by(string) along(string)]
+  syntax, cmd_lb(string) cmd_fmt(string)
   * Macros auxiliares y objetos temporales
+  tempfile df
   tempvar total_bh
 
-  * Destrucción de subtotales (como categorías) y reconstrucción como variables
-  marksample touse
-  replace bh = . if (cmd_type == "total") & (`by' == 1e6) & (`touse' == 1)
-  egen `total_bh' = total(bh) if `touse', by(año cmd_lb subpop_lb `along')
+  * Muestra efectiva
+  save `df', replace
+  keep if (cmd_type == "total")
 
-  * Proporciones
-  replace cmd_type = "proportion"    if (`touse' == 1)
-  replace bh = 100 * bh / `total_bh' if (`touse' == 1)
-  replace bh = 100 if (`touse' == 1) & (bh == .)
+  * Destrucción de subtotales (como categorías) y reconstrucción como variables
+  replace bh = . if (`.by' == 1e6)
+  egen `total_bh' = total(bh), by(año cmd_lb subpop_lb `.along')
+
+  * Cálculo de las proporciones
+  replace bh = 100 * bh / `total_bh'
+  replace bh = 100 if (bh == .)
+
+  * Identificación de los nuevos indicadores
+  gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
+  gettoken dots cmd_lb : cmd_lb
+  label define cmd_lb `cmd_cd' "`cmd_lb'", modify
+  replace cmd_type = "proportion"
+  replace cmd_fmt  = "`cmd_fmt'"
+  replace cmd_lb   = `cmd_cd'
+
+  * Etiquetado
+  label define cmd_lb `cmd_cd' "`cmd_lb'", modify
+
+  * Anexión
+  append using `df'
 end
 
 capture program drop add_asterisks
 program define .add_asterisks
   version 14.1
-  syntax[, add_over(string)]
+  syntax
   * Macros y objetos temporales
   tempvar id_aux n_aux test
   * Mutación
   unab all : _all
-  local exceptions bh cv n `add_over'
+  local exceptions bh o2 cv n `.by'
   local over : list all - exceptions
   generate `id_aux' = _n
   generate `test' = inlist(cmd_type, "total", "proportion")
   bysort `over' : egen `n_aux' = total(n)
   replace n = `n_aux' if (`test' == 1)
-  generate asterisk = "*"
+  generate asterisk = "ᵃ"
   replace asterisk  = " " if (n >= 50) & (`test' == 1)
   replace asterisk  = " " if (n >= 50) & (cv <= 25) & (`test' == 0)
   sort `id_aux'
@@ -519,10 +567,13 @@ program define .export_excel
 
     * Trucamiento de las variables
     if ("`varlist'" == "bh") {
-      tempvar bh_aux
-      tostring bh, generate(`bh_aux') format(%9,0fc) force
-      tostring bh, replace format(%9,1fc) force
-      replace bh = `bh_aux' if (cmd_type == "total")
+      tempvar bh_aux1 bh_aux2
+      tostring bh, generate(`bh_aux1') format(%15,0fc) force
+      tostring bh, generate(`bh_aux2') format(%15,1fc) force
+      drop bh
+      generate bh = ""
+      replace bh = `bh_aux1' if (cmd_fmt == "%15,0fc")
+      replace bh = `bh_aux2' if (cmd_fmt == "%15,1fc")
       replace bh = bh + asterisk
     }
 

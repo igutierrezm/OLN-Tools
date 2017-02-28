@@ -21,7 +21,7 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Contrastes
-matrix block1 = (1e5, 1, 1, 1, 1, 1, 1, 2, 1, 3, 2, 3, 2, 003, 002, 4)
-matrix block2 = (003, 4, 3, 5, 3, 6, 5, 6, 5, 6, 5, 4, 2, 1e5, 1e5)
+matrix block1 = (1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 2, 3, 2, 003, 002, 4)
+matrix block2 = (3, 4, 3, 5, 3, 6, 5, 6, 5, 6, 5, 3, 2, 1e5, 1e5)
 matrix expected = (block1, block2)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°1")

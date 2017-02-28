@@ -7,10 +7,12 @@ d
 d Support: email ivangutierrez@observatorionacional.cl
 
 * _general/
+f _general/append2.ado
 f _general/bsrweights.ado
 f _general/decode2.ado
 f _general/encode2.ado
 f _general/expect_equal.ado
+f _general/labvalcombine.ado
 f _general/ol_dictionary.ado
 f _general/ol_generate.ado
 f _general/ol_select.ado

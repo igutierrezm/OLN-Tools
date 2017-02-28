@@ -1,9 +1,9 @@
-capture program drop gen_sii_tamaño_empresa_v2
-program define gen_sii_tamaño_empresa_v2
+capture program drop gen_sii_tamaño_empresa
+program define gen_sii_tamaño_empresa
 	version 14.1
 	syntax, año(string) [mes(string) from(string)]
 	* Mutación
-  local var "_tamaño_empresa_v2"
+  local var "_tamaño_empresa"
 	# delimit ;
 		recode tramo_ntrab
 			(00   =  00 "Unipersonal")

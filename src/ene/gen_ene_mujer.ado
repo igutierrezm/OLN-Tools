@@ -8,12 +8,12 @@ program define gen_ene_mujer, rclass
   * Etiquetado
   # delimit ;
     label define _mujer
-      000 "No"
-      001 "Sí"
+      000 "Hombres"
+      001 "Mujeres"
       1e5 "ns/nr"
       1e6 "Nacional",
       modify;
   # delimit cr
   label values _mujer _mujer
-  label variable _mujer "¿Es mujer?"
+  label variable _mujer "Sexo"
 end

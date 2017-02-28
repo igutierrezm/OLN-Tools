@@ -12,6 +12,5 @@ f sii/gen_sii_estrato.ado
 f sii/gen_sii_psu.ado
 f sii/gen_sii_pweight.ado
 f sii/gen_sii_rama1_v1.ado
-f sii/gen_sii_tamaño_empresa_v1.ado
-f sii/gen_sii_tamaño_empresa_v2.ado
+f sii/gen_sii_tamaño_empresa.ado
 f sii/select_sii.ado

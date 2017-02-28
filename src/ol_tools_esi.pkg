@@ -28,7 +28,7 @@ f esi/gen_esi_pweight.ado
 f esi/gen_esi_rama1_v1.ado
 f esi/gen_esi_region_re_v1.ado
 f esi/gen_esi_region_re_v2.ado
-f esi/gen_esi_tamaño_empresa_v1.ado
+f esi/gen_esi_tamaño_empresa.ado
 f esi/gen_esi_tipo_contrato.ado
 f esi/gen_esi_tramo_edad_v1.ado
 f esi/gen_esi_tramo_edad_v2.ado

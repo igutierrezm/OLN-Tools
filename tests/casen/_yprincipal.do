@@ -7,7 +7,7 @@ local var1 "_yprincipal"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected = (1e2, 1e3, .)'
+matrix expected = (1e5, 1e6, .)'
 
 * Contrastes, según año
 foreach año in `años' {

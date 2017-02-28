@@ -6,7 +6,6 @@ program define gen_esi_cise_v1, rclass
   * Mutación
   # delimit ;
   recode CISE
-    (0    =   0 "No corresponde")
     (1    =   1 "Empleadores")
     (2    =   2 "Cuenta propia")
     (3/6  =   3 "Asalariados")

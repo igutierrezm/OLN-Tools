@@ -22,7 +22,6 @@ program define gen_ene_cise_v1, rclass
   * RMutación
   # delimit ;
     recode categoria_ocupacion
-      (0    =   0 "No corresponde")
       (1    =   1 "Empleadores")
       (2    =   2 "Cuenta Propia")
       (3/6  =   3 "Asalariados")

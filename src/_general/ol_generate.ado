@@ -5,6 +5,8 @@ program define ol_generate
   syntax, varlist(string) db(string) [año(string) mes(string) from(string)]
   * Despacho
   foreach var in `varlist' {
+    local symbol = substr("`var'", 1, 1)
+    if ("`symbol'" != "_") continue
     gen_`db'`var', from(`from') año(`año') mes(`mes')
   }
 end

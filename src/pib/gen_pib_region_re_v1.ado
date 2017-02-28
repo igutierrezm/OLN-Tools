@@ -1,5 +1,6 @@
+* Región (no distingue a Ñuble de Biobío)
 capture program drop gen_pib_region_re_v1
-program define gen_pib_region_re_v1, rclass
+program define gen_pib_region_re_v1
   version 14.1
   syntax
 	* Mutacion
@@ -26,6 +27,8 @@ program define gen_pib_region_re_v1, rclass
 			generate(`var');
 	# delimit cr
 	* Etiquetado
-	local lvar "Región de residencia (no distingue a Ñuble de Biobío)"
+	local lvar "Región"
   label variable `var' "`lvar'"
+  * Notas
+  note `var' : "No distingue a Ñuble de Biobío"
 end

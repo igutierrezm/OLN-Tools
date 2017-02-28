@@ -1,6 +1,6 @@
-* Región de trabajo (no distingue a Ñuble de Biobío)
+* Región (no distingue a Ñuble de Biobío)
 capture program drop gen_pib_region_tr_v1
-program define gen_pib_region_tr_v1, rclass
+program define gen_pib_region_tr_v1
   version 14.1
   syntax
 	* Mutacion
@@ -29,4 +29,6 @@ program define gen_pib_region_tr_v1, rclass
 	* Etiquetado
 	local lvar "Región"
   label variable `var' "`lvar'"
+  * Notas
+  note `var' : "No distingue a Ñuble de Biobío"
 end
