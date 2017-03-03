@@ -32,6 +32,7 @@ local varlist `"
 	"_rama1_v1"
 	"_region_re_v1"
 	"_region_re_v2"
+	"_superior_completa"
 	"_tamaño_empresa"
 	"_tipo_contrato"
 	"_tramo_edad_v1"
@@ -65,7 +66,7 @@ foreach var1 in `varlist' {
 		drop _freq
 
 		* Guardado
-		save "$pkg/data/tests/esi/`año'/`var1'", replace
+		quietly: save "$pkg/data/tests/esi/`año'/`var1'", replace
 	}
 }
 beep

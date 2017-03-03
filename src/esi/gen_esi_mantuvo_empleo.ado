@@ -11,4 +11,7 @@ program define gen_esi_mantuvo_empleo, rclass
   label values   `var' `var'
   label variable `var' "¿Mantuvo su trabajo del mes anterior?"
 end
-* ¿Por qué antes usaba MESES_EMPLEO para el 2010?
+* ¿Hay un error en la etiqueta de D1_opcion/D5_opcion en 2010? Revisar.
+* Noten que no es fácil distinguir entre "0" y "ns/nr".
+* Podría cargar B2, B3, B5 para hacerlo, pero no vale la pena, pues lo
+* único importante es distinguir a los 1's.

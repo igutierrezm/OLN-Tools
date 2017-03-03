@@ -4,19 +4,21 @@ capture program drop gen_casen_discapacitado
 program define gen_casen_discapacitado
   version 14.1
   syntax, año(string) [mes(string) from(string)]
-  * Mutación
+  * Inputs relevantes
   select_casen, varlist("_discapacitado") año(`año')
-  # delimit ;
-    recode `r(selection)'
-    	(1/9  =   1 "Sí")
-    	(10   =   0 "No")
-      (1e6  = 1e6 "Nacional")
-    	(else = 1e5 "ns/nr"),
-    	generate(_discapacitado);
-  # delimit cr
-  * Etiquetas
-  label variable _discapacitado "¿Tiene alguna discapacidad?"
-  note _discapacitado : ///
+	quietly : ds
+	* ¿Tiene alguna dificultad?
+	local var "_discapacitado"
+	generate `var' = 0
+	foreach input in `r(varlist)' {
+		replace `var' =   1 if inrange(`input', 2, 5)
+		replace `var' = 1e5 if inlist(`input', 9, .) & (`var' != 1)
+	}
+	* Etiquetado
+	label define `var' 1 "Con discapaciadad" 0 "Sin discapacidad" 1e5 "ns/nr"
+	label values `var' `var'
+  label variable `var' "¿Tiene alguna discapacidad?"
+  note `var' : ///
     "¿Tiene dificultades debido al estado de salud en la realización " + ///
     "de actividades básicas o instrumentales de la vida diaria?"
 end

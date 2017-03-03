@@ -19,10 +19,12 @@ f casen/gen_casen_cotiza_pension.ado
 f casen/gen_casen_cotiza_salud.ado
 f casen/gen_casen_counter.ado
 f casen/gen_casen_desocupado.ado
+f casen/gen_casen_discapacitado.ado
 f casen/gen_casen_edad.ado
 f casen/gen_casen_educ.ado
 f casen/gen_casen_esc.ado
 f casen/gen_casen_estrato.ado
+f casen/gen_casen_extranjero.ado
 f casen/gen_casen_hr_hab.ado
 f casen/gen_casen_inactivo.ado
 f casen/gen_casen_indigena.ado

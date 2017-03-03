@@ -159,6 +159,16 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * ¿Es extranjero?
+      if ("`var'" == "_extranjero") {
+        if inrange(`año', 2015, 2015) local temp "r1a"
+        if inrange(`año', 2013, 2013) local temp "r1a"
+        if inrange(`año', 2011, 2011) local temp "h11"
+        if (`año' < 2011) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Horas habitualmente trabajadas:
       if ("`var'" == "_hr_hab") {
         if inrange(`año', 2013, 2015) local temp "o10"
