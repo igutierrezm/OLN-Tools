@@ -7,9 +7,8 @@ program define gen_casen_joven
   select_casen, varlist("_joven") año(`año')
   # delimit ;
   recode `r(selection)'
-  	(00/29  =   1 "Sí")
-  	(30/max =   0 "No")
-    (1e6    = 1e6 "Nacional")
+  	(00/29  =   1 "Jóvenes")
+  	(30/max =   0 "Adultos")
   	(else   = 1e5 "ns/nr"),
   	generate(_joven);
   # delimit cr
