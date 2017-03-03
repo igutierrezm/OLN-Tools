@@ -309,12 +309,6 @@ program define .sample_sizes
         foreach vars in `margins0' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
-              * Agregaciones
-              snapshot restore 1
-              foreach var in `vars' {
-        				replace `var' = 1e6
-        			}
-
               * Comando
               local cmd     : word `i' of `.cmds'
               local cmd_lb  : word `i' of `.cmds_lb'
@@ -325,6 +319,12 @@ program define .sample_sizes
               local subpop    : word `j' of `.subpops'
               local subpop_lb : word `j' of `.subpops_lb'
               gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
+
+              * Agregaciones
+              snapshot restore 1
+              foreach var in `vars' {
+        				replace `var' = 1e6 `subpop'
+        			}
 
               * Estimación
               gettoken stat : cmd
@@ -400,13 +400,6 @@ program define .create
         foreach vars in `margins0' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
-
-              * Agregaciones
-              snapshot restore 1
-              foreach var in `vars' {
-        				replace `var' = 1e6 `subpop'
-        			}
-
               * Comando
               local cmd     : word `i' of `.cmds'
               local cmd_lb  : word `i' of `.cmds_lb'
@@ -417,6 +410,12 @@ program define .create
               local subpop    : word `j' of `.subpops'
               local subpop_lb : word `j' of `.subpops_lb'
               gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
+
+              * Agregaciones
+              snapshot restore 1
+              foreach var in `vars' {
+        				replace `var' = 1e6 `subpop'
+        			}
 
               * Estimación
               gettoken stat : cmd
