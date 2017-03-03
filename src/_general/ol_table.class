@@ -421,7 +421,7 @@ program define .create
               * Estimación
               gettoken stat : cmd
               local test = ("`stat'" == "proportion")
-              if (`test' == 1) local opts `"over(`.along', nolabel) nolabel"'
+              if (`test' == 1) local opts `"over(`.along', nolabel) nolabel missing"'
               if (`test' == 0) local opts `"over(`.over', nolabel)"'
               noisily : display "svy, subpop(`subpop') : `cmd', `opts' nolegend"
               noisily : svy, subpop(`subpop') : `cmd', `opts' nolegend

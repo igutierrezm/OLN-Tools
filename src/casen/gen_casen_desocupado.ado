@@ -6,10 +6,9 @@ program define gen_casen_desocupado
   select_casen, varlist("_desocupado") año(`año')
   # delimit ;
   recode `r(selection)'
-  	(2    =   1 "Sí")
-  	(1/3  =   0 "No")
-    (1e6  = 1e6 "Nacional")
-  	(else = 1e5 "ns/nr"),
+  	(2    =  1 "Sí")
+  	(1/3  =  0 "No")
+  	(else = .a "ns/nr"),
   	generate(_desocupado);
   # delimit cr
   * Etiquetado:
