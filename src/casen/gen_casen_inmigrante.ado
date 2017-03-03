@@ -1,6 +1,6 @@
 * ¿Es un inmigrante?
 capture program drop gen_casen_inmigrante
-program define gen_casen_inmigrante, rclass
+program define gen_casen_inmigrante
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

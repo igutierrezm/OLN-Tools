@@ -1,5 +1,5 @@
 capture program drop gen_casen_desocupado
-program define gen_casen_desocupado, rclass
+program define gen_casen_desocupado
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación:

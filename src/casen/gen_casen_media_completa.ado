@@ -1,5 +1,5 @@
 capture program drop gen_casen_media_completa
-program define gen_casen_media_completa, rclass
+program define gen_casen_media_completa
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

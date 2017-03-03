@@ -1,6 +1,6 @@
 * ¿Es mujer?
 capture program drop gen_casen_mujer
-program define gen_casen_mujer, rclass
+program define gen_casen_mujer
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

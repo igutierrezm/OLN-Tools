@@ -1,6 +1,6 @@
 *! 1.0.3 Iván Gutiérrez 07dec2016
 capture program drop lval_casen_oficio4
-program define lval_casen_oficio4, rclass
+program define lval_casen_oficio4
   version 14.1
   syntax
   label define _oficio4 110 `"fuerzas armadas"', modify

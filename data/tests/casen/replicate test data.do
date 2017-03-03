@@ -22,6 +22,7 @@ local varlist `"
 	"_cotiza_pension"
 	"_cotiza_salud"
 	"_counter"
+	"_discapacitado"
 	"_edad"
 	"_educ"
 	"_esc"
@@ -53,7 +54,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in `varlist' {
+foreach var1 in _discapacitado {
 	foreach año in 1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015 {
 		* Inputs de `var1'
 		capture : select_casen, varlist("`var1'") año("`año'")
@@ -71,7 +72,7 @@ foreach var1 in `varlist' {
 		drop _freq
 
 		* Guardado
-		save "$pkg/data/tests/casen/`año'/`var1'", replace
+		save "$OLNTools/data/tests/casen/`año'/`var1'", replace
 	}
 }
 beep

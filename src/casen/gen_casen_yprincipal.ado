@@ -1,5 +1,5 @@
 capture program drop gen_casen_yprincipal
-program define gen_casen_yprincipal, rclass
+program define gen_casen_yprincipal
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

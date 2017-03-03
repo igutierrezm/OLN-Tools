@@ -1,6 +1,6 @@
 * Horas hab. trabajadas por semana (ocup. principal)
 capture program drop gen_casen_hr_hab
-program define gen_casen_hr_hab, rclass
+program define gen_casen_hr_hab
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

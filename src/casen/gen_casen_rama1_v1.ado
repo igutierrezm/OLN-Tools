@@ -1,6 +1,6 @@
 * Rama de actividad económica (agregación estándar)
 capture program drop gen_casen_rama1_v1
-program define gen_casen_rama1_v1, rclass
+program define gen_casen_rama1_v1
 	version 14.1
 	syntax, año(string) [mes(string) from(string)]
 	* Mutación

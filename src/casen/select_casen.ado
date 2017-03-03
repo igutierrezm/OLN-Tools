@@ -120,6 +120,16 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * ¿Tiene dificultades debido al estado de salud en la realización
+      * de actividades básicas o instrumentales de la vida diaria?
+      if ("`var'" == "_discapacitado") {
+        if inrange(`año', 2015, 2015) local temp "s34_1*"
+        if inrange(`año', 2013, 2013) local temp "s36* s38*"
+        if (`año' < 2013) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Edad:
       if ("`var'" == "_edad") {
         if inrange(`año', 1990, 2015) local temp "edad"

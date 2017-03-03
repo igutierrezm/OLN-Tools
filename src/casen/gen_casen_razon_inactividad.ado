@@ -1,5 +1,5 @@
 capture program drop gen_casen_razon_inactividad
-program define gen_casen_razon_inactividad, rclass
+program define gen_casen_razon_inactividad
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación
@@ -55,8 +55,8 @@ program define gen_casen_razon_inactividad, rclass
 				generate(`var');
 		# delimit cr
 	}
-		
-		
+
+
 	* Etiquetado
   label variable `var' "¿Tiene contrato escrito?"
 end

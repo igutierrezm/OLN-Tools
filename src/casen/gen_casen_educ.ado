@@ -1,5 +1,5 @@
 capture program drop gen_casen_educ
-program define gen_casen_educ, rclass
+program define gen_casen_educ
 	version 14.1
 	syntax, año(string) [mes(string) from(string)]
 	* Mutación

@@ -1,5 +1,5 @@
 capture program drop gen_casen_estrato
-program define gen_casen_estrato, rclass
+program define gen_casen_estrato
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

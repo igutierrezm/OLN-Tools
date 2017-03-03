@@ -7,6 +7,7 @@ program define ol_generate
   foreach var in `varlist' {
     local symbol = substr("`var'", 1, 1)
     if ("`symbol'" != "_") continue
-    gen_`db'`var', from(`from') año(`año') mes(`mes')
+    capture : quietly : confirm var `var'
+    if (_rc == 111) gen_`db'`var', from(`from') año(`año') mes(`mes')
   }
 end

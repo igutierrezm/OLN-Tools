@@ -1,6 +1,6 @@
 * ¿Desciende de algún pueblo indígena?
 capture program drop gen_casen_indigena
-program define gen_casen_indigena, rclass
+program define gen_casen_indigena
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

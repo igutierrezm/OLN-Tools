@@ -1,5 +1,5 @@
 capture program drop gen_casen_inactivo
-program define gen_casen_inactivo, rclass
+program define gen_casen_inactivo
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación:

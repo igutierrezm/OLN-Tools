@@ -1,5 +1,5 @@
 capture program drop gen_casen_asiste_escuela
-program define gen_casen_asiste_escuela, rclass
+program define gen_casen_asiste_escuela
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación

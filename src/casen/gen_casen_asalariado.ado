@@ -1,6 +1,6 @@
 * ¿Es un trabajador asalariado?
 capture program drop gen_casen_asalariado
-program define gen_casen_asalariado, rclass
+program define gen_casen_asalariado
   version 14.1
   syntax, año(string) [mes(string) from(string)]
   * Mutación
