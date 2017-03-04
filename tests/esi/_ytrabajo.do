@@ -24,7 +24,7 @@ forvalues año = 2010(1)2015 {
 
 	* Submuestra
 	drop _all
-	matrix A = (1e5, 1e6, .)'
+	matrix A = (.a, 1e6, .)'
 	matrix colnames A = "`var0'"
 	svmat A, names(col)
 	gen_esi`var1', año(`año')
@@ -34,6 +34,6 @@ forvalues año = 2010(1)2015 {
 
 	* Contrastes
 	local id "Test N°1 `año'"
-	matrix expected = (1e5, 1e6, .)'
+	matrix expected = (.a, 1e6, .)'
 	expect_equal, expected("expected") id(`id') observed("`var1'")
 }

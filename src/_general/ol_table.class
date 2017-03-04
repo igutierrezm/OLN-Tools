@@ -39,37 +39,21 @@ program define .complete
   version 14.1
   syntax
 
-  * Ajuste de los campos .cmds, .cmds_lb y .margins0:
+  * Reinterpretación de todos los campos que usan llaves como delimitador
+  local fields "cmds cmds_lb cmds_fmt subpops subpops_lb margins margins_lb"
   foreach symbol in "{" "}" {
-    foreach field in cmds cmds_lb cmds_fmt subpops subpops_lb margins margins_lb {
+    foreach field of local fields {
       .`field' = subinstr(`"`.`field''"', "`symbol'", `"""', .)
     }
   }
 
-  * Anexión de las variables necesarias para la inferencia estadística
-  .varlist1 = `"`.varlist0' _counter _psu _estrato _pweight"'
-
-  * Unión de along y by
-  .over = "`.along' `.by'"
-
-  * Anexión de las dimensiones de la tabla
-  foreach field in months years cmds subpops along by over margins {
+  * Dimensiones relevantes para el cuadro
+  local fields "months years cmds subpops along by over margins"
+  foreach field of local fields {
       .N_`field' = `:word count of `.`field''' - 1
   }
 
-  * Anexión del formato de cada variable
-  .fmts = ""
-  foreach cmd in `.cmds' {
-    gettoken stat : cmd
-    if ("`stat'" == "total") local fmt "#,###"
-    if ("`stat'" != "total") local fmt "#,###.0"
-    .fmts = "`.fmts' `fmt'"
-  }
-
-  * Valores por defecto del resto de los campos
-  if ("`.months'" == "") .months = "0"
-
-  * Construye todas las posibles Agregaciones
+  * Cruces de agregaciones
   quietly : {
     drop _all
     set obs 2
@@ -80,7 +64,6 @@ program define .complete
     }
     capture : fillin *
     capture : drop _fillin
-
     egen margins_int = group(*), missing label lname(margins)
     decode margins, generate(margins_str)
     local margins = ""
@@ -93,6 +76,13 @@ program define .complete
     }
     drop _all
   }
+
+  * Campos auxiliares
+  .varlist1 = `"`.varlist0' _counter _psu _estrato _pweight"'
+  .over = "`.along' `.by'"
+
+  * Valores por defecto
+  if ("`.months'" == "") .months = "0"
 end
 
 * Carga la BBDD relevante para la tabla
@@ -173,6 +163,7 @@ program define .get_domains_v1
     }
   }
 end
+/* Esta función necesita limpieza */
 
 * Versión N°2 de .get_domains (usar tras estimate proportion)
 capture program drop get_domains_v2
@@ -214,6 +205,7 @@ program define .get_domains_v2
   }
   destring `e(varlist)', replace
 end
+/* Esta función necesita limpieza */
 
 * Limpia la tabla (la ordena, le agrega etiquetas, etc.)
 capture program drop clean
@@ -245,7 +237,7 @@ program define .clean
   local i = 1
   foreach var in `.margins' {
     local str : word `i' of `.margins_lb'
-    label define `var' 1e6 "`str'", modify
+    label define `var' .b "`str'", modify
     local ++i
   }
   * Etiquetado (variables)
@@ -268,6 +260,7 @@ program define .clean
   order año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
   gsort año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
 end
+/* Esta función necesita limpieza */
 
 * Deduce los tamaños muestrales (sin expansión)
 capture program drop sample_sizes
@@ -323,12 +316,17 @@ program define .sample_sizes
               * Agregaciones
               snapshot restore 1
               foreach var in `vars' {
-        				replace `var' = 1e6 `subpop'
+        				replace `var' = .z `subpop'
         			}
 
               * Estimación
               gettoken stat : cmd
               collapse (sum) n `subpop', by(`.over')
+
+              * Limpieza de las categorías espúreas
+              foreach var in `.along' {
+                  keep if (`var' != .a)
+              }
 
               * ID auxiliares
               generate cmd_type = "`stat'"
@@ -387,7 +385,7 @@ program define .create
           varlist(`"`.varlist1'"') db("`.src'") año("`año'") mes("`mes'") from("`.from'")
 
         * Captura de lvar
-        foreach var in  `.over' {
+        foreach var in `.over' {
           local lvar`var' : variable label `var'
         }
         * Diseño muestral
@@ -400,6 +398,9 @@ program define .create
         foreach vars in `margins0' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
+              * BBDD original
+              snapshot restore 1
+
               * Comando
               local cmd     : word `i' of `.cmds'
               local cmd_lb  : word `i' of `.cmds_lb'
@@ -410,25 +411,32 @@ program define .create
               local subpop    : word `j' of `.subpops'
               local subpop_lb : word `j' of `.subpops_lb'
               gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
+              generate subpop = 1 `subpop'
 
               * Agregaciones
-              snapshot restore 1
               foreach var in `vars' {
-        				replace `var' = 1e6 `subpop'
+                replace `var' = 0 if (subpop != 1)
+        				replace `var' = 1 if (subpop == 1)
         			}
 
               * Estimación
               gettoken stat : cmd
               local test = ("`stat'" == "proportion")
               if (`test' == 1) local opts `"over(`.along', nolabel) nolabel missing"'
-              if (`test' == 0) local opts `"over(`.over', nolabel)"'
-              noisily : display "svy, subpop(`subpop') : `cmd', `opts' nolegend"
-              noisily : svy, subpop(`subpop') : `cmd', `opts' nolegend
+              if (`test' == 0) local opts `"over(`.over',  nolabel)"'
+              noisily : display "svy, subpop(subpop) : `cmd', `opts' nolegend"
+              noisily : svy, subpop(subpop) : `cmd', `opts' nolegend
               noisily : ereturn list
 
               * Conversión de los resultados en una BBDD
               .get_stats,   stat("`stat'")
               .get_domains, stat("`stat'")
+
+              * Eliminación de las categorías espúreas
+              foreach var in `vars' {
+                keep if `var' == 1
+                replace `var' = .z
+        			}
 
               * ID auxiliares
               generate cmd_lb    = `cmd_cd'
@@ -498,7 +506,7 @@ program define .add_proportions
   keep if (cmd_type == "total")
 
   * Destrucción de subtotales (como categorías) y reconstrucción como variables
-  replace bh = . if (`.by' == 1e6)
+  replace bh = . if (`.by' == 0)
   egen `total_bh' = total(bh), by(año cmd_lb subpop_lb `.along')
 
   * Cálculo de las proporciones
@@ -551,15 +559,6 @@ program define .export_excel
     *===========================================================================
     * Prólogo
     *===========================================================================
-
-    * Macros auxiliares
-    local N_along  = `:word count of `.colvar'' - 1
-    local N_rowvar = `:word count of `.rowvar'' - 1
-    foreach var in `.rowvar' `.colvar' {
-      quietly : inspect `var'
-      local K`var' = r(N_unique)
-    }
-
     * Hoja de destino
     local var "`varlist'"
     putexcel set "`file'", sheet("`sheet'", replace) modify
@@ -575,6 +574,29 @@ program define .export_excel
       replace bh = `bh_aux1' if (cmd_fmt == "%15,0fc")
       replace bh = `bh_aux2' if (cmd_fmt == "%15,1fc")
       replace bh = bh + asterisk
+    }
+
+    * Conversión de los mvs a valores "inofensivos"
+    foreach var of varlist _all {
+      capture : confirm numeric variable `var'
+      if (_rc != 0) | inlist("`var'", "n", "bh", "o2", "cv") continue
+      summarize `var'
+      local var_max = `r(max)'
+      forvalues i = 1(1)26 {
+        local letter : word `i' of `c(alpha)'
+        local lb_val : label `var' .`letter'
+        local new_val = ceil(`var_max' + `i')
+        replace `var' = `new_val' if (`var' == .`letter')
+        label define `var' `new_val' "`lb_val'", modify
+      }
+    }
+
+    * Macros auxiliares
+    local N_along  = `:word count of `.colvar'' - 1
+    local N_rowvar = `:word count of `.rowvar'' - 1
+    foreach var in `.rowvar' `.colvar' {
+      quietly : inspect `var'
+      local K`var' = r(N_unique)
     }
 
     *===========================================================================
@@ -596,17 +618,6 @@ program define .export_excel
       }
       local ++k
     }
-
-    *===========================================================================
-    * Formato de columnas
-    *===========================================================================
-    /*
-    local fmts ""
-    forvalues i = 1(1)`c(N)' {
-      if (cmd_type[`i'] == "total") local fmt "#,##0"
-      if (cmd_type[`i'] != "total") local fmt "#,##0.0"
-      local fmts = "`fmts' `fmt'"
-    } */
 
     *===========================================================================
     * Encabezados de filas

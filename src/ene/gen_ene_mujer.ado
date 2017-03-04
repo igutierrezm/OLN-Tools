@@ -6,9 +6,9 @@ program define gen_ene_mujer, rclass
   * Mutación
   # delimit ;
   recode sexo
-  	(1    =   0 "Hombres")
-  	(2    =   1 "Mujeres")
-  	(else = 1e5 "ns/nr"),
+  	(1    =  0 "Hombres")
+  	(2    =  1 "Mujeres")
+  	(else = .a "ns/nr"),
   	generate(_mujer);
   # delimit cr
   label variable _mujer "Sexo"

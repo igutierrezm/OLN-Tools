@@ -7,7 +7,7 @@ local var1 "_ytrabajo"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected = (1e5, 1e6, .)'
+matrix expected = (.a, 1e6, .)'
 
 * Contrastes, según año
 foreach año in `años' {
@@ -29,7 +29,7 @@ foreach año in `años' {
 
 	* Submuestra
 	drop _all
-	matrix A = (1e5, 1e6, .)'
+	matrix A = (.a, 1e6, .)'
 	matrix colnames A = "`var0'"
 	svmat A, names(col)
 	gen_casen`var1', año(`año')

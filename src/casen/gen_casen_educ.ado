@@ -7,14 +7,13 @@ program define gen_casen_educ
 	if inrange(`año', 2013, 2015) {
 		# delimit ;
 		recode `r(selection)'
-		  (1e6   = 1e6 "Nacional")
-			(0/1   =   1 "Básica incompleta o menos")
-			(2/4   =   2 "Básica")
-			(5/7 9 =   3 "Media")
-			(8     =   4 "Técnica")
-			(10/11 =   5 "Profesional")
-			(12    =   6 "Postgrado")
-			(else  = 1e5 "ns/nr"),
+			(0/1   =  1 "Básica incompleta o menos")
+			(2/4   =  2 "Básica")
+			(5/7 9 =  3 "Media")
+			(8     =  4 "Técnica")
+			(10/11 =  5 "Profesional")
+			(12    =  6 "Postgrado")
+			(else  = .a "ns/nr"),
 			generate(_educ);
 		# delimit cr
 	}

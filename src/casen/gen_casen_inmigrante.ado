@@ -7,10 +7,9 @@ program define gen_casen_inmigrante
   select_casen, varlist("_inmigrante") año(`año')
   # delimit ;
   recode `r(selection)'
-  	(1/2  =   0 "No")
-  	(3    =   1 "Sí")
-    (1e6  = 1e6 "Nacional")
-  	(else = 1e5 "ns/nr"),
+  	(1/2  =  0 "No")
+  	(3    =  1 "Sí")
+    (else = .a "ns/nr"),
   	generate(_inmigrante);
   # delimit cr
   * Etiquetado

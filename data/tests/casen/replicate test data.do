@@ -56,7 +56,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _extranjero {
+foreach var1 in _pweight {
 	foreach año in 1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015 {
 		* Inputs de `var1'
 		capture : select_casen, varlist("`var1'") año("`año'")
@@ -74,7 +74,7 @@ foreach var1 in _extranjero {
 		drop _freq
 
 		* Guardado
-		quietly: save "$OLNTools/data/tests/casen/`año'/`var1'", replace
+		quietly: save "$pkg/data/tests/casen/`año'/`var1'", replace
 	}
 }
 beep

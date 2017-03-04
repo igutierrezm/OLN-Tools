@@ -21,5 +21,5 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Contrastes
-matrix expected = (J(1, 48, 0), J(1, 53, 1), 1e5, 1e5)'
+matrix expected = (J(1, 48, 0), J(1, 53, 1), .a, .a)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°1")

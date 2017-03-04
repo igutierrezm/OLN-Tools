@@ -7,9 +7,9 @@ program define gen_casen_indigena
   select_casen, varlist("_indigena") año(`año')
   # delimit ;
     recode `r(selection)'
-    	(1/9  =   1 "Indígenas")
-    	(10   =   0 "No indígenas")
-    	(else = 1e5 "ns/nr"),
+    	(1/9  =  1 "Indígenas")
+    	(10   =  0 "No indígenas")
+      (else = .a "ns/nr"),
     	generate(_indigena);
   # delimit cr
   * Etiquetado

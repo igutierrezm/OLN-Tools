@@ -54,5 +54,5 @@ noisily : display _newline "{title:Test N°2}"
 noisily : list, abbreviate(100)
 
 * Constrastes
-matrix expected = (2, 2, 10, 11, 1e5, 1e5)'
+matrix expected = (2, 2, 10, 11, .a, .a)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°2")

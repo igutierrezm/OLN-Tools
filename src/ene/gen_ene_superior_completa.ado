@@ -14,8 +14,7 @@ program define gen_ene_superior_completa
     recode _educ
       (1/3 =   0 "No")
       (4/6 =   1 "Sí")
-      (1e5 = 1e5 "ns/nr")
-      (1e6 = 1e6 "Nacional"),
+      (else = .a "ns/nr"),
       generate(`var');
   # delimit cr
   * Etiquetado

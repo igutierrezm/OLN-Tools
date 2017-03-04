@@ -4,9 +4,9 @@ program define gen_ene_exceso_hr_chl, rclass
   syntax, año(string) mes(string) [from(string)]
   * Mutación
   local var "_exceso_hr_chl"
-  recode habituales (0/45 = 0) (46/998 = 1) (else = 1e5), generate(`var')
+  recode habituales (0/45 = 0) (46/998 = 1) (else = .a), generate(`var')
   * Etiquetado (valores)
-  label define `var' 0 "No" 1 "Sí" 1e5 "ns/nr" 1e6 "Nacional"
+  label define `var' 0 "No" 1 "Sí" .a "ns/nr"
   label values `var' `var'
   * Etiquetado (variables)
   local lvar "¿Trabaja habitualmente más de 45hrs por semana?"

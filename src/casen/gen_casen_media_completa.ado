@@ -9,9 +9,9 @@ program define gen_casen_media_completa
     select_casen, varlist("`var'") año(`año')
     gen_casen_educ, año(`año')
   }
-  recode _educ (0/2 = 0) (3/12 = 1) (1e5 = 1e5), generate(`var')
+  recode _educ (0/2 = 0) (3/12 = 1), generate(`var')
   * Etiquetado (valores)
-  label define `var' 0 "no" 1 "sí" 1e5 "ns/nr" 1e6 "nacional"
+  label define `var' 0 "no" 1 "sí" .a "ns/nr"
   label values `var' `var'
   * Etiquetado (variables)
   label variable `var' "¿Completó la enseñanza media?"

@@ -8,20 +8,18 @@ program define gen_casen_capacitado
   if (`año' == 2015) {
     # delimit ;
       recode `r(selection)'
-        (1e6  = 1e6 "Nacional")
-        (1    =   1 "Sí")
-        (2    =   0 "No")
-      	(else = 1e5 "ns/nr"),
+        (1    =  1 "Sí")
+        (2    =  0 "No")
+        (else = .a "ns/nr"),
       	generate(`var');
     # delimit cr
   }
   if (`año' == 2013) {
     # delimit ;
       recode `r(selection)'
-        (1e6  = 1e6 "Nacional")
-        (1/3  =   1 "Sí")
-        (4    =   0 "No")
-      	(else = 1e5 "ns/nr"),
+        (1/3  =  1 "Sí")
+        (4    =  0 "No")
+        (else = .a "ns/nr"),
       	generate(`var');
     # delimit cr
   }

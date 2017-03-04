@@ -6,10 +6,9 @@ program define gen_esi_asalariado, rclass
   * Mutación
   # delimit ;
     recode CISE
-      (3/6   =   1 "Sí")
-      (0/2 7 =   0 "No")
-      (1e6   = 1e6 "Nacional")
-      (else  = 1e5 "ns/nr"),
+      (3/6   =  1 "Sí")
+      (0/2 7 =  0 "No")
+      (else  = .a "ns/nr"),
       generate(_asalariado);
   # delimit cr
   * Etiquetado

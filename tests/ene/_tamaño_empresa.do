@@ -21,7 +21,7 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Contrastes
-matrix n = (01, 2, 1, 2, 3, 4, 1e5)
+matrix n = (01, 2, 1, 2, 3, 4, .a)
 matrix i = (45, 5, 5, 5, 4, 4, 003)
 matrix expected = (1, 0)'
 forvalues k = 1(1)7 {

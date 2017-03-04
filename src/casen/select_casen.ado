@@ -289,7 +289,7 @@ program define select_casen, rclass
       if ("`var'" == "_pweight") {
         if inrange(`año', 2000, 2015) local temp "expr"
         if inrange(`año', 2011, 2011) local temp "expr_full"
-        if (`año' < 2011) {
+        if (`año' < 2000) {
           display as error "`var' no disponible"
           exit 1
         }

@@ -11,7 +11,7 @@ program define gen_esi_esc, rclass
 			(06 14 = 06)
 			(07/09 = 12)
 			(10/12 = 17)
-			(else  =  .),
+			(else  = .a),
 			generate(_esc);
 	# delimit cr
 	replace _esc = _esc + min(0, CURSO) if (NIVEL <= 2)
@@ -23,7 +23,7 @@ program define gen_esi_esc, rclass
 	replace _esc = _esc + min(0, CURSO) if (NIVEL == 10)
 	replace _esc = _esc + min(2, CURSO) if (NIVEL == 11)
 	replace _esc = _esc + min(5, CURSO) if (NIVEL == 12)
-	replace _esc = .                    if (NIVEL >= 03) & (CURSO == 9)
+	replace _esc = .a                   if (NIVEL >= 03) & (CURSO == 9)
 	* Etiquetado
 	label variable _esc "Años de escolaridad"
 end

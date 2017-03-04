@@ -6,13 +6,12 @@ program define gen_sii_tamaño_empresa
   local var "_tamaño_empresa"
 	# delimit ;
 		recode tramo_ntrab
-			(00   =  00 "Unipersonal")
-      (01   =  01 "Micro")
-			(02   =  02 "Pequeña")
-			(03   =  03 "Mediana")
-			(04   =  04 "Grande")
-			(1e6  = 1e6 "Nacional")
-			(else = 1e5 "ns/nr"),
+			(00   =  0 "Unipersonal")
+      (01   =  1 "Micro")
+			(02   =  2 "Pequeña")
+			(03   =  3 "Mediana")
+			(04   =  4 "Grande")
+			(else = .a "ns/nr"),
 			generate(`var');
 	# delimit cr
 	* Etiquetado

@@ -12,10 +12,8 @@ program define gen_esi_superior_completa
   }
   # delimit ;
     recode _educ
-      (1/3 =   0 "No")
-      (4/6 =   1 "Sí")
-      (1e5 = 1e5 "ns/nr")
-      (1e6 = 1e6 "Nacional"),
+      (1/3 = 0 "No")
+      (4/6 = 1 "Sí"),
       generate(`var');
   # delimit cr
   * Etiquetado

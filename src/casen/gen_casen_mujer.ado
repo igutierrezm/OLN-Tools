@@ -7,9 +7,9 @@ program define gen_casen_mujer
   select_casen, varlist("_mujer") año(`año')
   # delimit ;
   recode `r(selection)'
-  	(1    =   0 "Hombres")
-  	(2    =   1 "Mujeres")
-  	(else = 1e5 "ns/nr"),
+  	(1    =  0 "Hombres")
+  	(2    =  1 "Mujeres")
+    (else = .a "ns/nr"),
   	generate(_mujer);
   # delimit cr
   * Etiquetado

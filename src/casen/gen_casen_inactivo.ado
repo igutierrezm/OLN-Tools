@@ -6,10 +6,9 @@ program define gen_casen_inactivo
   select_casen, varlist("_inactivo") año(`año')
   # delimit ;
   recode `r(selection)'
-  	(3    =   1 "Sí")
-  	(1/2  =   0 "No")
-    (1e6  = 1e6 "Nacional")
-  	(else = 1e5 "ns/nr"),
+  	(3    =  1 "Sí")
+  	(1/2  =  0 "No")
+    (else = .a "ns/nr"),
   	generate(_inactivo);
   # delimit cr
   * Etiquetado:

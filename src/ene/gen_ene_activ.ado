@@ -6,12 +6,11 @@ program define gen_ene_activ
   * Mutación
   # delimit ;
     recode cae_general
-      (0    =   0 "Menores de 15 años")
-      (1/3  =   1 "Ocupados")
-      (4/5  =   2 "Desocupados")
-      (6/9  =   3 "Inactivos")
-      (1e6  = 1e6 "Nacional")
-      (else = 1e5 "ns/nr"),
+      (0    =  0 "Menores de 15 años")
+      (1/3  =  1 "Ocupados")
+      (4/5  =  2 "Desocupados")
+      (6/9  =  3 "Inactivos")
+      (else = .a "ns/nr"),
       generate(_activ);
   # delimit cr
   * Etiquetado

@@ -24,5 +24,5 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Constrastes
-matrix expected = (1, 10, 140, ., .)'
+matrix expected = (1, 10, 140, .a, .a)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°2")

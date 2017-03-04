@@ -13,12 +13,12 @@ program define gen_esi_tamaño_empresa
   destring `B15_1' `B15_2', replace
   # delimit ;
     recode `B15_1'
-      (0    =   0 "Unipersonal")
-    	(1/2  =   1 "Micro")
-    	(3    =   2 "Pequeña")
-    	(4    =   3 "Mediana")
-    	(5    =   4 "Grande")
-    	(else = 1e5 "ns/nr"),
+      (0    =  0 "Unipersonal")
+    	(1/2  =  1 "Micro")
+    	(3    =  2 "Pequeña")
+    	(4    =  3 "Mediana")
+    	(5    =  4 "Grande")
+    	(else = .a "ns/nr"),
     	generate(`var');
   # delimit cr
   * Casos especiales

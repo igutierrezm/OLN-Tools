@@ -8,21 +8,20 @@ program define gen_casen_rama1_v1
 	if inrange(`año', 2011, 2015) {
 		# delimit ;
 		recode `r(selection)'
-		  (1e6   = 1e6 "Nacional")
-			(01    =  01 "Agropecuario-Silvícola")
-			(02    =  02 "Pesca")
-			(03    =  03 "Minería")
-			(04    =  04 "Industria Manufacturera")
-			(05    =  05 "Electricidad, Gas y Agua")
-			(06    =  06 "Construcción")
-			(07    =  07 "Comercio")
-			(08    =  08 "Hoteles y Restaurantes")
-			(09    =  09 "Transporte y Comunicaciones")
-			(10    =  10 "Intermediación Financiera")
-			(11    =  11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
-			(13/16 =  12 "Servicios Personales")
-			(12 17 =  13 "Administración Pública")
-			(else  = 1e5 "ns/nr"),
+			(01    = 01 "Agropecuario-Silvícola")
+			(02    = 02 "Pesca")
+			(03    = 03 "Minería")
+			(04    = 04 "Industria Manufacturera")
+			(05    = 05 "Electricidad, Gas y Agua")
+			(06    = 06 "Construcción")
+			(07    = 07 "Comercio")
+			(08    = 08 "Hoteles y Restaurantes")
+			(09    = 09 "Transporte y Comunicaciones")
+			(10    = 10 "Intermediación Financiera")
+			(11    = 11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
+			(13/16 = 12 "Servicios Personales")
+			(12 17 = 13 "Administración Pública")
+			(else  = .a "ns/nr"),
 			generate(_rama1_v1);
 		# delimit cr
 	}

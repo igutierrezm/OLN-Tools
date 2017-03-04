@@ -5,10 +5,9 @@ program define gen_esi_joven, rclass
   * Mutación
   # delimit ;
   recode EDAD
-    (1e6    = 1e6 "nacional")
-  	(00/29  =   1 "sí")
-  	(30/max =   0 "no")
-  	(else   = 1e5 "ns/nr"),
+  	(00/29  =  1 "sí")
+  	(30/max =  0 "no")
+  	(else   = .a "ns/nr"),
   	generate(_joven);
   # delimit cr
   * Etiquetado

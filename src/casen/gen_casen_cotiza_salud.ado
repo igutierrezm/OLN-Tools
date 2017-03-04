@@ -6,10 +6,9 @@ program define gen_casen_cotiza_salud
   select_casen, varlist("_cotiza_salud") año(`año')
   # delimit ;
   recode `r(selection)'
-    (1e6   = 1e6 "Nacional")
-    (1/7 9 =   1 "Sí")
-    (8     =   0 "No")
-    (else  = 1e5 "ns/nr"),
+    (1/7 9 =  1 "Sí")
+    (8     =  0 "No")
+    (else  = .a "ns/nr"),
     generate(_cotiza_salud);
   # delimit cr
   * Etiquetado

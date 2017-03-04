@@ -7,18 +7,18 @@ local var1 "_educ"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected_1990 = (1, 0, 1e5)'
-matrix expected_1992 = (1, 0, 1e5)'
-matrix expected_1994 = (1, 0, 1e5)'
-matrix expected_1996 = (1, 0, 1e5, 1e5)'
-matrix expected_1998 = (1, 0, 1e5, 1e5)'
-matrix expected_2000 = (1, 0, 1e5)'
-matrix expected_2003 = (1, 0, 1e5, 1e5)'
-matrix expected_2006 = (1, 0, 1e5, 1e5)'
-matrix expected_2009 = (1, 0, 1e5)'
-matrix expected_2011 = (1, 0,   0, 0, 1e5)'
-matrix expected_2013 = (1, 0,   0, 0, 1e5, 1e5)'
-matrix expected_2015 = (1, 0,   0, 0, 1e5)'
+matrix expected_1990 = (1, 0, .a)'
+matrix expected_1992 = (1, 0, .a)'
+matrix expected_1994 = (1, 0, .a)'
+matrix expected_1996 = (1, 0, .a, .a)'
+matrix expected_1998 = (1, 0, .a, .a)'
+matrix expected_2000 = (1, 0, .a)'
+matrix expected_2003 = (1, 0, .a, .a)'
+matrix expected_2006 = (1, 0, .a, .a)'
+matrix expected_2009 = (1, 0, .a)'
+matrix expected_2011 = (1, 0,   0, 0, .a)'
+matrix expected_2013 = (1, 0,   0, 0, .a, .a)'
+matrix expected_2015 = (1, 0,   0, 0, .a)'
 
 * Contrastes, según año
 foreach año in `años' {
