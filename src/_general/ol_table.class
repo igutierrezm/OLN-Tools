@@ -237,7 +237,7 @@ program define .clean
   local i = 1
   foreach var in `.margins' {
     local str : word `i' of `.margins_lb'
-    label define `var' .b "`str'", modify
+    label define `var' .z "`str'", modify
     local ++i
   }
   * Etiquetado (variables)
