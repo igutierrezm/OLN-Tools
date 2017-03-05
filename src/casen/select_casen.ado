@@ -159,6 +159,17 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * ¿Es un estudiante?
+      if ("`var'" == "_estudiante") {
+        if inrange(`año', 2009, 2015) local temp "e3"
+        if inrange(`año', 2006, 2006) local temp "e4"
+        if inrange(`año', 2003, 2003) local temp "e2"
+        if inrange(`año', 2000, 2000) local temp "e3"
+        if (`año' < 2000) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * ¿Es extranjero?
       if ("`var'" == "_extranjero") {
         if inrange(`año', 2015, 2015) local temp "r1a"
@@ -227,6 +238,17 @@ program define select_casen, rclass
       * ¿Es mujer?
       if ("`var'" == "_mujer") {
         if inrange(`año', 2000, 2015) local temp "sexo"
+        if (`año' < 2000) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * ¿Es nini?
+      if ("`var'" == "_nini") {
+        if inrange(`año', 2009, 2015) local temp "activ e3 edad"
+        if inrange(`año', 2006, 2006) local temp "activ e4 edad"
+        if inrange(`año', 2003, 2003) local temp "activ e2 edad"
+        if inrange(`año', 2000, 2000) local temp "activ e3 edad"
         if (`año' < 2000) {
           display as error "`var' no disponible"
           exit 1

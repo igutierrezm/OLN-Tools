@@ -11,3 +11,4 @@ program define gen_ene_desocupado, rclass
   * Etiquetado (variables)
   label variable _desocupado "¿Está desocupado?"
 end
+ 

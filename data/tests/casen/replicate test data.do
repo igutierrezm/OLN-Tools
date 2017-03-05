@@ -28,6 +28,7 @@ local varlist `"
 	"_educ"
 	"_esc"
 	"_estrato"
+	"_estudiante"
 	"_extranjero"
 	"_hr_hab"
 	"_inactivo"
@@ -36,6 +37,7 @@ local varlist `"
 	"_joven"
 	"_media_completa"
 	"_mujer"
+	"_nini"
 	"_ocupado"
 	"_oficio1"
 	"_oficio4"
@@ -56,7 +58,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _pweight {
+foreach var1 in _nini {
 	foreach año in 1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015 {
 		* Inputs de `var1'
 		capture : select_casen, varlist("`var1'") año("`año'")

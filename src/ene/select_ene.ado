@@ -33,6 +33,7 @@ program define select_ene, rclass
       if ("`var'" == "_exceso_hr_int")     local temp "habituales"
       if ("`var'" == "_exceso_hr_chl")     local temp "habituales"
       if ("`var'" == "_hr_hab")            local temp "habituales"
+      if ("`var'" == "_joven")             local temp "edad"
       if ("`var'" == "_jparcial")          local temp "c1"
       if ("`var'" == "_jparcial_inv")      local temp "c1 c10 c11"
       if ("`var'" == "_mujer")             local temp "sexo"
