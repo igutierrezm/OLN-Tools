@@ -3,17 +3,11 @@
 *===============================================================================
 
 * Macros auxiliares
-local var1 "_nini"
+local var1 "_tramo_edad_v3"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected_2000 = (0, 0, 0, 1, J(1, 06, 0))'
-matrix expected_2003 = (0, 0, 0, 1, J(1, 06, 0))'
-matrix expected_2006 = (0, 0, 0, 1, J(1, 10, 0))'
-matrix expected_2009 = (0, 0, 0, 1, J(1, 10, 0), .a)'
-matrix expected_2011 = (0, 0, 0, 1, J(1, 10, 0))'
-matrix expected_2013 = (0, 0, 0, 1, J(1, 10, 0))'
-matrix expected_2015 = (0, 0, 0, 1, J(1, 10, 0))'
+matrix expected = (0, 1, 1, 2, 2, 3, 3, 4, .a)'
 
 * Contrastes, según año
 foreach año in `años' {
@@ -27,9 +21,8 @@ foreach año in `años' {
 	gen_casen`var1', año("`año'")
 	generate nolabel = `var1'
 
-  * Submuestra
-  keep _estudiante _inactivo _joven `var1'
-  contract *
+	* Sub-muestra (solo tomo un puñado de casos interesantes)
+	keep if inlist(edad, 14, 15, 19, 20, 24, 25, 29, 30, .)
 
 	* Visualización
 	format * %100.0g
@@ -40,5 +33,5 @@ foreach año in `años' {
 
 	* Contrastes
 	local id "Test N°1 `año'"
-	expect_equal, expected("expected_`año'") id(`id') observed("`var1'")
+	expect_equal, expected("expected") id(`id') observed("`var1'")
 }

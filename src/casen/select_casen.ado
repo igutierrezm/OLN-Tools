@@ -374,6 +374,14 @@ program define select_casen, rclass
           exit 1
         }
       }
+    * Tramo de edad (jóvenes):
+      if ("`var'" == "_tramo_edad_v3") {
+        if inrange(`año', 1990, 2015) local temp "edad"
+        if (`año' < 1990) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Ingreso por hora de la ocupación principal:
       if ("`var'" == "_yprincipal_hr") {
         if inrange(`año', 2013, 2015) local temp "o10 yoprcor"

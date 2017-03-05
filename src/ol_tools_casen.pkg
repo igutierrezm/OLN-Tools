@@ -47,6 +47,7 @@ f casen/gen_casen_region_re_v1.ado
 f casen/gen_casen_tipo_contrato.ado
 f casen/gen_casen_tramo_edad_v1.ado
 f casen/gen_casen_tramo_edad_v2.ado
+f casen/gen_casen_tramo_edad_v3.ado
 f casen/gen_casen_yprincipal_hr.ado
 f casen/gen_casen_yprincipal.ado
 f casen/gen_casen_ytrabajo.ado
