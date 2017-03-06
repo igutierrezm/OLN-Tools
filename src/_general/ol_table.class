@@ -524,7 +524,7 @@ program define .add_proportions
   keep if (cmd_type == "total")
 
   * Destrucción de subtotales (como categorías) y reconstrucción como variables
-  replace bh = . if (`.by' == 0)
+  replace bh = . if (`.by' == .z)
   egen `total_bh' = total(bh), by(año cmd_lb subpop_lb `.along')
 
   * Cálculo de las proporciones
