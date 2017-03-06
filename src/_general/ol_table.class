@@ -255,7 +255,25 @@ program define .clean
     label values `var' `var'
     label variable `var' "`: variable label `var''"
   }
-  lval_ene_mes
+  *Etiquetado de los meses
+  # delimit ;
+    label define mes
+      00 "No corresponde"
+      01 "dec-feb"
+      02 "ene-mar"
+      03 "feb-abr"
+      04 "mar-may"
+      05 "abr-jun"
+      06 "may-jul"
+      07 "jun-ago"
+      08 "jul-sep"
+      09 "ago-oct"
+      10 "sep-nov"
+      11 "oct-dic"
+      12 "nov-ene",
+      modify;
+  # delimit cr
+  label values mes mes
   * Ordenación
   order año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
   gsort año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
