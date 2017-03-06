@@ -242,7 +242,7 @@ program define .clean
   }
   * Etiquetado (variables)
   capture : label variable año       "Año"
-  capture : label variable mes       "Mes"
+  capture : label variable mes       "Trimestre"
   capture : label variable cmd_type  "Tipo de indicador (e.g., total)"
   capture : label variable cmd_fmt   "Formato del indicador (e.g., %9.1f)"
   capture : label variable cmd_lb    "Descripción del indicador"
@@ -259,7 +259,7 @@ program define .clean
   # delimit ;
     label define mes
       00 "No corresponde"
-      01 "dec-feb"
+      01 "dic-feb"
       02 "ene-mar"
       03 "feb-abr"
       04 "mar-may"
