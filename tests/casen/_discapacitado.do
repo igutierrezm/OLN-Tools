@@ -7,8 +7,8 @@ local var1 "_discapacitado"
 local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 
 * Resultados esperados, según año
-matrix expected_2013 = (0, J(1, 14, 1), .a)'
-matrix expected_2015 = (0, J(1, 14, 1), .a)'
+matrix expected_2013 = (J(1, 15, 1), 0, .a)'
+matrix expected_2015 = (J(1, 5, 0), J(1, 11, 1), .a)'
 
 * Contrastes, según año
 foreach año in `años' {
@@ -21,7 +21,7 @@ foreach año in `años' {
 	capture : use "$pkg/data/tests/casen/`año'/`var1'.dta", clear
 	gen_casen`var1', año("`año'")
 	generate nolabel = `var1'
-	keep if (_n <= 15) | (_n == `c(N)')
+	keep if (_n <= 15) | (_n == `c(N)') | (_n == 1473)
 
 	* Visualización
 	format * %10.0g

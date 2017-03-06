@@ -19,7 +19,7 @@ foreach pkg in "" "_casen" "_ene" "_esi" "_pib" "_sii" {
 
 * Test Suite
 foreach source in "casen" "ene" "esi" {
-	local files : dir "$pkg/tests/`source'/" files "*.do"
+	local files : dir "$pkg/tests/`source'/" files "_discapacitado.do"
 	noisily : display as text "{title:`source'}" _newline
 	foreach file of local files {
 		noisily : display as text "testing gen_`source'`file' ..."

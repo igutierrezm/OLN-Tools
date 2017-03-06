@@ -6,13 +6,14 @@ program define gen_casen_discapacitado
   syntax, año(string) [mes(string) from(string)]
   * Inputs relevantes
   select_casen, varlist("_discapacitado") año(`año')
-	quietly : ds
+	unab selection : `r(selection)'
 	* ¿Tiene alguna dificultad?
 	local var "_discapacitado"
 	generate `var' = 0
-	foreach input in `r(varlist)' {
-    if (`año' == 2015) & ("`var'" == "s34_1j") continue
-		replace `var' =  1 if inrange(`input', 2, 5)
+	foreach input in `selection' {
+    if (`año' == 2015) & ("`input'" == "s34_1j") continue
+    if (`año' == 2015) replace `var' = 1 if inrange(`input', 2, 5)
+    if (`año' == 2013) replace `var' = 1 if inrange(`input', 1, 2)
 		replace `var' = .a if inlist(`input', 9, .) & (`var' != 1)
 	}
 	* Etiquetado
