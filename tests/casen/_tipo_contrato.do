@@ -13,7 +13,7 @@ matrix n2009 = (5, 0, 12, 07)
 matrix n2011 = (1, 0, 04, 07)
 matrix n2013 = (1, 1, 05, 07)
 matrix n2015 = (1, 1, 05, 07)
-matrix i     = (2, .a, 1, .a)
+matrix i     = (2, 1e5, 1, 1e5)
 
 * Contrastes, según año
 foreach año in `años' {

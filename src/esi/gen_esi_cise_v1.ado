@@ -10,7 +10,7 @@ program define gen_esi_cise_v1, rclass
       (2    =   2 "Cuenta propia")
       (3/6  =   3 "Asalariados")
       (7    =   4 "Familiares no Remunerados")
-      (else  = .a "ns/nr"),
+      (else  = 1e5 "ns/nr"),
       generate(_cise_v1);
   # delimit cr
   * Etiquetado

@@ -3,7 +3,7 @@ program define gen_ene_oficio1, rclass
 	version 14.1
 	syntax, año(string) mes(string) [from(string)]
 	* Mutación
-	recode b1 (10 = .a) (missing = .a), generate(_oficio1)
+	recode b1 (10 = 1e5) (missing = 1e5), generate(_oficio1)
 	* Etiquetado
 	# delimit ;
 	label define _oficio1
@@ -17,7 +17,7 @@ program define gen_ene_oficio1, rclass
 		  7  "Oficiales, operarios y artesanos de artes mecánicas y de otros oficios"
 		  8  "Operadores de instalaciones y máquinas y montadores"
 		  9  "Trabajadores no calificados"
-			.a "ns/nr";
+			1e5 "ns/nr";
 	# delimit cr
 	label values _oficio1 _oficio1
 	* Etiquetado

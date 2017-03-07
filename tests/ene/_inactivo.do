@@ -3,8 +3,8 @@
 *===============================================================================
 
 * Macros auxiliares
-local var0 "c1"
-local var1 "_jparcial"
+local var0 "cae_general"
+local var1 "_inactivo"
 
 * BBDD
 use `var0' using "$pkg/data/tests/ene/2016/01/`var1'.dta", clear
@@ -21,5 +21,5 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Contrastes
-matrix expected = (0, 1, 1e5)'
+matrix expected = (0, 0, 0, 0, 0, 0, 1, 1, 1, 1)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°1")

@@ -8,7 +8,7 @@ program define gen_casen_desocupado
   recode `r(selection)'
   	(2    =  1 "Sí")
   	(1/3  =  0 "No")
-  	(else = .a "ns/nr"),
+  	(else = 1e5 "ns/nr"),
   	generate(_desocupado);
   # delimit cr
   * Etiquetado:

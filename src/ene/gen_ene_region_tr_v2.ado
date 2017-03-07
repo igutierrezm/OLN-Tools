@@ -23,11 +23,11 @@ program define gen_ene_region_tr_v2, rclass
       (10   = 14 "Región de Los Lagos")
       (11   = 15 "Región de Aysén del General Carlos Ibáñez del Campo")
       (12   = 16 "Región de Magallanes y de la Antártica Chilena")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
   replace `var' = 10 if inrange(b18_codigo, 8401, 8421)
-  replace `var' = .a if (b18_region == 8) & (b18_codigo == .)
+  replace `var' = 1e5 if (b18_region == 8) & (b18_codigo == .)
 	* Etiquetado
   label variable `var' "Región de residencia"
 end

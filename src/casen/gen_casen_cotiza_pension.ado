@@ -10,11 +10,11 @@ program define gen_casen_cotiza_pension
   recode `cotizante'
     (7    =  0 "No")
     (1/6  =  1 "Sí")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
     generate(_cotiza_pension);
   # delimit cr
   replace _cotiza_pension =  0 if (`afiliado' == 2)
-  replace _cotiza_pension = .a if (`afiliado' == 9)
+  replace _cotiza_pension = 1e5 if (`afiliado' == 9)
   * Etiquetado
   label variable _cotiza_pension "¿Cotiza en el sistema de pensiones?"
 end

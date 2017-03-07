@@ -9,7 +9,7 @@ program define gen_casen_inmigrante
   recode `r(selection)'
   	(1/2  =  0 "No")
   	(3    =  1 "Sí")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
   	generate(_inmigrante);
   # delimit cr
   * Etiquetado

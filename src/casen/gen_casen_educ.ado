@@ -13,7 +13,7 @@ program define gen_casen_educ
 			(8     =  4 "Técnica")
 			(10/11 =  5 "Profesional")
 			(12    =  6 "Postgrado")
-			(else  = .a "ns/nr"),
+			(else  = 1e5 "ns/nr"),
 			generate(_educ);
 		# delimit cr
 	}

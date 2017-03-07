@@ -21,7 +21,7 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Contrastes
-matrix expected = (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, .a)'
+matrix expected = (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1e5)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°1")
 
 *===============================================================================
@@ -77,7 +77,7 @@ noisily : list, abbr(50)
 * Contrastes
 # delimit ;
 matrix expected = (
-	.a, .a, 0, .a, .a, 0,   0, 0, 0, 0, 0, 0, 0, 0, 0,
-	  0,   0, 0, .a, .a, 0, .a, 1, 0, 0, 0, 0
+	1e5, 1e5, 0, 1e5, 1e5, 0,   0, 0, 0, 0, 0, 0, 0, 0, 0,
+	  0,   0, 0, 1e5, 1e5, 0, 1e5, 1, 0, 0, 0, 0
 )';
 expect_equal, expected("expected") observed("`var1'") id("Test N°2")

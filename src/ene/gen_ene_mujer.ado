@@ -8,7 +8,7 @@ program define gen_ene_mujer, rclass
   recode sexo
   	(1    =  0 "Hombres")
   	(2    =  1 "Mujeres")
-  	(else = .a "ns/nr"),
+  	(else = 1e5 "ns/nr"),
   	generate(_mujer);
   # delimit cr
   label variable _mujer "Sexo"

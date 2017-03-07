@@ -11,7 +11,7 @@ program define gen_sii_tamaño_empresa
 			(02   =  2 "Pequeña")
 			(03   =  3 "Mediana")
 			(04   =  4 "Grande")
-			(else = .a "ns/nr"),
+			(else = 1e5 "ns/nr"),
 			generate(`var');
 	# delimit cr
 	* Etiquetado

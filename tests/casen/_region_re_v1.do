@@ -15,7 +15,7 @@ forvalues año = 1990(1)2006 {
 forvalues año = 2011(1)2015 {
 	matrix expected_`año' = (2, 3, 4, 5, 6, 8, 9, 10, 11, 13, 14, 15, 7, 12, 1)'
 }
-matrix expected_2009 = (2, 3, 4, 5, 6, 8, 9, 10, 11, 13, 14, 15, 7, 12, 1, .a)'
+matrix expected_2009 = (2, 3, 4, 5, 6, 8, 9, 10, 11, 13, 14, 15, 7, 12, 1, 1e5)'
 
 * Contrastes, según año
 foreach año in `años' {

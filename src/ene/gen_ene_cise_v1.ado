@@ -26,7 +26,7 @@ program define gen_ene_cise_v1, rclass
       (2    =  2 "Cuenta Propia")
       (3/6  =  3 "Asalariados")
       (7    =  4 "Familiares no Remunerados")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
   * Etiquetado

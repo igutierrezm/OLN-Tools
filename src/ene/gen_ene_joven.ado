@@ -8,7 +8,7 @@ program define gen_ene_joven
   recode edad
   	(00/29  =  1 "Jóvenes")
   	(30/max =  0 "Adultos")
-    (else   = .a "ns/nr"),
+    (else   = 1e5 "ns/nr"),
   	generate(_joven);
   # delimit cr
   * Etiquetado

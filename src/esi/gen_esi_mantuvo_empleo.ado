@@ -5,9 +5,9 @@ program define gen_esi_mantuvo_empleo, rclass
   * Mutación:
   local var "_mantuvo_empleo"
   generate `var' = (D1_opcion == 1) | (D5_opcion == 1)
-  replace  `var' = .a if (D1_opcion == .) & (D5_opcion == .)
+  replace  `var' = 1e5 if (D1_opcion == .) & (D5_opcion == .)
   * Etiquetado
-  label define   `var' 0 "no" 1 "sí" .a "ns/nr"
+  label define   `var' 0 "no" 1 "sí" 1e5 "ns/nr"
   label values   `var' `var'
   label variable `var' "¿Mantuvo su trabajo del mes anterior?"
 end

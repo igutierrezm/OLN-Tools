@@ -5,7 +5,7 @@ program define gen_ene_rama1_v1, rclass
   syntax, año(string) mes(string) [from(string)]
   * Unión de las ramas de ocupados y cesantes
   tempvar rama1
-  generate `rama1' = .a
+  generate `rama1' = 1e5
   replace  `rama1' = b14 if inrange(cae_general, 1, 3)
   replace  `rama1' = e18 if inrange(cae_general, 4, 9)
   * Recodificación
@@ -24,7 +24,7 @@ program define gen_ene_rama1_v1, rclass
       (11    = 11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
       (13/16 = 12 "Servicios Personales")
       (12 17 = 13 "Administración Pública")
-      (else  = .a "ns/nr"),
+      (else  = 1e5 "ns/nr"),
       generate(_rama1_v1);
     # delimit cr
     * Etiquetado

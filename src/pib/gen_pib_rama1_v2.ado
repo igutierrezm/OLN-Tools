@@ -19,7 +19,7 @@ program define gen_pib_rama1_v2, rclass
     	(09 10 = 09 "`str'")
     	(11    = 10 "Servicios Personales")
     	(12    = 11 "Administración Pública")
-      (else  = .a "ns/nr"),
+      (else  = 1e5 "ns/nr"),
     	generate(_rama1_v2);
   # delimit cr
   * Etiquetado

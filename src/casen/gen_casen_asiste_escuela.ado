@@ -8,7 +8,7 @@ program define gen_casen_asiste_escuela
   recode `r(selection)'
     (1    =  1 "Sí")
     (2    =  0 "No")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
   	generate(_asiste_escuela);
   # delimit cr
   * Etiquetado

@@ -18,7 +18,7 @@ program define gen_pib_rama1_v1, rclass
 			(12/13 = 11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
 			(14    = 12 "Servicios Personales")
 			(15    = 13 "Administración Pública")
-			(else  = .a "ns/nr"),
+			(else  = 1e5 "ns/nr"),
 			generate(_rama1_v1);
 	# delimit cr
 	* Etiquetado

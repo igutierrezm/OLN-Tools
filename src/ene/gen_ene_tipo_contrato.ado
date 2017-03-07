@@ -4,7 +4,7 @@ program define gen_ene_tipo_contrato, rclass
   syntax, año(string) mes(string) [from(string)]
   * Mutación
   local var "_tipo_contrato"
-  generate `var' = .a
+  generate `var' = 1e5
   replace  `var' =  1 if (b8 == 2)
   replace  `var' =  2 if (b8 == 1) & (b9 == 1)
   replace  `var' =  3 if (b8 == 1) & (b9 == 2)
@@ -14,7 +14,7 @@ program define gen_ene_tipo_contrato, rclass
       1  "Sin contrato"
       2  "Contrato definido"
       3  "Contrato indefinido"
-      .a "ns/nr";
+      1e5 "ns/nr";
   # delimit cr
   label values `var' `var'
   label variable `var' "Tipo de contrato"

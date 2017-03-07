@@ -11,7 +11,7 @@ program define gen_casen_media_completa
   }
   recode _educ (0/2 = 0) (3/12 = 1), generate(`var')
   * Etiquetado (valores)
-  label define `var' 0 "no" 1 "sí" .a "ns/nr"
+  label define `var' 0 "no" 1 "sí" 1e5 "ns/nr"
   label values `var' `var'
   * Etiquetado (variables)
   label variable `var' "¿Completó la enseñanza media?"

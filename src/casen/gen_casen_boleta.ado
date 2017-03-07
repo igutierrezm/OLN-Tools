@@ -8,7 +8,7 @@ program define gen_casen_boleta
   recode `r(selection)'
     (1/2  =  1 "Sí")
     (3    =  0 "No")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
   	generate(_boleta);
   # delimit cr
   * Etiquetado

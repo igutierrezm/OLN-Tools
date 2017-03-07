@@ -23,11 +23,11 @@ program define gen_esi_region_re_v2, rclass
       (10   = 14 "Región de Los Lagos")
       (11   = 15 "Región de Aysén del General Carlos Ibáñez del Campo")
       (12   = 16 "Región de Magallanes y de la Antártica Chilena")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
   replace `var' = 10 if inrange(R_P_C, 8401, 8421)
-  replace `var' = .a if (REGION == 8) & (R_P_C == .)
+  replace `var' = 1e5 if (REGION == 8) & (R_P_C == .)
 * Etiquetado
   label variable `var' "Región de residencia"
 end

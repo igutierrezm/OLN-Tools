@@ -23,7 +23,7 @@ program define gen_ene_esc, rclass
 	replace _esc = _esc + min(0, curso) if (nivel == 10)
 	replace _esc = _esc + min(2, curso) if (nivel == 11)
 	replace _esc = _esc + min(5, curso) if (nivel == 12)
-	replace _esc = .a                   if (nivel >= 03) & (curso == 9) 
+	replace _esc = .a                   if (nivel >= 03) & (curso == 9)
 	* Etiquetado
 	label variable _esc "Años de escolaridad"
 end

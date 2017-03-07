@@ -9,7 +9,7 @@ program define gen_casen_asalariado
   recode `r(selection)'
     (1/2 8/9 =  0 "No")
     (3/7     =  1 "Sí")
-    (else    = .a "ns/nr"),
+    (else    = 1e5 "ns/nr"),
     generate(_asalariado);
   # delimit cr
   * Etiquetado

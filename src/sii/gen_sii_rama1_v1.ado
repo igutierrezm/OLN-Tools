@@ -18,7 +18,7 @@ program define gen_sii_rama1_v1
 			(12    = 11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
 			(14/17 = 12 "Servicios Personales")
 			(13 18 = 13 "Administración Pública")
-			(else  = .a "ns/nr"),
+			(else  = 1e5 "ns/nr"),
 			generate(_rama1_v1);
 	# delimit cr
 	* Etiquetado

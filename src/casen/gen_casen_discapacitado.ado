@@ -14,10 +14,10 @@ program define gen_casen_discapacitado
     if (`año' == 2015) & ("`input'" == "s34_1j") continue
     if (`año' == 2015) replace `var' = 1 if inrange(`input', 2, 5)
     if (`año' == 2013) replace `var' = 1 if inrange(`input', 1, 2)
-		replace `var' = .a if inlist(`input', 9, .) & (`var' != 1)
+		replace `var' = 1e5 if inlist(`input', 9, .) & (`var' != 1)
 	}
 	* Etiquetado
-	label define `var' 1 "Con discapaciadad" 0 "Sin discapacidad" .a "ns/nr"
+	label define `var' 1 "Con discapaciadad" 0 "Sin discapacidad" 1e5 "ns/nr"
 	label values `var' `var'
   label variable `var' "¿Tiene alguna discapacidad?"
   note `var' : ///

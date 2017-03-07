@@ -8,7 +8,7 @@ program define gen_esi_mujer, rclass
   recode SEXO
   	(1    =  0 "Hombres")
   	(2    =  1 "Mujeres")
-  	(else = .a "ns/nr"),
+  	(else = 1e5 "ns/nr"),
   	generate(_mujer);
   # delimit cr
   * Etiquetado

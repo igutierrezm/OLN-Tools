@@ -9,7 +9,7 @@ program define gen_casen_indigena
     recode `r(selection)'
     	(1/9  =  1 "Indígenas")
     	(10   =  0 "No indígenas")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
     	generate(_indigena);
   # delimit cr
   * Etiquetado

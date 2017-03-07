@@ -25,6 +25,7 @@ f ene/gen_ene_estrato.ado
 f ene/gen_ene_exceso_hr_chl.ado
 f ene/gen_ene_exceso_hr_int.ado
 f ene/gen_ene_hr_hab.ado
+f ene/gen_ene_inactivo.ado
 f ene/gen_ene_joven.ado
 f ene/gen_ene_jparcial_inv.ado
 f ene/gen_ene_jparcial.ado
@@ -37,6 +38,7 @@ f ene/gen_ene_psu.ado
 f ene/gen_ene_pweight.ado
 f ene/gen_ene_rama1_v1.ado
 f ene/gen_ene_rama1_v2.ado
+f ene/gen_ene_razon_inactividad.ado
 f ene/gen_ene_region_re_v1.ado
 f ene/gen_ene_region_re_v2.ado
 f ene/gen_ene_region_tr_v1.ado

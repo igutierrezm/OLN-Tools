@@ -7,7 +7,7 @@ program define gen_casen_pet
   # delimit ;
   recode `r(selection)'
   	(1/3  =  1 "Sí")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
   	generate(_pet);
   # delimit cr
   * Etiquetado:

@@ -9,7 +9,7 @@ program define gen_casen_extranjero
     recode `r(selection)'
     	(1/2  =  0 "Chilenos")
     	(3    =  1 "Extranjeros")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
     	generate(_extranjero);
   # delimit cr
   * Etiquetado

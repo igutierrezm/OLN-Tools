@@ -12,7 +12,7 @@ program define gen_casen_tramo_edad_v3
 		(20/24  =  2 "Entre 20 y 24")
 		(25/29  =  3 "Entre 25 y 29")
 		(30/max =  4 "30 o más")
-		(else   = .a "ns/nr"),
+		(else   = 1e5 "ns/nr"),
 		generate(_tramo_edad_v3);
 	# delimit cr
 	* Etiquetado

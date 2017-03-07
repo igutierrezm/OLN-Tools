@@ -8,7 +8,7 @@ program define gen_ene_b7, rclass
     recode b7_`v'             ///
       (1    =  1 "Sí")        ///
       (2    =  0 "No")        ///
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(_b7_`v')
   }
   * Etiquetado

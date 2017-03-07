@@ -3,9 +3,9 @@ program define gen_ene_pet, rclass
   version 14.1
   syntax, año(string) mes(string) [from(string)]
   * Mutación
-  recode cae_general (1/9 = 1) (0 = 0) (else = .a), generate(_pet)
+  recode cae_general (1/9 = 1) (0 = 0) (else = 1e5), generate(_pet)
   * Etiquetado
-  label define _pet 0 "No" 1 "Sí" .a "ns/nr"
+  label define _pet 0 "No" 1 "Sí" 1e5 "ns/nr"
   label values _pet _pet
   label variable _pet "¿Pertenece a la pet?"
 end

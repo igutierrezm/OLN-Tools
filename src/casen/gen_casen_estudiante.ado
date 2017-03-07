@@ -9,7 +9,7 @@ program define gen_casen_estudiante
   recode `r(selection)'
     (1    =  1 "Estudian")
   	(2    =  0 "No estudian")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
   	generate(_estudiante);
   # delimit cr
   * Etiquetado

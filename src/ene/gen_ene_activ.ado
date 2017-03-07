@@ -10,7 +10,7 @@ program define gen_ene_activ
       (1/3  =  1 "Ocupados")
       (4/5  =  2 "Desocupados")
       (6/9  =  3 "Inactivos")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(_activ);
   # delimit cr
   * Etiquetado

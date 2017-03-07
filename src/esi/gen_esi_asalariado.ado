@@ -8,7 +8,7 @@ program define gen_esi_asalariado, rclass
     recode CISE
       (3/6   =  1 "Sí")
       (0/2 7 =  0 "No")
-      (else  = .a "ns/nr"),
+      (else  = 1e5 "ns/nr"),
       generate(_asalariado);
   # delimit cr
   * Etiquetado

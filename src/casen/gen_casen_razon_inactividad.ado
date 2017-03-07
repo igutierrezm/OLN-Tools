@@ -16,7 +16,7 @@ program define gen_casen_razon_inactividad
 				(12/13  =  7 "Tiene otra fuente de ingresos")
 				(1/2    =  8 "Iniciadores")
 				(15 17  =  9 "Otra razón")
-        (else   = .a "ns/nr"),
+        (else   = 1e5 "ns/nr"),
 				generate(`var');
 		# delimit cr
 	}
@@ -32,7 +32,7 @@ program define gen_casen_razon_inactividad
 				(18/19          =  7 "Tiene otra fuente de ingresos")
 				(1/2            =  8 "Iniciadores")
 				(6 8 9 11 14 21 =  9 "Otra razón")
-        (else           = .a "ns/nr"),
+        (else           = 1e5 "ns/nr"),
 				generate(`var');
 		# delimit cr
 	}
@@ -48,7 +48,7 @@ program define gen_casen_razon_inactividad
 				(17/18          =  7 "Tiene otra fuente de ingresos")
 				(1/2            =  8 "Iniciadores")
 				(5 7 8 10 13 20 =  9 "Otra razón")
-        (else           = .a "ns/nr"),
+        (else           = 1e5 "ns/nr"),
 				generate(`var');
 		# delimit cr
 	}

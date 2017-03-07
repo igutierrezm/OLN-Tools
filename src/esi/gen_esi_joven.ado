@@ -7,7 +7,7 @@ program define gen_esi_joven, rclass
   recode EDAD
   	(00/29  =  1 "sí")
   	(30/max =  0 "no")
-  	(else   = .a "ns/nr"),
+  	(else   = 1e5 "ns/nr"),
   	generate(_joven);
   # delimit cr
   * Etiquetado

@@ -7,7 +7,7 @@ local var0 "B15_1 B15_2 CISE"
 local var1 "_tamaño_empresa"
 
 * Resultados esperados (2010)
-matrix n = (01, 2, 01, 2, 3, 4, .a)
+matrix n = (01, 2, 01, 2, 3, 4, 1e5)
 matrix i = (22, 5, 27, 5, 5, 5, 003)
 matrix expected2010 = (1, 0)'
 forvalues k = 1(1)7 {
@@ -15,7 +15,7 @@ forvalues k = 1(1)7 {
 }
 
 * Resultados esperados (2011)
-matrix n = (01, 2, 01, 2, 3, 4, .a)
+matrix n = (01, 2, 01, 2, 3, 4, 1e5)
 matrix i = (22, 5, 28, 5, 5, 4, 003)
 matrix expected2011 = (1, 0)'
 forvalues k = 1(1)7 {
@@ -23,7 +23,7 @@ forvalues k = 1(1)7 {
 }
 
 * Resultados esperados (2012)
-matrix n = (01, 2, 01, 2, 3, 4, .a)
+matrix n = (01, 2, 01, 2, 3, 4, 1e5)
 matrix i = (23, 5, 28, 5, 4, 4, 003)
 matrix expected2012 = (1, 0)'
 forvalues k = 1(1)7 {
@@ -31,7 +31,7 @@ forvalues k = 1(1)7 {
 }
 
 * Resultados esperados (2013)
-matrix n = (01, 2, 01, 2, 3, 4, .a)
+matrix n = (01, 2, 01, 2, 3, 4, 1e5)
 matrix i = (22, 5, 29, 5, 5, 5, 003)
 matrix expected2013 = (1, 0)'
 forvalues k = 1(1)7 {
@@ -39,7 +39,7 @@ forvalues k = 1(1)7 {
 }
 
 * Resultados esperados (2014)
-matrix n = (01, 2, 01, 2, 3, 4, .a)
+matrix n = (01, 2, 01, 2, 3, 4, 1e5)
 matrix i = (22, 5, 28, 5, 4, 4, 003)
 matrix expected2014 = (1, 0)'
 forvalues k = 1(1)7 {
@@ -47,7 +47,7 @@ forvalues k = 1(1)7 {
 }
 
 * Resultados esperados (2015)
-matrix n = (01, 2, 01, 2, 3, 4, .a)
+matrix n = (01, 2, 01, 2, 3, 4, 1e5)
 matrix i = (21, 5, 29, 5, 5, 5, 003)
 matrix expected2015 = (1, 0)'
 forvalues k = 1(1)7 {

@@ -13,14 +13,14 @@ program define gen_ene_cise_v3, rclass
       (2    =  2 "Cuenta Propia")
       (3/6  =  3 "Asalariados")
       (7    =  6 "Familiares no Remunerados")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
   gen_ene`tc', año(`año') mes(`mes')
   replace `var' =  3 if (`var' == 3) & (`tc' ==  1)
   replace `var' =  4 if (`var' == 3) & (`tc' ==  2)
   replace `var' =  5 if (`var' == 3) & (`tc' ==  3)
-  replace `var' = .a if (`var' == 3) & (`tc' == .a)
+  replace `var' = 1e5 if (`var' == 3) & (`tc' == 1e5)
   * Etiquetado
   label define `var'                         ///
     3 "Asalariado sin contrato"              ///

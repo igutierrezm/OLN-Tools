@@ -24,7 +24,7 @@ program define gen_casen_region_re_v1
     	(10   = 13 "Región de Los Lagos")
     	(11   = 14 "Región de Aysén del General Carlos Ibáñez del Campo")
     	(12   = 15 "Región de Magallanes y de la Antártica Chilena")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
     	generate(`var');
   # delimit cr
   if inrange(`año', 1990, 2006) {

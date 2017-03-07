@@ -26,6 +26,6 @@ forvalues año = 2010(1)2015 {
 
 	* Contrastes
 	local id "Test N°1 - `año'"
-	matrix expected = (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, .a)'
+	matrix expected = (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1e5)'
 	expect_equal, expected("expected") observed("`var1'") id("`id'")
 }

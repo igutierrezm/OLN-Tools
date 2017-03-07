@@ -5,7 +5,7 @@ program define gen_esi_oficio1, rclass
 	syntax, año(string) [mes(string) from(string)]
 	* Mutación
 	local var "_oficio1"
-	recode B1 (10 = .a) (missing = .a), generate(`var')
+	recode B1 (10 = 1e5) (missing = 1e5), generate(`var')
 	* Etiquetado
 	# delimit ;
 		label define `var'
@@ -19,7 +19,7 @@ program define gen_esi_oficio1, rclass
 		  7  "Oficiales, operarios y artesanos de artes mecánicas y de otros oficios"
 		  8  "Operadores de instalaciones y máquinas y montadores"
 		  9  "Trabajadores no calificados"
-			.a "ns/nr";
+			1e5 "ns/nr";
 	# delimit cr
 	label values `var' `var'
 	label variable `var' "Gran grupo de ocupación"

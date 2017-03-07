@@ -3,10 +3,10 @@
 *===============================================================================
 
 * Macros auxiliares
-local var0 "c1"
-local var1 "_jparcial"
+local var0 "e9"
+local var1 "_razon_inactividad"
 
-* BBDD
+* Base de prueba
 use `var0' using "$pkg/data/tests/ene/2016/01/`var1'.dta", clear
 gen_ene`var1', año("2016") mes("01")
 contract `var0' `var1'
@@ -21,5 +21,6 @@ noisily : list, abbr(100)
 noisily : label list
 
 * Contrastes
-matrix expected = (0, 1, 1e5)'
+matrix expected =  ///
+  (8, 8, 1, 3, 7, 7, 7, 4, 9, 4, 2, 9, 9, 9, 5, 5, 5, 9, 9, 9, 6, 1e5)'
 expect_equal, expected("expected") observed("`var1'") id("Test N°1")

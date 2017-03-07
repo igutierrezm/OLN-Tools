@@ -7,7 +7,7 @@ program define gen_esi_rama1_v1, rclass
 	tempvar rama1
   * Unión de las ramas de ocupados y cesantes
 	local CSE "CSE_ESPECIFICO"
-  generate `rama1' = .a
+  generate `rama1' = 1e5
   replace  `rama1' = B14 if inrange(`CSE', 1, 7)
   replace  `rama1' = E18 if inrange(`CSE', 8, 28) | (`CSE' == 0)
   * Recodificación
@@ -26,7 +26,7 @@ program define gen_esi_rama1_v1, rclass
       (11    = 11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
       (13/16 = 12 "Servicios Personales")
       (12 17 = 13 "Administración Pública")
-      (else  = .a "ns/nr"),
+      (else  = 1e5 "ns/nr"),
       generate(_rama1_v1);
     # delimit cr
     * Etiquetado

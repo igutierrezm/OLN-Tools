@@ -21,7 +21,7 @@ program define gen_casen_rama1_v1
 			(11    = 11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
 			(13/16 = 12 "Servicios Personales")
 			(12 17 = 13 "Administración Pública")
-			(else  = .a "ns/nr"),
+			(else  = 1e5 "ns/nr"),
 			generate(_rama1_v1);
 		# delimit cr
 	}

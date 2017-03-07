@@ -10,7 +10,7 @@ local años "1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015"
 matrix expected_2000 = (0, 0, 0, 1, J(1, 06, 0))'
 matrix expected_2003 = (0, 0, 0, 1, J(1, 06, 0))'
 matrix expected_2006 = (0, 0, 0, 1, J(1, 10, 0))'
-matrix expected_2009 = (0, 0, 0, 1, J(1, 10, 0), .a)'
+matrix expected_2009 = (0, 0, 0, 1, J(1, 10, 0), 1e5)'
 matrix expected_2011 = (0, 0, 0, 1, J(1, 10, 0))'
 matrix expected_2013 = (0, 0, 0, 1, J(1, 10, 0))'
 matrix expected_2015 = (0, 0, 0, 1, J(1, 10, 0))'

@@ -9,7 +9,7 @@ program define gen_casen_tipo_contrato
 
   * Mutación
   local var "_tipo_contrato"
-  generate `var' = .a
+  generate `var' = 1e5
   replace  `var' =  1 if inrange(`contrato', 2, 3)
   replace  `var' =  2 if inrange(`contrato', 1, 1) & inrange(`plazo', 2, 6)
   replace  `var' =  3 if inrange(`contrato', 1, 1) & inrange(`plazo', 1, 1)
@@ -20,7 +20,7 @@ program define gen_casen_tipo_contrato
     01 "Sin contrato"
     02 "Contrato definido"
     03 "Contrato indefinido"
-    .a "ns/nr";
+    1e5 "ns/nr";
   # delimit cr
   label values `var' `var'
   label variable `var' "Tipo de contrato"

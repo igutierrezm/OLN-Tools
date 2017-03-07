@@ -8,7 +8,7 @@ program define gen_casen_contrato
   recode `r(selection)'
     (1    =  1 "Sí")
     (2/3  =  0 "No")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
     generate(_contrato);
   # delimit cr
   * Etiquetado

@@ -13,7 +13,7 @@ program define gen_ene_tramo_edad_v1, rclass
 			(45/54  =  4 "Entre 45 y 54")
 			(55/64  =  5 "Entre 55 y 64")
 			(65/max =  6 "65 o más")
-      (else   = .a "ns/nr"),
+      (else   = 1e5 "ns/nr"),
 			generate(_tramo_edad_v1);
 	# delimit cr
 	* Etiquetado

@@ -24,7 +24,7 @@ program define gen_esi_educ, rclass
 			(+09/+09 =  5 "Universitaria")
 			(-12/-10 =  5 "Universitaria")
 			(+10/+12 =  6 "Postgrado")
-			(else    = .a "ns/nr"),
+			(else    = 1e5 "ns/nr"),
 			generate(_educ);
 	# delimit cr
 	* Casos especiales

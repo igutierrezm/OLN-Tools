@@ -8,8 +8,9 @@ clear
 cls
 
 * Macros globales
-global datos  "C:/Users/Pedro/Documents/Oficina OLN/Datos/Stata"
-global GitHub "C:/Users/Pedro/Documents/GitHub"
+global user   "observatorio02"
+global datos  "C:/Users/$user/Documents/BBDD/Stata"
+global GitHub "C:/Users/$user/Documents/GitHub"
 global pkg    "$GitHub/OLN-Tools"
 
 * Paquetes externos
@@ -19,8 +20,8 @@ foreach pkg in "" "_casen" "_ene" "_esi" "_pib" "_sii" {
 
 * Test Suite
 foreach source in "casen" "ene" "esi" {
-	local files : dir "$pkg/tests/`source'/" files "_discapacitado.do"
-	noisily : display as text "{title:`source'}" _newline
+	local files : dir "$pkg/tests/`source'/" files "*.do"
+	noisily : display as text _newline "{title:`source'}"
 	foreach file of local files {
 		noisily : display as text "testing gen_`source'`file' ..."
 		run "$pkg/tests/`source'/`file'"

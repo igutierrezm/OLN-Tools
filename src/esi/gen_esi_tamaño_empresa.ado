@@ -18,7 +18,7 @@ program define gen_esi_tamaño_empresa
     	(3    =  2 "Pequeña")
     	(4    =  3 "Mediana")
     	(5    =  4 "Grande")
-    	(else = .a "ns/nr"),
+    	(else = 1e5 "ns/nr"),
     	generate(`var');
   # delimit cr
   * Casos especiales

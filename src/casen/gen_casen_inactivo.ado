@@ -8,7 +8,7 @@ program define gen_casen_inactivo
   recode `r(selection)'
   	(3    =  1 "Sí")
   	(1/2  =  0 "No")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
   	generate(_inactivo);
   # delimit cr
   * Etiquetado:

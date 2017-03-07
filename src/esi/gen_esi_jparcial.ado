@@ -7,7 +7,7 @@ program define gen_esi_jparcial, rclass
   recode C1
     (1    =  0 "no")
     (2    =  1 "sí")
-    (else = .a "ns/nr"),
+    (else = 1e5 "ns/nr"),
     generate(_jparcial);
   # delimit cr
   * Etiquetado

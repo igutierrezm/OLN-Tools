@@ -8,7 +8,7 @@ program define gen_casen_cotiza_salud
   recode `r(selection)'
     (1/7 9 =  1 "Sí")
     (8     =  0 "No")
-    (else  = .a "ns/nr"),
+    (else  = 1e5 "ns/nr"),
     generate(_cotiza_salud);
   # delimit cr
   * Etiquetado

@@ -10,7 +10,7 @@ program define gen_casen_capacitado
       recode `r(selection)'
         (1    =  1 "Sí")
         (2    =  0 "No")
-        (else = .a "ns/nr"),
+        (else = 1e5 "ns/nr"),
       	generate(`var');
     # delimit cr
   }
@@ -19,7 +19,7 @@ program define gen_casen_capacitado
       recode `r(selection)'
         (1/3  =  1 "Sí")
         (4    =  0 "No")
-        (else = .a "ns/nr"),
+        (else = 1e5 "ns/nr"),
       	generate(`var');
     # delimit cr
   }

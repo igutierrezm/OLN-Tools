@@ -12,7 +12,7 @@ program define gen_casen_cise_v1
       (2    =  2 "Cuenta Propia")
       (3/8  =  3 "Asalariados")
       (9    =  6 "Familiares no Remunerados")
-      (else = .a "ns/nr"),
+      (else = 1e5 "ns/nr"),
       generate(_cise_v1);
     # delimit cr
   }
@@ -24,7 +24,7 @@ program define gen_casen_cise_v1
       (2     =  2 "Cuenta Propia")
       (3/7 9 =  3 "Asalariados")
       (8     =  6 "Familiares no Remunerados")
-      (else  = .a "ns/nr"),
+      (else  = 1e5 "ns/nr"),
       generate(_cise_v1);
     # delimit cr
   }
