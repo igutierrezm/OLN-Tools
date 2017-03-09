@@ -44,6 +44,10 @@ program define select_esi, rclass
       if ("`var'" == "_tramo_edad_v1")      local temp "EDAD"
       if ("`var'" == "_tramo_edad_v2")      local temp "EDAD"
       if ("`var'" == "_superior_completa")  local temp "NIVEL TERMINO_NIVEL"
+      if ("`var'" == "_yprincipal_hr")  {
+        if inrange(`año', 2013, 2015)       local temp "ING_T_P HABITUALES"
+        if inrange(`año', 2010, 2012)       local temp "ING_T_P HOR_HAB"
+      }
       if ("`var'" == "_yprincipal")         local temp "ING_T_P"
       if ("`var'" == "_ytrabajo")           local temp "ING_T_T"
     }

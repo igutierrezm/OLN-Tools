@@ -562,7 +562,7 @@ program define .add_asterisks
   replace n = `n_aux' if (`test' == 1)
   generate asterisk = "ᵃ"
   replace asterisk  = " " if (n >= 50) & (`test' == 1)
-  replace asterisk  = " " if (n >= 50) & (cv <= 25) & (`test' == 0)
+  replace asterisk  = " " if (n >= 50) & (`test' == 0) & (cv <= 25)
   sort `id_aux'
   * Etiquetado
   label variable asterisk "=* si bh está sujeto a alta variabilidad muestral"

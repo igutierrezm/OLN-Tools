@@ -415,3 +415,4 @@ program define select_casen, rclass
   * Resultados:
   return local selection = "`selection'"
 end
+ 
