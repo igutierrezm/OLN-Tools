@@ -52,7 +52,7 @@ program define select_ene, rclass
       if ("`var'" == "_region_tr_v1")      local temp "b18_region"
       if ("`var'" == "_region_tr_v2")      local temp "b18_region b18_codigo"
       if ("`var'" == "_superior_completa") local temp "nivel termino_nivel"
-      if ("`var'" == "_tamaño_empresa")    local temp "b15_1 b15_2 `cat'"
+      if ("`var'" == "_tamano_empresa")    local temp "b15_1 b15_2 `cat'"
       if ("`var'" == "_tipo_contrato")     local temp "b8 b9"
       if ("`var'" == "_tramo_edad_v1")     local temp "edad"
       if ("`var'" == "_tramo_edad_v2")     local temp "edad"

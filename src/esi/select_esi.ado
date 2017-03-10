@@ -36,8 +36,8 @@ program define select_esi, rclass
       if ("`var'" == "_rama1_v1")           local temp "B14 E18 CSE_ESPECIFICO"
       if ("`var'" == "_region_re_v1")       local temp "REGION"
       if ("`var'" == "_region_re_v2")       local temp "REGION R_P_C"
-      if ("`var'" == "_tamaño_empresa") {
-              local selection " *"
+      if ("`var'" == "_tamano_empresa") {
+          local selection " *"
           continue, break
       }
       if ("`var'" == "_tipo_contrato")      local temp "B8 B9"

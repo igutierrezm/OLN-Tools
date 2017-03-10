@@ -442,9 +442,9 @@ program define .create
               local test = ("`stat'" == "proportion")
               if (`test' == 1) local opts `"over(`.along', nolabel) nolabel missing"'
               if (`test' == 0) local opts `"over(`.over',  nolabel)"'
-              noisily : display "svy, subpop(subpop) : `cmd', `opts' nolegend"
-              noisily : svy, subpop(subpop) : `cmd', `opts' nolegend
-              noisily : ereturn list
+              svy, subpop(subpop) : `cmd', `opts' nolegend
+              * display "svy, subpop(subpop) : `cmd', `opts' nolegend"
+              * ereturn list
 
               * Conversión de los resultados en una BBDD
               .get_stats,   stat("`stat'")
@@ -514,7 +514,7 @@ end
 capture program drop add_proportions
 program define .add_proportions
   version 14.1
-  syntax, cmd_lb(string) cmd_fmt(string)
+  syntax, cmd_fmt(string) [cmd_lb(string) replace]
   * Macros auxiliares y objetos temporales
   tempfile df
   tempvar total_bh
@@ -532,19 +532,24 @@ program define .add_proportions
   replace bh = 100 if (bh == .)
 
   * Identificación de los nuevos indicadores
-  gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
-  gettoken dots cmd_lb : cmd_lb
-  label define cmd_lb `cmd_cd' "`cmd_lb'", modify
   replace cmd_type = "proportion"
   replace cmd_fmt  = "`cmd_fmt'"
-  replace cmd_lb   = `cmd_cd'
+  if ("`replace'" != "replace") {
+    gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
+    gettoken dots   cmd_lb : cmd_lb
+    replace cmd_lb = `cmd_cd'
 
-  * Etiquetado
-  label define cmd_lb `cmd_cd' "`cmd_lb'", modify
+    * Etiquetado
+    label define cmd_lb `cmd_cd' "`cmd_lb'", modify
+  }
 
   * Anexión
   append using `df'
+  if ("`replace'" == "replace") drop if (cmd_type == "total")
 end
+* Esta función puede ser mucho más robusta.
+* En cuanto tenga tiempo, me gustaría añadir una opción que actúe de
+* manera similar a un recode ...
 
 capture program drop add_asterisks
 program define .add_asterisks

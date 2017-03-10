@@ -5,10 +5,10 @@ program define gen_ene_b7, rclass
   syntax, año(string) mes(string) [from(string)]
   * Mutación
   forvalues v = 1(1)7 {
-    recode b7_`v'             ///
-      (1    =  1 "Sí")        ///
-      (2    =  0 "No")        ///
-      (else = 1e5 "ns/nr"),
+    recode b7_`v'            ///
+      (1    =   1 "Sí")      ///
+      (2    =   0 "No")      ///
+      (else = 1e5 "ns/nr"),  ///
       generate(_b7_`v')
   }
   * Etiquetado
