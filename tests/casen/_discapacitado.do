@@ -21,13 +21,16 @@ foreach año in `años' {
 	capture : use "$pkg/data/tests/casen/`año'/`var1'.dta", clear
 	gen_casen`var1', año("`año'")
 	generate nolabel = `var1'
-	keep if (_n <= 15) | (_n == `c(N)') | (_n == 1473)
+	sort `var0'
+
+	* Submuestra (no puedo ponerme en todos los casos)
+	keep if (_n <= 15) | inlist(_n, 4515, `c(N)')
 
 	* Visualización
-	format * %10.0g
+	format * %5.0g
 	noisily : display _newline "{title:Test N°1 `año'}"
 	noisily : codebook, compact
-	noisily : list, abbr(10)
+	noisily : list, abbr(5)
 	noisily : label list
 
 	* Contrastes

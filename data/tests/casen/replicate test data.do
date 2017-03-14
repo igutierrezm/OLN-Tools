@@ -59,7 +59,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _nini {
+foreach var1 in _discapacitado {
 	foreach año in 1990 1992 1994 1996 1998 2000 2003 2006 2009 2011 2013 2015 {
 		* Inputs de `var1'
 		capture : select_casen, varlist("`var1'") año("`año'")
