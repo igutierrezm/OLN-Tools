@@ -25,6 +25,7 @@ program define gen_ene_tamano_empresa
   replace `var' = 0 if (`b15_1' == 1) & (`b15_2' == 01) & (`cat' == 2)
   replace `var' = 2 if (`b15_1' == 2) & (`b15_2' == 10)
   * Etiquetado
-  label variable `var' "Tamaño de empresa (según n. de trabajadores)"
+  label variable `var' "Tamaño de empresa"
+  notes `var' : "Tamaño de empresa (según n. de trabajadores)"
 end
 * Último acuerdo: Frente a la duda unipersonal/micro/pequeño, quedará micro.

@@ -15,5 +15,6 @@ program define gen_sii_tamano_empresa
 			generate(`var');
 	# delimit cr
 	* Etiquetado
-	label variable `var' "Tamaño de empresa (según n. de trabajadores)"
+	label variable `var' "Tamaño de empresa"
+  notes `var' : "Tamaño de empresa (según n. de trabajadores)"
 end
