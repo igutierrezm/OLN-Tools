@@ -21,5 +21,6 @@ program define gen_ene_oficio1, rclass
 	# delimit cr
 	label values _oficio1 _oficio1
 	* Etiquetado
-	label variable _oficio1 "Gran grupo de ocupación (CIUO 88 - 1 dígito)"
+	label variable _oficio1 "Gran grupo de ocupación"
+	notes _oficio1 : "CIUO 88 - 1 dígito"
 end

@@ -23,4 +23,5 @@ program define gen_esi_oficio1, rclass
 	# delimit cr
 	label values `var' `var'
 	label variable `var' "Gran grupo de ocupación"
+	notes `var' : "CIUO 88 - 1 dígito"
 end
