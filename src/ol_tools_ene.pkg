@@ -24,6 +24,7 @@ f ene/gen_ene_esc.ado
 f ene/gen_ene_estrato.ado
 f ene/gen_ene_exceso_hr_chl.ado
 f ene/gen_ene_exceso_hr_int.ado
+f ene/gen_ene_extranjero.ado
 f ene/gen_ene_hr_hab.ado
 f ene/gen_ene_inactivo.ado
 f ene/gen_ene_joven.ado

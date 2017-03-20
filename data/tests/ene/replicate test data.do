@@ -28,6 +28,7 @@ local varlist `"
 	"_estrato"
 	"_exceso_hr_chl"
 	"_exceso_hr_int"
+	"_extranjero"
 	"_hr_hab"
 	"_inactivo"
 	"_jparcial_inv"
@@ -55,7 +56,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _razon_inactividad {
+foreach var1 in _extranjero {
 	forvalues año = 2016(1)2016 {
 		forvalues mes = 1(1)1 {
 			* Inputs de `var1'
