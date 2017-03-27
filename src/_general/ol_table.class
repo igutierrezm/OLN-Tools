@@ -47,6 +47,12 @@ program define .complete
     }
   }
 
+  * Expansión de los numlist years y months
+foreach field in months years {
+  numlist "`.`field''"
+  .`field' = "`r(numlist)'"
+}
+
   * Dimensiones relevantes para el cuadro
   local fields "months years cmds subpops along by over margins"
   foreach field of local fields {
