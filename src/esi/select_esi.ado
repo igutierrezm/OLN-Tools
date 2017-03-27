@@ -14,6 +14,7 @@ program define select_esi, rclass
     else {
       if ("`var'" == "_asalariado")         local temp "CISE"
       if ("`var'" == "_cise_v1")            local temp "CISE"
+      if ("`var'" == "_cise_v2")            local temp "B8 CISE"
       if ("`var'" == "_cise_v3")            local temp "B8 B9 CISE"
       if ("`var'" == "_counter")            local temp ""
       if ("`var'" == "_edad")               local temp "EDAD"

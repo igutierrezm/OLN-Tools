@@ -9,6 +9,7 @@ d Support: email ivangutierrez@observatorionacional.cl
 * esi/
 f esi/gen_esi_asalariado.ado
 f esi/gen_esi_cise_v1.ado
+f esi/gen_esi_cise_v2.ado
 f esi/gen_esi_cise_v3.ado
 f esi/gen_esi_counter.ado
 f esi/gen_esi_edad.ado

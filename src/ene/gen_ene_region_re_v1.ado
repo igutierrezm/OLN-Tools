@@ -28,3 +28,4 @@ program define gen_ene_region_re_v1, rclass
 	* Etiquetado
   label variable `var' "Región de residencia"
 end
+ 

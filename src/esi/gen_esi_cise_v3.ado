@@ -15,10 +15,12 @@ program define gen_esi_cise_v3, rclass
       generate(_cise_v3);
   # delimit cr
   gen_esi_tipo_contrato, año(`año')
-  replace _cise_v3 =  3 if (_cise_v3 == 3) & (_tipo_contrato ==  1)
-  replace _cise_v3 =  4 if (_cise_v3 == 3) & (_tipo_contrato ==  2)
-  replace _cise_v3 =  5 if (_cise_v3 == 3) & (_tipo_contrato ==  3)
+  replace _cise_v3 =   3 if (_cise_v3 == 3) & (_tipo_contrato ==   1)
+  replace _cise_v3 =   4 if (_cise_v3 == 3) & (_tipo_contrato ==   2)
+  replace _cise_v3 =   5 if (_cise_v3 == 3) & (_tipo_contrato ==   3)
   replace _cise_v3 = 1e5 if (_cise_v3 == 3) & (_tipo_contrato == 1e5)
+  
+  * Etiquetado
   # delimit ;
   label define _cise_v3
     3   "Asalariado sin contrato"
@@ -26,6 +28,5 @@ program define gen_esi_cise_v3, rclass
     5   "Asalariado con contrato indefinido",
     modify;
   # delimit cr
-  * Etiquetado
   label variable _cise_v3 "Categoría ocupacional"
 end
