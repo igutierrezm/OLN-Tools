@@ -27,9 +27,13 @@ program define gen_casen_region_re_v1
       (else = 1e5 "ns/nr"),
     	generate(`var');
   # delimit cr
-  if inrange(`año', 1990, 2006) {
+  if inrange(`año', 1990, 2003) {
   	replace `var' = 01 if inrange(`comuna',  1101,  1202)  // Arica
   	replace `var' = 12 if inrange(`comuna', 10101, 10112)  // Los Ríos
+  }
+  if inrange(`año', 2006, 2006) {
+  	replace `var' = 01 if inrange(`comuna',  1201,  1302)  // Arica
+  	replace `var' = 12 if inrange(`comuna', 10501, 10512)  // Los Ríos
   }
   * Etiquetado
   local lvar "Región de residencia (no distingue a Ñuble del Biobío)"
