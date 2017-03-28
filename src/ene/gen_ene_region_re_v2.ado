@@ -26,8 +26,9 @@ program define gen_ene_region_re_v2, rclass
       (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
-  replace `var' = 10 if inrange(r_p_c, 8401, 8421)
+  replace `var' =  10 if inrange(r_p_c, 8401, 8421)
   replace `var' = 1e5 if (region == 8) & (r_p_c == .)
 	* Etiquetado
   label variable `var' "Región de residencia"
+  note `var' : "Sí distingue Ñuble de BíoBío"
 end

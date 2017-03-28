@@ -15,8 +15,8 @@ clear all
 cls
 
 * Test Suite
-foreach source in "casen" "ene" "esi" {
-	local files : dir "$pkg/tests/`source'/" files "*.do"
+foreach source in "esi" {
+	local files : dir "$pkg/tests/`source'/" files "_region_tr_v2.do"
 	noisily : display as text _newline "{title:`source'}"
 	foreach file of local files {
 		noisily : display as text "testing gen_`source'`file' ..."

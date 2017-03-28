@@ -27,5 +27,5 @@ program define gen_ene_region_re_v1, rclass
 	# delimit cr
 	* Etiquetado
   label variable `var' "Región de residencia"
+  note `var' : "No distingue Ñuble de BíoBío"
 end
- 

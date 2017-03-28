@@ -32,6 +32,8 @@ local varlist `"
 	"_rama1_v1"
 	"_region_re_v1"
 	"_region_re_v2"
+	"_region_tr_v1"
+	"_region_tr_v2"
 	"_superior_completa"
 	"_tamaño_empresa"
 	"_tipo_contrato"
@@ -43,7 +45,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in `varlist' {
+foreach var1 in _region_tr_v1 _region_tr_v2 {
 	forvalues año = 2010(1)2015 {
 		* Inputs de `var1'
 		capture : select_esi, varlist("`var1'") año("`año'")

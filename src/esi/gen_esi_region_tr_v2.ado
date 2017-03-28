@@ -1,35 +1,37 @@
-/* * Región de residencia (sí distingue a Ñuble de Biobío)
+* Región de residencia (no distingue a Ñuble de Biobío)
 capture program drop gen_esi_region_tr_v2
 program define gen_esi_region_tr_v2, rclass
-  version 14.1
-  syntax, año(string) [mes(string) from(string)]
-	* Mutacion
-  local var "_region_tr_v2"
+	version 14.1
+	syntax, año(string) [mes(string) from(string)]
+	* Mutacións
+	tempvar B18_region
+	local var "_region_tr_v2"
+  destring B18_CODIGO, replace force
+  generate `B18_region' = floor(B18_CODIGO / 1000)
   # delimit ;
-    recode b18_region
-      (15   = 01 "Región de Arica y Parinacota")
-      (01   = 02 "Región de Tarapacá")
-      (02   = 03 "Región de Antofagasta")
-      (03   = 04 "Región de Atacama")
-      (04   = 05 "Región de Coquimbo")
-      (05   = 06 "Región de Valparaíso")
-      (13   = 07 "Región Metropolitana de Santiago")
-      (06   = 08 "Región del Libertador General Bernardo O'Higgins")
-      (07   = 09 "Región del Maule")
-      (-1   = 10 "Región de Ñuble")
-      (08   = 11 "Región del Biobío")
-      (09   = 12 "Región de La Araucanía")
-      (14   = 13 "Región de Los Ríos")
-      (10   = 14 "Región de Los Lagos")
-      (11   = 15 "Región de Aysén del General Carlos Ibáñez del Campo")
-      (12   = 16 "Región de Magallanes y de la Antártica Chilena")
+    recode `B18_region'
+      (15   =  01 "Región de Arica y Parinacota")
+      (01   =  02 "Región de Tarapacá")
+      (02   =  03 "Región de Antofagasta")
+      (03   =  04 "Región de Atacama")
+      (04   =  05 "Región de Coquimbo")
+      (05   =  06 "Región de Valparaíso")
+      (13   =  07 "Región Metropolitana de Santiago")
+      (06   =  08 "Región del Libertador General Bernardo O'Higgins")
+      (07   =  09 "Región del Maule")
+      (-1   =  10 "Región de Ñuble")
+      (08   =  11 "Región del Biobío")
+      (09   =  12 "Región de La Araucanía")
+      (14   =  13 "Región de Los Ríos")
+      (10   =  14 "Región de Los Lagos")
+      (11   =  15 "Región de Aysén del General Carlos Ibáñez del Campo")
+      (12   =  16 "Región de Magallanes y de la Antártica Chilena")
       (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
-  replace `var' = 10 if inrange(b18_codigo, 8401, 8421)
-  replace `var' = 1e5 if (b18_region == 8) & (b18_codigo == .)
+  replace `var' =  10 if inrange(B18_CODIGO, 8401, 8421)
+  replace `var' = 1e5 if (`B18_region' == 8) & (B18_CODIGO == .)
 	* Etiquetado
-  label variable `var' "Región de residencia"
-end */
-
-* ESTA MALO
+  label variable `var' "Región de trabajo"
+	note `var' : "Sí distingue Ñuble de BíoBío"
+end

@@ -1,12 +1,15 @@
-* Región de trabajo (sí distingue a Ñuble de Biobío)
-capture program drop gen_ene_region_tr_v1
-program define gen_ene_region_tr_v1, rclass
+* Región de residencia (no distingue a Ñuble de Biobío)
+capture program drop gen_esi_region_tr_v1
+program define gen_esi_region_tr_v1, rclass
 	version 14.1
-	syntax, año(string) mes(string) [from(string)]
-	* Mutacion
+	syntax, año(string) [mes(string) from(string)]
+	* Mutacións
+	tempvar B18_region
 	local var "_region_tr_v1"
+  destring B18_CODIGO, replace force
+  generate `B18_region' = floor(B18_CODIGO / 1000)
 	# delimit ;
-		recode b18_region
+		recode `B18_region'
 			(15   =  01 "Región de Arica y Parinacota")
 			(01   =  02 "Región de Tarapacá")
 			(02   =  03 "Región de Antofagasta")
@@ -26,6 +29,6 @@ program define gen_ene_region_tr_v1, rclass
 			generate(`var');
 	# delimit cr
 	* Etiquetado
-  label variable `var' "Región de trabajo"
+	label variable `var' "Región de trabajo"
 	note `var' : "No distingue Ñuble de BíoBío"
 end
