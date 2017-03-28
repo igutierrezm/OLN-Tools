@@ -44,6 +44,7 @@ f casen/gen_casen_pweight.ado
 f casen/gen_casen_rama1_v1.ado
 f casen/gen_casen_razon_inactividad.ado
 f casen/gen_casen_region_re_v1.ado
+f casen/gen_casen_region_re_v2.ado
 f casen/gen_casen_tipo_contrato.ado
 f casen/gen_casen_tramo_edad_v1.ado
 f casen/gen_casen_tramo_edad_v2.ado
