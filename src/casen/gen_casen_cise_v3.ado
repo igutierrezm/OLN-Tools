@@ -12,9 +12,9 @@ program define gen_casen_cise_v3
   capture : gen_casen_tipo_contrato, año(`año')
   capture : gen_casen_cise_v1, año(`año')
   generate `var' = _cise_v1
-  replace  `var' =  3 if (`var' == 3) & (`tc' ==  1)
-  replace  `var' =  4 if (`var' == 3) & (`tc' ==  2)
-  replace  `var' =  5 if (`var' == 3) & (`tc' ==  3)
+  replace  `var' =   3 if (`var' == 3) & (`tc' ==   1)
+  replace  `var' =   4 if (`var' == 3) & (`tc' ==   2)
+  replace  `var' =   5 if (`var' == 3) & (`tc' ==   3)
   replace  `var' = 1e5 if (`var' == 3) & (`tc' == 1e5)
 
   * Etiquetado

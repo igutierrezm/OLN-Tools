@@ -15,8 +15,8 @@ program define gen_ene_cise_v2, rclass
       (else = 1e5 "ns/nr"),
       generate(`var');
   # delimit cr
-  replace `var' =  3 if (`var' == 3) & (b8 == 1)
-  replace `var' =  4 if (`var' == 3) & (b8 == 2)
+  replace `var' =   3 if (`var' == 3) & (b8 == 1)
+  replace `var' =   4 if (`var' == 3) & (b8 == 2)
   replace `var' = 1e5 if (`var' == 3) & (b8 == .)
   * Etiquetado
   label define `var'           ///

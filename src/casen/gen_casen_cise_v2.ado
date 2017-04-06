@@ -1,0 +1,27 @@
+* CISE (distinguiendo el tipo de contrato de los asalariados)
+capture program drop gen_casen_cise_v2
+program define gen_casen_cise_v2
+  version 14.1
+  syntax, año(string) [mes(string) from(string)]
+  * Macros auxiliares
+  local var "_cise_v2"
+  local tc  "_tipo_contrato"
+  select_casen, varlist("_cise_v2") año(`año')
+
+  * Mutación
+  capture : gen_casen_tipo_contrato, año(`año')
+  capture : gen_casen_cise_v1, año(`año')
+  generate `var' = _cise_v1
+  replace  `var' =   3 if (`var' == 3) & inlist(`tc', 1, 1)
+  replace  `var' =   4 if (`var' == 3) & inlist(`tc', 2, 3)
+  replace  `var' = 1e5 if (`var' == 3) & (`tc' == 1e5)
+
+  * Etiquetado
+  label copy _cise_v1 `var'
+  label define `var'              ///
+    3 "Asalariado sin contrato"   ///
+    4 "Asalariado con contrato",  ///
+    modify
+  label values `var' `var'
+  label variable _cise_v2 "Categoría ocupacional"
+end

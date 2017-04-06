@@ -5,11 +5,11 @@ program define gen_ene_jparcial, rclass
   * Mutación
   # delimit ;
     recode c1
-      (1    =  0 "No")
-      (2    =  1 "Sí")
+      (1    =   0 "Jornada Completa")
+      (2    =   1 "Jornada Parcial")
       (else = 1e5 "ns/nr"),
       generate(_jparcial);
   # delimit cr
   * Etiquetado
-  label variable _jparcial "¿Tiene jornada parcial?"
+  label variable _jparcial "Tipo de Jornada"
 end

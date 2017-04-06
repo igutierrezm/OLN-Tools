@@ -8,8 +8,8 @@ program define gen_casen_capacitado
   if (`año' == 2015) {
     # delimit ;
       recode `r(selection)'
-        (1    =  1 "Sí")
-        (2    =  0 "No")
+        (1    =   1 "Con capacitación")
+        (2    =   0 "Sin capacitación")
         (else = 1e5 "ns/nr"),
       	generate(`var');
     # delimit cr
@@ -17,8 +17,8 @@ program define gen_casen_capacitado
   if (`año' == 2013) {
     # delimit ;
       recode `r(selection)'
-        (1/3  =  1 "Sí")
-        (4    =  0 "No")
+        (1/3  =   1 "Con capacitación")
+        (4    =   0 "Sin capacitación")
         (else = 1e5 "ns/nr"),
       	generate(`var');
     # delimit cr

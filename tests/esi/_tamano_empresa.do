@@ -4,7 +4,7 @@
 
 * Macros auxiliares
 local var0 "B15_1 B15_2 CISE"
-local var1 "_tamaño_empresa"
+local var1 "_tamano_empresa"
 
 * Resultados esperados (2010)
 matrix n = (01, 2, 01, 2, 3, 4, 1e5)

@@ -9,6 +9,7 @@ d Support: email ivangutierrez@observatorionacional.cl
 * ene/
 f ene/gen_ene_activ.ado
 f ene/gen_ene_asalariado.ado
+f ene/gen_ene_b7_dm.ado
 f ene/gen_ene_b7.ado
 f ene/gen_ene_cesante.ado
 f ene/gen_ene_cise_v1.ado
@@ -31,6 +32,7 @@ f ene/gen_ene_joven.ado
 f ene/gen_ene_jparcial_inv.ado
 f ene/gen_ene_jparcial.ado
 f ene/gen_ene_mujer.ado
+f ene/gen_ene_mujer_dm.ado
 f ene/gen_ene_ocupado.ado
 f ene/gen_ene_oficio1.ado
 f ene/gen_ene_pea.ado
@@ -44,7 +46,8 @@ f ene/gen_ene_region_re_v1.ado
 f ene/gen_ene_region_re_v2.ado
 f ene/gen_ene_region_tr_v1.ado
 f ene/gen_ene_region_tr_v2.ado
-f ene/gen_ene_superior_completa.ado
+f ene/gen_ene_sup_completa.ado
+f ene/gen_ene_sup_completa_dm.ado
 f ene/gen_ene_tamano_empresa.ado
 f ene/gen_ene_tipo_contrato.ado
 f ene/gen_ene_tramo_edad_v1.ado

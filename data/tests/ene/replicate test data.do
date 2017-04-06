@@ -48,7 +48,7 @@ local varlist `"
 	"_region_tr_v1"
 	"_region_tr_v2"
 	"_superior_completa"
-	"_tamaño_empresa"
+	"_tamano_empresa"
 	"_tipo_contrato"
 	"_tramo_edad_v1"
 	"_tramo_edad_v2"
@@ -56,7 +56,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _extranjero {
+foreach var1 in _tamano_empresa {
 	forvalues año = 2016(1)2016 {
 		forvalues mes = 1(1)1 {
 			* Inputs de `var1'

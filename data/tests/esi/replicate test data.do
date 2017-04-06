@@ -35,7 +35,7 @@ local varlist `"
 	"_region_tr_v1"
 	"_region_tr_v2"
 	"_superior_completa"
-	"_tamaño_empresa"
+	"_tamano_empresa"
 	"_tipo_contrato"
 	"_tramo_edad_v1"
 	"_tramo_edad_v2"
@@ -45,7 +45,7 @@ local varlist `"
 # delimit cr
 
 * Generación de las BBDD
-foreach var1 in _region_tr_v1 _region_tr_v2 {
+foreach var1 in `varlist' {
 	forvalues año = 2010(1)2015 {
 		* Inputs de `var1'
 		capture : select_esi, varlist("`var1'") año("`año'")
@@ -57,7 +57,7 @@ foreach var1 in _region_tr_v1 _region_tr_v2 {
 		noisily : display as text "`var1' " _skip(`length') "inputs `año' : `var0'"
 
 		* BBDD (Nota: _tamaño_empresa necesita cuidados especiales)
-		local test = ("`var1'" == "_tamaño_empresa")
+		local test = ("`var1'" == "_tamano_empresa")
 		local file "$datos/ESI/ESI `año' Personas.dta"
 		if (`test' == 1) {
 			use "`file'", clear

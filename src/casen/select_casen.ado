@@ -69,6 +69,17 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * Clasificación internacional de situación de empleo (v2):
+      if ("`var'" == "_cise_v2") {
+        if inrange(`año', 2011, 2015) local temp "o15 o17 o16"
+        if inrange(`año', 2009, 2009) local temp "o23 o25 o26"
+        if inrange(`año', 2006, 2006) local temp "o19 o20 o21"
+        if inrange(`año', 2003, 2003) local temp "o9 o11 o12a"
+        if (`año' < 2003) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Clasificación internacional de situación de empleo (v3):
       if ("`var'" == "_cise_v3") {
         if inrange(`año', 2011, 2015) local temp "o15 o17 o16"
@@ -170,6 +181,14 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * Exceso de horas habitualmente trabajadas (internacional):
+      if ("`var'" == "_exceso_hr_int") {
+        if inrange(`año', 2013, 2015) local temp "o10"
+        if (`año' < 2013) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * ¿Es extranjero?
       if ("`var'" == "_extranjero") {
         if inrange(`año', 2015, 2015) local temp "r1a"
@@ -223,6 +242,14 @@ program define select_casen, rclass
       if ("`var'" == "_joven") {
         if inrange(`año', 2000, 2015) local temp "edad"
         if (`año' < 2000) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * ¿Tiene jornada parcial?
+      if ("`var'" == "_jparcial") {
+        if inrange(`año', 2015, 2015) local temp "o18"
+        if (`año' < 2015) {
           display as error "`var' no disponible"
           exit 1
         }
@@ -353,6 +380,14 @@ program define select_casen, rclass
         if inrange(`año', 1996, 2006) local temp "r comuna"
         if inrange(`año', 1990, 2003) local temp "r comu"
         if (`año' < 1990) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * Nivel educacional:
+      if ("`var'" == "_sup_completa") {
+        if inrange(`año', 2013, 2015) local temp "educ"
+        if (`año' < 2013) {
           display as error "`var' no disponible"
           exit 1
         }

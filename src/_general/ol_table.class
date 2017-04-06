@@ -48,10 +48,11 @@ program define .complete
   }
 
   * Expansión de los numlist years y months
-foreach field in months years {
-  numlist "`.`field''"
-  .`field' = "`r(numlist)'"
-}
+  foreach field in months years {
+    numlist "`.`field''"
+    .`field' = "`r(numlist)'"
+  }
+  if inlist("`.src'", "casen", "esi") .months = ""
 
   * Dimensiones relevantes para el cuadro
   local fields "months years cmds subpops along by over margins"
@@ -281,8 +282,8 @@ program define .clean
   # delimit cr
   label values mes mes
   * Ordenación
-  order año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
-  gsort año mes cmd_type cmd_fmt cmd_lb subpop_lb `.over'
+  order año mes subpop_lb cmd_type cmd_fmt cmd_lb `.over'
+  gsort año mes subpop_lb cmd_type cmd_fmt cmd_lb `.over'
 end
 /* Esta función necesita limpieza */
 
@@ -326,6 +327,9 @@ program define .sample_sizes
         foreach vars in `margins0' {
           forvalues i = 1(1)`.N_cmds' {
             forvalues j = 1(1)`.N_subpops' {
+              * BBDD original
+              snapshot restore 1
+
               * Comando
               local cmd     : word `i' of `.cmds'
               local cmd_lb  : word `i' of `.cmds_lb'
@@ -336,21 +340,23 @@ program define .sample_sizes
               local subpop    : word `j' of `.subpops'
               local subpop_lb : word `j' of `.subpops_lb'
               gettoken subpop_cd subpop_lb : subpop_lb, parse(":")
+              generate subpop = 1 `subpop'
 
               * Agregaciones
-              snapshot restore 1
               foreach var in `vars' {
-        				replace `var' = .z `subpop'
-        			}
+                replace `var' = 0 if (subpop != 1)
+                replace `var' = 1 if (subpop == 1)
+              }
 
               * Estimación
               gettoken stat : cmd
-              collapse (sum) n `subpop', by(`.over')
+              collapse (sum) n if (subpop == 1), by(`.over')
 
-              * Limpieza de las categorías espúreas
-              foreach var in `.along' {
-                  keep if (`var' != .a)
-              }
+              * Eliminación de las categorías espúreas
+              foreach var in `vars' {
+                keep if `var' == 1
+                replace `var' = .z
+        			}
 
               * ID auxiliares
               generate cmd_type = "`stat'"
@@ -540,14 +546,12 @@ program define .add_proportions
   * Identificación de los nuevos indicadores
   replace cmd_type = "proportion"
   replace cmd_fmt  = "`cmd_fmt'"
-  if ("`replace'" != "replace") {
-    gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
-    gettoken dots   cmd_lb : cmd_lb
-    replace cmd_lb = `cmd_cd'
+  gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
+  gettoken dots   cmd_lb : cmd_lb
+  replace cmd_lb = `cmd_cd'
 
-    * Etiquetado
-    label define cmd_lb `cmd_cd' "`cmd_lb'", modify
-  }
+  * Etiquetado
+  label define cmd_lb `cmd_cd' "`cmd_lb'", modify
 
   * Anexión
   append using `df'
@@ -576,7 +580,7 @@ program define .add_asterisks
   replace asterisk  = " " if (n >= 50) & (`test' == 0) & (cv <= 25)
   sort `id_aux'
   * Etiquetado
-  label variable asterisk "=* si bh está sujeto a alta variabilidad muestral"
+  label variable asterisk "Agrega una ᵃ a los estimadores poco precisos"
 end
 
 * Exporta la tabla a Excel (aplicando el formato del manual)

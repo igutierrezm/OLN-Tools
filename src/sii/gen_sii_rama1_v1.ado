@@ -3,8 +3,10 @@ program define gen_sii_rama1_v1
 	version 14.1
 	syntax, año(string) [mes(string) from(string)]
 	* Mutación
+	tempvar sector
+	encode rubro, generate(`sector')
 	# delimit ;
-		recode rubro
+		recode `sector'
 			(01    = 01 "Agropecuario-Silvícola")
 			(02    = 02 "Pesca")
 			(03    = 03 "Minería")
@@ -21,6 +23,7 @@ program define gen_sii_rama1_v1
 			(else  = 1e5 "ns/nr"),
 			generate(_rama1_v1);
 	# delimit cr
-	* Etiquetado
-	label variable _rama1_v1 "Rama de actividad económica (agregación estándar)"
+	* Etiquetas
+	label variable _rama1_v1 "Rama de actividad económica"
+	note _rama1_v1 : "agregación estándar"
 end
