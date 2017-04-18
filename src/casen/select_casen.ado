@@ -161,7 +161,15 @@ program define select_casen, rclass
       if ("`var'" == "_esc") {
         local temp "esc"
       }
-      * Factor de expansión:
+      * Estado civil
+      if ("`var'" == "_estado_civil") {
+        if inrange(`año', 1990, 2015) local temp "ecivil"
+        if (`año' < 1990) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * Estrato
       if ("`var'" == "_estrato") {
         if inrange(`año', 2011, 2015) local temp "varstrat"
         if inrange(`año', 1998, 2009) local temp "estrato"
@@ -343,8 +351,20 @@ program define select_casen, rclass
           exit 1
         }
       }
-      * Rama de actividad:
+      * Rama de actividad (v1):
       if ("`var'" == "_rama1_v1") {
+        if inrange(`año', 2011, 2015) local temp "rama1"
+        *if inrange(`año', 2009, 2009) local temp "c_o13"
+        *if inrange(`año', 2006, 2006) local temp "c_o12"
+        *if inrange(`año', 2003, 2003) local temp "o8"
+        *if inrange(`año', 2000, 2000) local temp "o9"
+        if (`año' < 2011) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * Rama de actividad (v3):
+      if ("`var'" == "_rama1_v3") {
         if inrange(`año', 2011, 2015) local temp "rama1"
         *if inrange(`año', 2009, 2009) local temp "c_o13"
         *if inrange(`año', 2006, 2006) local temp "c_o12"
