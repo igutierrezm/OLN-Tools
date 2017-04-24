@@ -6,8 +6,8 @@ program define gen_ene_extranjero
   * Mutación
   # delimit ;
     recode nacionalidad
-      (0          =   0 "chileno")
-      (nonmissing =   1 "extranjero")
+      (0          =   0 "Chilenos")
+      (nonmissing =   1 "Extranjeros")
       (missing    = 1e5 "ns/nr"),
       generate(_extranjero);
   # delimit cr
