@@ -324,10 +324,29 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * ¿Recibe jubilación:
+      if ("`var'" == "_jubilacion") {
+        if inrange(`año', 2015, 2015) local temp "y26_1a y26_1b y26_1c"
+        if inrange(`año', 2013, 2013) local temp "y27ai y27at"
+        if (`año' < 2015) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * ¿Pertenece a la PET?:
       if ("`var'" == "_pet") {
         if inrange(`año', 2000, 2015) local temp "activ"
         if (`año' < 2000) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * ¿Es pobre?
+      if ("`var'" == "_pobre") {
+        if inrange(`año', 2015, 2015) local temp "pobreza_multi_4d"
+        if inrange(`año', 2013, 2013) local temp "pobreza_multi"
+        if inrange(`año', 2006, 2011) local temp "corte"
+        if (`año' < 2006) {
           display as error "`var' no disponible"
           exit 1
         }
