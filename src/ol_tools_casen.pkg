@@ -7,6 +7,7 @@ d
 d Support: email ivangutierrez@observatorionacional.cl
 
 * casen/
+f casen/gen_casen_activ.ado
 f casen/gen_casen_alfabetizado.ado
 f casen/gen_casen_asalariado.ado
 f casen/gen_casen_asiste_escuela.ado

@@ -11,6 +11,14 @@ program define select_casen, rclass
       local temp "`var'"
     }
     else {
+      * Condición de actividad
+      if ("`var'" == "_activ") {
+        if inrange(`año', 2000, 2015) local temp "activ"
+        if (`año' < 2000) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * ¿Está alfabetizado?
       if ("`var'" == "_alfabetizado") {
         if inrange(`año', 1990, 2015) local temp "e1"
