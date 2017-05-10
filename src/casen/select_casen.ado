@@ -149,6 +149,14 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * Estado civil
+      if ("`var'" == "_ecivil") {
+        if inrange(`año', 1990, 2015) local temp "ecivil"
+        if (`año' < 1990) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Edad:
       if ("`var'" == "_edad") {
         if inrange(`año', 1990, 2015) local temp "edad"
@@ -168,14 +176,6 @@ program define select_casen, rclass
       * Escolaridad:
       if ("`var'" == "_esc") {
         local temp "esc"
-      }
-      * Estado civil
-      if ("`var'" == "_estado_civil") {
-        if inrange(`año', 1990, 2015) local temp "ecivil"
-        if (`año' < 1990) {
-          display as error "`var' no disponible"
-          exit 1
-        }
       }
       * Estrato
       if ("`var'" == "_estrato") {

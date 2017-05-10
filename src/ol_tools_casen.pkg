@@ -22,6 +22,7 @@ f casen/gen_casen_cotiza_salud.ado
 f casen/gen_casen_counter.ado
 f casen/gen_casen_desocupado.ado
 f casen/gen_casen_discapacitado.ado
+f casen/gen_casen_ecivil.ado
 f casen/gen_casen_edad.ado
 f casen/gen_casen_educ.ado
 f casen/gen_casen_esc.ado
