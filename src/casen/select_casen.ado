@@ -270,6 +270,15 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * ¿Recibe jubilación:
+      if ("`var'" == "_jubilacion") {
+        if inrange(`año', 2015, 2015) local temp "y26_1a y26_1b y26_1c"
+        if inrange(`año', 2013, 2013) local temp "y27ai y27at"
+        if (`año' < 2015) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * ¿Completó la enseñanza media?
       if ("`var'" == "_media_completa") {
         if inrange(`año', 2013, 2015) local temp "educ"
@@ -328,15 +337,6 @@ program define select_casen, rclass
       if ("`var'" == "_pea") {
         if inrange(`año', 2000, 2015) local temp "activ"
         if (`año' < 2000) {
-          display as error "`var' no disponible"
-          exit 1
-        }
-      }
-      * ¿Recibe jubilación:
-      if ("`var'" == "_jubilacion") {
-        if inrange(`año', 2015, 2015) local temp "y26_1a y26_1b y26_1c"
-        if inrange(`año', 2013, 2013) local temp "y27ai y27at"
-        if (`año' < 2015) {
           display as error "`var' no disponible"
           exit 1
         }
