@@ -54,11 +54,13 @@ f casen/gen_casen_region_re_v1.ado
 f casen/gen_casen_region_re_v2.ado
 f casen/gen_casen_sup_completa.ado
 f casen/gen_casen_tipo_contrato.ado
+f casen/gen_casen_trab_sub.ado
 f casen/gen_casen_tramo_edad_v1.ado
 f casen/gen_casen_tramo_edad_v2.ado
 f casen/gen_casen_tramo_edad_v3.ado
 f casen/gen_casen_yprincipal_hr.ado
 f casen/gen_casen_yprincipal.ado
 f casen/gen_casen_ytrabajo.ado
+f casen/gen_casen_zona.ado
 f casen/lval_casen_oficio4.ado
 f casen/select_casen.ado

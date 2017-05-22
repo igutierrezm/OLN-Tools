@@ -450,6 +450,16 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * ¿Es un trabajador de subsistencia?:
+      if ("`var'" == "_trab_sub") {
+        if inrange(`año', 2015, 2015) local temp "oficio4"
+        if inrange(`año', 2013, 2013) local temp "oficio4_n"
+        if inrange(`año', 2011, 2011) local temp "oficio4"
+        if (`año' < 2011) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Tramo de edad (adultos):
       if ("`var'" == "_tramo_edad_v1") {
         if inrange(`año', 1990, 2015) local temp "edad"
@@ -496,6 +506,15 @@ program define select_casen, rclass
         if inrange(`año', 2013, 2015) local temp "ytrabajocor"
         if inrange(`año', 2006, 2011) local temp "ytrabaj"
         if (`año' < 2006) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * Zona (urbano/rural)
+      if ("`var'" == "_zona") {
+        if inrange(`año', 2009, 2015) local temp "zona"
+        if inrange(`año', 1990, 2006) local temp "z"
+        if (`año' < 1990) {
           display as error "`var' no disponible"
           exit 1
         }
