@@ -415,7 +415,8 @@ program define select_casen, rclass
       * Región:
       if ("`var'" == "_region_re_v1") {
         if inrange(`año', 2009, 2015) local temp "region"
-        if inrange(`año', 1990, 2006) local temp "r comu"
+        if inrange(`año', 2006, 2006) local temp "r comuna"
+        if inrange(`año', 1990, 2003) local temp "r comu"
         if (`año' < 1990) {
           display as error "`var' no disponible"
           exit 1
@@ -424,7 +425,7 @@ program define select_casen, rclass
       * Región (distingue Ñuble de Bío Bío):
       if ("`var'" == "_region_re_v2") {
         if inrange(`año', 2009, 2015) local temp "region comuna"
-        if inrange(`año', 1996, 2006) local temp "r comuna"
+        if inrange(`año', 2006, 2006) local temp "r comuna"
         if inrange(`año', 1990, 2003) local temp "r comu"
         if (`año' < 1990) {
           display as error "`var' no disponible"
