@@ -28,7 +28,9 @@ program define select_esi, rclass
       if ("`var'" == "_joven")              local temp "EDAD"
       if ("`var'" == "_jparcial")           local temp "C1"
       if ("`var'" == "_jparcial_inv")       local temp "C1 C10 C11"
-      if ("`var'" == "_mantuvo_empleo")     local temp "D1_opcion D5_opcion"
+      /* * definición vieja
+      if ("`var'" == "_mantuvo_empleo")     local temp "D1_opcion D5_opcion" */
+      if ("`var'" == "_mantuvo_empleo")     local temp "OCUP_REF"
       if ("`var'" == "_mujer")              local temp "SEXO"
       if ("`var'" == "_ocupado")            local temp "CSE_ESPECIFICO"
       if ("`var'" == "_oficio1")            local temp "B1"

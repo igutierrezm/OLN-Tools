@@ -4,8 +4,12 @@ program define gen_esi_mantuvo_empleo, rclass
   syntax, año(string) [mes(string) from(string)]
   * Mutación:
   local var "_mantuvo_empleo"
+  /* * Definición antigua
   generate `var' = (D1_opcion == 1) | (D5_opcion == 1)
-  replace  `var' = 1e5 if (D1_opcion == .) & (D5_opcion == .)
+  replace  `var' = 1e5 if (D1_opcion == .) & (D5_opcion == .) */
+  generate `var' = (OCUP_REF == 1)
+  replace  `var' = 1e5 if (OCUP_REF == .)
+
   * Etiquetado
   label define   `var' 0 "no" 1 "sí" 1e5 "ns/nr"
   label values   `var' `var'
