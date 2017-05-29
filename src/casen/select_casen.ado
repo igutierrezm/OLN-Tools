@@ -234,8 +234,7 @@ program define select_casen, rclass
       * ¿Tiene ascendencia indígena?
       if ("`var'" == "_indigena") {
         if inrange(`año', 2015, 2015) local temp "r3"
-        if inrange(`año', 2013, 2013) local temp "r6"
-        if inrange(`año', 2011, 2011) local temp "r6"
+        if inrange(`año', 2011, 2013) local temp "r6"
         if inrange(`año', 2009, 2009) local temp "t5"
         if (`año' < 2009) {
           display as error "`var' no disponible"
@@ -362,8 +361,9 @@ program define select_casen, rclass
       * PSU:
       if ("`var'" == "_psu") {
         if inrange(`año', 2011, 2015) local temp "varunit"
-        if inrange(`año', 1998, 2009) local temp "segmento"
-        if inlist(`año', 1998, 2006)  local temp "seg"
+        if inrange(`año', 2009, 2009) local temp "segmento"
+        if inrange(`año', 2006, 2006) local temp "seg"
+        if inrange(`año', 1998, 2003) local temp "segmento"
         if (`año' < 1998) {
           display as error "`var' no disponible"
           exit 1
@@ -505,8 +505,8 @@ program define select_casen, rclass
       * Ingreso del trabajo
       if ("`var'" == "_ytrabajo") {
         if inrange(`año', 2013, 2015) local temp "ytrabajocor"
-        if inrange(`año', 2006, 2011) local temp "ytrabaj"
-        if (`año' < 2006) {
+        if inrange(`año', 1990, 2011) local temp "ytrabaj"
+        if (`año' < 1990) {
           display as error "`var' no disponible"
           exit 1
         }

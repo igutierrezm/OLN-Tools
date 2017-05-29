@@ -19,8 +19,12 @@ f ene/gen_ene_conmutante_v1.ado
 f ene/gen_ene_conmutante_v2.ado
 f ene/gen_ene_counter.ado
 f ene/gen_ene_desocupado.ado
+f ene/gen_ene_dur_emp_tr.ado
+f ene/gen_ene_dur_emp.ado
+f ene/gen_ene_desocupado.ado
 f ene/gen_ene_edad.ado
 f ene/gen_ene_educ.ado
+f ene/gen_ene_empleo_precario.ado
 f ene/gen_ene_esc.ado
 f ene/gen_ene_estrato.ado
 f ene/gen_ene_exceso_hr_chl.ado
@@ -52,4 +56,5 @@ f ene/gen_ene_tamano_empresa.ado
 f ene/gen_ene_tipo_contrato.ado
 f ene/gen_ene_tramo_edad_v1.ado
 f ene/gen_ene_tramo_edad_v2.ado
+f ene/gen_ene_zona.ado
 f ene/select_ene.ado
