@@ -100,10 +100,10 @@ program define .selectvars
 
   * Identificación de la base relevante
   local mes = string(`mes', "%02.0f")
-  if ("`.src'" == "casen") local df "`.from'/CASEN/CASEN `año'"
-  if ("`.src'" == "ene")   local df "`.from'/ENE/ENE `año' `mes'"
-  if ("`.src'" == "esi")   local df "`.from'/ESI/ESI `año' Personas"
-  if ("`.src'" == "sii")   local df "`.from'/SII/AC `año'"
+  if ("`.src'" == "casen") local df "`.from'/dta/CASEN `año'"
+  if ("`.src'" == "ene")   local df "`.from'/dta/ENE `año' `mes'"
+  if ("`.src'" == "esi")   local df "`.from'/dta/ESI `año'"
+  if ("`.src'" == "sii")   local df "`.from'/dta/AC `año'"
 
   * Selección de las variables relevantes
   ol_select, varlist(`"`.varlist1'"') db("`.src'") año(`año') mes(`mes')
