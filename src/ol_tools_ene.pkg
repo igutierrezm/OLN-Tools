@@ -24,6 +24,7 @@ f ene/gen_ene_dur_emp.ado
 f ene/gen_ene_desocupado.ado
 f ene/gen_ene_edad.ado
 f ene/gen_ene_educ.ado
+f ene/gen_ene_educ_v2.ado
 f ene/gen_ene_empleo_precario.ado
 f ene/gen_ene_esc.ado
 f ene/gen_ene_estrato.ado
@@ -56,5 +57,6 @@ f ene/gen_ene_tamano_empresa.ado
 f ene/gen_ene_tipo_contrato.ado
 f ene/gen_ene_tramo_edad_v1.ado
 f ene/gen_ene_tramo_edad_v2.ado
+f ene/gen_ene_tramo_edad_v3.ado
 f ene/gen_ene_zona.ado
 f ene/select_ene.ado

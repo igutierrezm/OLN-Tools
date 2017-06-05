@@ -31,6 +31,7 @@ program define select_ene, rclass
       if ("`var'" == "_dur_emp_tr")        local temp "b17_mes b17_ano"
       if ("`var'" == "_edad")              local temp "edad"
       if ("`var'" == "_educ")              local temp "nivel termino_nivel"
+      if ("`var'" == "_educ_v2")           local temp "nivel termino_nivel"
       if ("`var'" == "_empleo_precario")   local temp "b8 b9 b10"
       if ("`var'" == "_esc")               local temp "nivel curso"
       if ("`var'" == "_estrato")           local temp "estrato"
@@ -63,6 +64,7 @@ program define select_ene, rclass
       if ("`var'" == "_tipo_contrato")     local temp "b8 b9"
       if ("`var'" == "_tramo_edad_v1")     local temp "edad"
       if ("`var'" == "_tramo_edad_v2")     local temp "edad"
+      if ("`var'" == "_tramo_edad_v3")     local temp "edad"
       if ("`var'" == "_zona")              local temp "tipo"
     }
     * Anexión
