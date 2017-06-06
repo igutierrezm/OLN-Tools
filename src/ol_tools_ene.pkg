@@ -18,6 +18,7 @@ f ene/gen_ene_cise_v3.ado
 f ene/gen_ene_conmutante_v1.ado
 f ene/gen_ene_conmutante_v2.ado
 f ene/gen_ene_counter.ado
+f ene/gen_ene_cta_propia.ado
 f ene/gen_ene_desocupado.ado
 f ene/gen_ene_dur_emp_tr.ado
 f ene/gen_ene_dur_emp.ado
