@@ -11,8 +11,7 @@ program define gen_casen_educ_v2
 			(2/4   =  2 "Básica")
 			(5/7 9 =  3 "Media")
 			(8     =  4 "Técnica")
-			(10/11 =  5 "Profesional")
-			(12    =  6 "Postgrado")
+			(10/12 =  5 "Profesional o más")
 			(else  = 1e5 "ns/nr"),
 			generate(_educ_v2);
 		# delimit cr
