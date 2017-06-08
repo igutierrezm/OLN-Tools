@@ -6,7 +6,7 @@ program define gen_esi_psu, rclass
   tempfile df_esi
   save `df_esi', replace
   * Identificación de la ENE asociada a la ESI utilizada
-  local df_ene "`from'/ENE/ENE `año' 11"
+  local df_ene "`from'/dta/ENE `año' 11"
   * Identificación del psu asociado a cada vivienda
   use id* using "`df_ene'", clear
   rename id_identificacion ID_IDENTIFICACION
