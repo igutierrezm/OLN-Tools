@@ -10,17 +10,18 @@ program define gen_ene_dur_emp_tr, rclass
   if (_rc == 111) gen_ene_dur_emp, año(`año') mes(`mes')
 
   * Mutación
-  # delimit ;
-  recode _dur_emp
-    (0/6     = 1   "5 o menos")
-    (6/11    = 2   "Entre 6 y 11")
-    (12/59   = 3   "Entre 12 y 59")
-    (60/119  = 4   "Entre 60 y 119")
-    (120/max = 5   "120 o más")
-    (else    = 1e5 "ns/nr"),
-    generate(`var');
-  # delimit cr
-  
+  egen `var' = cut(_dur_emp), at(0, 1, 5, 10, 100)
+  replace `var' = 1e5 if (_dur_emp == .)
+
   * Etiquetado
-  label variable `var' "Tramo de duración del empleo (en meses)"
+  # delimit ;
+  label define `var'
+    0   "[0, 1)"
+    1   "[1, 5)"
+    5   "[5, 10)"
+    10  "[10, ∞)"
+    1e5 "ns/nr";
+  # delimit cr
+  label variable `var' "Tramo de duración del empleo (en años)"
+  label values `var' `var'
 end
