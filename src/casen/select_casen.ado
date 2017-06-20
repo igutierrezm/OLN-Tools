@@ -173,8 +173,16 @@ program define select_casen, rclass
           exit 1
         }
       }
-      * Nivel educacional:
+      * Nivel educacional (agregación 2):
       if ("`var'" == "_educ_v2") {
+        if inrange(`año', 2013, 2015) local temp "educ"
+        if (`año' < 2013) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
+      * Nivel educacional (agregación 3):
+      if ("`var'" == "_educ_v3") {
         if inrange(`año', 2013, 2015) local temp "educ"
         if (`año' < 2013) {
           display as error "`var' no disponible"
@@ -251,8 +259,7 @@ program define select_casen, rclass
       }
       * ¿Es inmigrante?
       if ("`var'" == "_inmigrante") {
-        if inrange(`año', 2015, 2015) local temp "r1b"
-        if inrange(`año', 2013, 2013) local temp "r1b"
+        if inrange(`año', 2013, 2015) local temp "r1b"
         if inrange(`año', 2011, 2011) local temp "r1a"
         if inrange(`año', 2009, 2009) local temp "t8"
         if inrange(`año', 2006, 2006) local temp "t7"
@@ -281,7 +288,7 @@ program define select_casen, rclass
       if ("`var'" == "_jubilacion") {
         if inrange(`año', 2015, 2015) local temp "y26_1a y26_1b y26_1c"
         if inrange(`año', 2013, 2013) local temp "y27ai y27at"
-        if (`año' < 2015) {
+        if (`año' < 2013) {
           display as error "`var' no disponible"
           exit 1
         }

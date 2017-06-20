@@ -18,5 +18,5 @@ program define gen_casen_educ
 		# delimit cr
 	}
 	* Etiquetado
-	label variable _educ "Nivel de educación"
+	label variable _educ "Nivel educacional"
 end

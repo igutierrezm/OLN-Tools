@@ -26,6 +26,7 @@ f casen/gen_casen_ecivil.ado
 f casen/gen_casen_edad.ado
 f casen/gen_casen_educ.ado
 f casen/gen_casen_educ_v2.ado
+f casen/gen_casen_educ_v3.ado
 f casen/gen_casen_esc.ado
 f casen/gen_casen_estrato.ado
 f casen/gen_casen_estudiante.ado

@@ -14,3 +14,4 @@ program define gen_casen_cotiza_salud
   * Etiquetado
   label variable _cotiza_salud "¿Pertenece a algún sistema de salud?"
 end
+ 
