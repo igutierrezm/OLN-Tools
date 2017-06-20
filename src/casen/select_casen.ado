@@ -189,6 +189,14 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * Nivel educacional (agregación 2):
+      if ("`var'" == "_educ_v4") {
+        if inrange(`año', 2009, 2015) local temp "educ"
+        if (`año' < 2009) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * Escolaridad:
       if ("`var'" == "_esc") {
         local temp "esc"
