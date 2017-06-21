@@ -301,6 +301,15 @@ program define select_casen, rclass
           exit 1
         }
       }
+      * Macrozona:
+      if ("`var'" == "_macrozona") {
+        if inrange(`año', 2009, 2015) local temp "region"
+        if inrange(`año', 1990, 2006) local temp "r"
+        if (`año' < 1990) {
+          display as error "`var' no disponible"
+          exit 1
+        }
+      }
       * ¿Completó la enseñanza media?
       if ("`var'" == "_media_completa") {
         if inrange(`año', 2013, 2015) local temp "educ"

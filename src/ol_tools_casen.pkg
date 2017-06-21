@@ -39,6 +39,7 @@ f casen/gen_casen_indigena.ado
 f casen/gen_casen_inmigrante.ado
 f casen/gen_casen_joven.ado
 f casen/gen_casen_jparcial.ado
+f casen/gen_casen_macrozona.ado
 f casen/gen_casen_media_completa.ado
 f casen/gen_casen_mujer.ado
 f casen/gen_casen_nini.ado
