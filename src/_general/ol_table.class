@@ -573,6 +573,10 @@ program define .add_asterisks
   local over : list all - exceptions
   generate `id_aux' = _n
   generate `test' = inlist(cmd_type, "total", "proportion")
+  foreach var in `.by' {
+    display as error "`var'"
+    replace n = . if inlist(`var', 1e5, .z)
+  }
   bysort `over' : egen `n_aux' = total(n)
   replace n = `n_aux' if (`test' == 1)
   generate asterisk = "ᵃ"
