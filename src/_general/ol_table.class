@@ -100,10 +100,10 @@ program define .selectvars
 
   * Identificación de la base relevante
   local mes = string(`mes', "%02.0f")
-  if ("`.src'" == "casen") local df "`.from'/dta/CASEN `año'"
-  if ("`.src'" == "ene")   local df "`.from'/dta/ENE `año' `mes'"
-  if ("`.src'" == "esi")   local df "`.from'/dta/ESI `año'"
-  if ("`.src'" == "sii")   local df "`.from'/dta/AC `año'"
+  if ("`.src'" == "casen") local df "`.from'/casen_`año'"
+  if ("`.src'" == "ene")   local df "`.from'/ene_`año'_`mes'"
+  if ("`.src'" == "esi")   local df "`.from'/esi_`año'"
+  if ("`.src'" == "sii")   local df "`.from'/sii_`año'"
 
   * Selección de las variables relevantes
   ol_select, varlist(`"`.varlist1'"') db("`.src'") año(`año') mes(`mes')
@@ -292,10 +292,10 @@ capture program drop sample_sizes
 program define .sample_sizes
   version 14.1
   syntax
+
   ** Preámbulo
   clear
   .complete
-
   ** Cuerpo
   quietly : {
     tempfile df
@@ -303,7 +303,7 @@ program define .sample_sizes
     foreach año in `.years' {
       foreach mes in `.months' {
         * Selección
-        capture : .selectvars, año("`año'") mes("`mes'")
+				capture : .selectvars, año("`año'") mes("`mes'")
         if (_rc != 0) continue
         generate n = 1
 
@@ -397,7 +397,7 @@ program define .create
   ** Preámbulo
   tempfile df0 df
   .sample_sizes
-  quietly : save `df0', replace
+	quietly : save `df0', replace
 
   ** Cuerpo
   clear
@@ -546,16 +546,18 @@ program define .add_proportions
   * Identificación de los nuevos indicadores
   replace cmd_type = "proportion"
   replace cmd_fmt  = "`cmd_fmt'"
-  gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
-  gettoken dots   cmd_lb : cmd_lb
-  replace cmd_lb = `cmd_cd'
 
-  * Etiquetado
-  label define cmd_lb `cmd_cd' "`cmd_lb'", modify
+	* Re-etiquetado
+  if ("`cmd_lb'" != "") {
+		gettoken cmd_cd cmd_lb : cmd_lb, parse(":")
+		gettoken dots   cmd_lb : cmd_lb
+		replace cmd_lb = `cmd_cd'
+		label define cmd_lb `cmd_cd' "`cmd_lb'", modify
+	}
 
   * Anexión
   append using `df'
-  if ("`replace'" == "replace") drop if (cmd_type == "total")
+  if ("`replace'" != "") drop if (cmd_type == "total")
 end
 * Esta función puede ser mucho más robusta.
 * En cuanto tenga tiempo, me gustaría añadir una opción que actúe de
@@ -574,7 +576,6 @@ program define .add_asterisks
   generate `id_aux' = _n
   generate `test' = inlist(cmd_type, "total", "proportion")
   foreach var in `.by' {
-    display as error "`var'"
     replace n = . if inlist(`var', 1e5, .z)
   }
   bysort `over' : egen `n_aux' = total(n)

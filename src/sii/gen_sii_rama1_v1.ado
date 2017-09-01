@@ -4,9 +4,9 @@ program define gen_sii_rama1_v1
 	syntax, año(string) [mes(string) from(string)]
 	* Mutación
 	tempvar sector
-	encode rubro, generate(`sector')
+// 	capture : encode rubro, generate(`sector')
 	# delimit ;
-		recode `sector'
+		recode rubro
 			(01    = 01 "Agropecuario-Silvícola")
 			(02    = 02 "Pesca")
 			(03    = 03 "Minería")

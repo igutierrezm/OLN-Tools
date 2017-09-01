@@ -12,6 +12,10 @@ program define select_sii, rclass
       local temp "`var'"
     }
     else {
+			if ("`var'" == "_counter")         local temp ""
+			if ("`var'" == "_psu")             local temp ""
+			if ("`var'" == "_estrato")         local temp ""
+			if ("`var'" == "_pweight")         local temp ""
       if ("`var'" == "_rama1_v1")        local temp "rubro"
       if ("`var'" == "_region_re_v1")    local temp "region"
       if ("`var'" == "_region_re_v2")    local temp "region provincia"
