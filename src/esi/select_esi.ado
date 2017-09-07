@@ -22,7 +22,8 @@ program define select_esi, rclass
       if ("`var'" == "_esc")                local temp "NIVEL CURSO"
       if ("`var'" == "_estrato")            local temp "ESTRATO"
       if ("`var'" == "_hr_hab")  {
-        if inrange(`año', 2013, 2015)       local temp "HABITUALES"
+        display as error `año'
+        if inrange(`año', 2013, 2016)       local temp "HABITUALES"
         if inrange(`año', 2010, 2012)       local temp "HOR_HAB"
       }
       if ("`var'" == "_joven")              local temp "EDAD"
@@ -50,7 +51,7 @@ program define select_esi, rclass
       if ("`var'" == "_tramo_edad_v2")      local temp "EDAD"
       if ("`var'" == "_superior_completa")  local temp "NIVEL TERMINO_NIVEL"
       if ("`var'" == "_yprincipal_hr")  {
-        if inrange(`año', 2013, 2015)       local temp "ING_T_P HABITUALES"
+        if inrange(`año', 2013, 2016)       local temp "ING_T_P HABITUALES"
         if inrange(`año', 2010, 2012)       local temp "ING_T_P HOR_HAB"
       }
       if ("`var'" == "_yprincipal")         local temp "ING_T_P"
