@@ -29,4 +29,5 @@ program define gen_pib_rama1_v1, rclass
 	local lvar "Rama de actividad económica"
 	label variable _rama1_v1 "`lvar'"
 	note _rama1_v1 : "agregación estándar"
+	note _rama1_v1 : "El sector 11 contiene tanto a actividades de vivienda como a servicios empresariales"
 end
