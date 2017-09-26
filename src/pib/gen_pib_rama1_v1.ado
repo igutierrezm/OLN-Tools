@@ -1,33 +1,57 @@
 capture program drop gen_pib_rama1_v1
 program define gen_pib_rama1_v1, rclass
 	version 14.1
-	syntax
-	* Mutación
+	// Identifica las "palabras clave" de cada sector
 	# delimit ;
-		recode sector
-			(01    =  01 "Agropecuario-Silvícola")
-			(02    =  02 "Pesca")
-			(03    =  03 "Minería")
-			(04    =  04 "Industria Manufacturera")
-			(05    =  05 "Electricidad, Gas y Agua")
-			(06    =  06 "Construcción")
-			(07    =  07 "Comercio")
-			(08    =  08 "Hoteles y Restaurantes")
-			(09/10 =  09 "Transporte y Comunicaciones")
-			(11    =  10 "Intermediación Financiera")
-			(12/13 =  11 "Actividades Inmobiliarias, Empresariales y de Alquiler")
-			(14    =  12 "Servicios Personales")
-			(15    =  13 "Administración Pública")
-			(16    =  14 "PIB a costo de factores")
-			(17    =  15 "Impuesto al valor agregado")
-			(18    =  16 "Derechos de importación")
-			(19    =  17 "Producto Interno Bruto")
-			(else  = 1e5 "ns/nr"),
-			generate(_rama1_v1);
+	local keys
+		"pecuario|(silv.cola)"
+		"pesca"
+		"miner(i|í)a"
+		"industria"
+		"electricidad|gas|agua"
+		"construcci(o|ó)n"
+		"comercio"
+		"restaurante|hotel"
+		"transporte|comunicaci(o|ó)n|informaci(o|ó)n"
+		"financiero"
+		"vivienda|inmobiliario|empresarial|alquiler"
+		"personal"
+		"administraci(o|ó)n|p(u|ú)blica";
+	# delimit cr	
+	
+	// Genera la variable de interés
+	local newvar "_rama1_v1"
+	generate `newvar' = 1e5
+	forvalues i = 1(1)13 {
+		local key : word `i' of `keys'
+		replace `newvar' = `i' if regexm(sector, `"`key'"') 
+	}
+	
+	// Corrige los casos patológicos (las regex de Stata no son tan buenas)
+	replace `newvar' = 1e5 if regexm(sector, `"(comercio, )+"') 
+	replace `newvar' = 1e5 if regexm(sector, `"(financieros y)+"') 
+
+	// Agrega etiquetas de valores
+	# delimit ;
+	label define `newvar'
+		01  "Agropecuario-Silvícola"
+		02  "Pesca"
+		03  "Minería"
+		04  "Industria Manufacturera"
+		05  "Electricidad, Gas y Agua"
+		06  "Construcción"
+		07  "Comercio"
+		08  "Hoteles y Restaurantes"
+		09  "Transporte y Comunicaciones"
+		10  "Intermediación Financiera"
+		11  "Actividades Inmobiliarias, Empresariales y de Alquiler"
+		12  "Servicios Personales"
+		13  "Administración Pública"
+		1e5 "ns/nr",
+		modify;
 	# delimit cr
-	* Etiquetado
-	local lvar "Rama de actividad económica"
-	label variable _rama1_v1 "`lvar'"
-	note _rama1_v1 : "agregación estándar"
-	note _rama1_v1 : "El sector 11 contiene tanto a actividades de vivienda como a servicios empresariales"
+	label values `newvar' `newvar'
+	
+	// Agrega etiquetas de variables
+	label variable `newvar' "Rama de actividad económica"
 end
