@@ -2,7 +2,7 @@ capture program drop gen_pib_mes
 program define gen_pib_mes
 	version 14.1
 	* Mutación
-  generate _mes = month(fecha)
+  generate _mes = month(fecha) + 1
   * Etiquetado
 	# delimit ;
     label define _mes
